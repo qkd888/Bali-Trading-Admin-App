@@ -1,384 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Enhanced Mobile-Friendly Numbered Cells App</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Poppins", sans-serif;
-        background-color: #f0f4f8;
-        color: #2d3748;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: 20px;
-      }
-
-      .navbar {
-        background-color: #333;
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-      }
-
-      .logo {
-        color: white;
-        font-size: 1rem;
-        font-weight: bold;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .burger {
-        display: block;
-        cursor: pointer;
-      }
-
-      .burger div {
-        width: 25px;
-        height: 3px;
-        background-color: white;
-        margin: 5px;
-        transition: all 0.3s ease;
-      }
-
-      .container {
-        max-width: 600px;
-        width: 100%;
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-top: 60px;
-      }
-
-      h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 1.5rem;
-      }
-
-      .controls {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
-
-      button {
-        padding: 10px 15px;
-        font-size: 14px;
-        cursor: pointer;
-        background-color: #4a5568;
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-      }
-
-      button:hover,
-      button:focus {
-        opacity: 0.9;
-        outline: none;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
-        margin-bottom: 20px;
-        touch-action: manipulation;
-      }
-
-      .cell {
-        aspect-ratio: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #4299e1;
-        color: #ffffff;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 5px;
-        user-select: none;
-      }
-
-      .cell.clicked {
-        background-color: #ed8936;
-      }
-
-      #stats {
-        text-align: center;
-        font-size: 16px;
-        margin-top: 20px;
-      }
-
-      .progress-bar {
-        width: 100%;
-        height: 20px;
-        background-color: #e2e8f0;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-top: 10px;
-      }
-
-      .progress {
-        height: 100%;
-        background-color: #4299e1;
-        transition: width 0.3s ease;
-      }
-
-      .toast {
-        visibility: hidden;
-        min-width: 200px;
-        margin-left: -100px;
-        background-color: #323232;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        padding: 16px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
-        bottom: 30px;
-        font-size: 17px;
-      }
-
-      .toast.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      }
-
-      @-webkit-keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
 
-      @keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #f0f4f8;
+            color: #2d3748;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
 
-      @-webkit-keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
+        .navbar {
+            background-color: #333;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
 
-      @keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
+        .logo {
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
         }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
 
-      @media (max-width: 600px) {
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            color: azure;
+            font-weight: bold;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
         .container {
-          padding: 15px;
+            max-width: 600px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
         }
 
-        .grid {
-          gap: 5px;
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
-        .cell {
-          font-size: 12px;
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
         button {
-          padding: 8px 12px;
-          font-size: 12px;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #4a5568;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
-      }
+
+        button:hover,
+        button:focus {
+            opacity: 0.9;
+            outline: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+            touch-action: manipulation;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4299e1;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            user-select: none;
+        }
+
+        .cell.clicked {
+            background-color: #ed8936;
+        }
+
+        #stats {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #4299e1;
+            transition: width 0.3s ease;
+        }
+
+        .toast {
+            visibility: hidden;
+            min-width: 200px;
+            margin-left: -100px;
+            background-color: #323232;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {bottom: 0; opacity: 0;} 
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {bottom: 30px; opacity: 1;} 
+            to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0px;
+                height: 92vh;
+                top: 8vh;
+                background-color: #333;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+            }
+
+            .nav-links li {
+                opacity: 0;
+                margin: 1rem 0;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .nav-active {
+                transform: translateX(0%);
+            }
+
+            @keyframes navLinkFade {
+                from {
+                    opacity: 0;
+                    transform: translateX(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0px);
+                }
+            }
+
+            .toggle .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .toggle .line2 {
+                opacity: 0;
+            }
+
+            .toggle .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .grid {
+                gap: 5px;
+            }
+
+            .cell {
+                font-size: 12px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <nav class="navbar">
-      <div class="logo">Bali Trading Admin App</div>
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
+        <div class="logo">Bali Trading Admin App</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="customer-orders.html">Customer orders</a></li>
+            <li><a href="order-numbers.html">Order Numbers</a></li>
+            <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+            <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
     </nav>
 
     <div class="container">
-      <h1>Order Numbered Cells App</h1>
-      <div class="controls">
-        <button id="reset">Reset All</button>
-        <button id="save">Save</button>
-        <button id="darkModeToggle">Dark Mode</button>
-      </div>
-      <div class="grid" id="grid"></div>
-      <div id="stats"></div>
-      <div class="progress-bar">
-        <div class="progress" id="progressBar"></div>
-      </div>
+        <h1>Enhanced Mobile-Friendly Numbered Cells App</h1>
+        <div class="controls">
+            <button id="reset">Reset All</button>
+            <button id="save">Save</button>
+            <button id="darkModeToggle">Dark Mode</button>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div id="stats"></div>
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
     </div>
     <div id="toast" class="toast">Action completed</div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const grid = document.getElementById("grid");
-        const resetButton = document.getElementById("reset");
-        const saveButton = document.getElementById("save");
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        const statsElement = document.getElementById("stats");
-        const progressBar = document.getElementById("progressBar");
-        const toast = document.getElementById("toast");
-        const storageKey = "cellStates";
-        const darkModeKey = "darkMode";
+        const navSlide = () => {
+            const burger = document.querySelector(".burger");
+            const nav = document.querySelector(".nav-links");
+            const navLinks = document.querySelectorAll(".nav-links li");
 
-        let cellStates = loadCellStates();
-        let touchStartX, touchStartY;
+            burger.addEventListener("click", () => {
+                // Toggle Nav
+                nav.classList.toggle("nav-active");
 
-        function loadCellStates() {
-          return (
-            JSON.parse(localStorage.getItem(storageKey)) ||
-            Array(100).fill(false)
-          );
-        }
+                // Animate Links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = "";
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    }
+                });
 
-        function saveCellStates() {
-          localStorage.setItem(storageKey, JSON.stringify(cellStates));
-        }
-
-        function updateStats() {
-          const clickedCount = cellStates.filter(Boolean).length;
-          const percentage = (clickedCount / 100) * 100;
-          statsElement.textContent = `Clicked: ${clickedCount} / 100 (${percentage.toFixed(
-            1
-          )}%)`;
-          progressBar.style.width = `${percentage}%`;
-        }
-
-        function createCells() {
-          const fragment = document.createDocumentFragment();
-          for (let i = 0; i < 100; i++) {
-            const cell = document.createElement("div");
-            cell.className = "cell";
-            cell.textContent = i + 1;
-            if (cellStates[i]) {
-              cell.classList.add("clicked");
-            }
-            cell.addEventListener("touchstart", handleTouchStart);
-            cell.addEventListener("touchend", (e) => handleTouchEnd(e, i));
-            cell.addEventListener("click", () => toggleCell(i));
-            fragment.appendChild(cell);
-          }
-          grid.appendChild(fragment);
-        }
-
-        function handleTouchStart(e) {
-          touchStartX = e.touches[0].clientX;
-          touchStartY = e.touches[0].clientY;
-        }
-
-        function handleTouchEnd(e, index) {
-          const touchEndX = e.changedTouches[0].clientX;
-          const touchEndY = e.changedTouches[0].clientY;
-          const deltaX = Math.abs(touchEndX - touchStartX);
-          const deltaY = Math.abs(touchEndY - touchStartY);
-
-          if (deltaX < 10 && deltaY < 10) {
-            toggleCell(index);
-          }
-        }
-
-        function toggleCell(index) {
-          cellStates[index] = !cellStates[index];
-          const cell = grid.children[index];
-          cell.classList.toggle("clicked");
-          updateStats();
-          showToast(`Cell ${index + 1} toggled`);
-        }
-
-        function resetCells() {
-          if (confirm("Are you sure you want to reset all cells?")) {
-            cellStates.fill(false);
-            document.querySelectorAll(".cell").forEach((cell) => {
-              cell.classList.remove("clicked");
+                // Burger Animation
+                burger.classList.toggle("toggle");
             });
+        };
+
+        navSlide();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const grid = document.getElementById("grid");
+            const resetButton = document.getElementById("reset");
+            const saveButton = document.getElementById("save");
+            const darkModeToggle = document.getElementById("darkModeToggle");
+            const statsElement = document.getElementById("stats");
+            const progressBar = document.getElementById("progressBar");
+            const toast = document.getElementById("toast");
+            const storageKey = "cellStates";
+            const darkModeKey = "darkMode";
+
+            let cellStates = loadCellStates();
+            let touchStartX, touchStartY;
+
+            function loadCellStates() {
+                return JSON.parse(localStorage.getItem(storageKey)) || Array(100).fill(false);
+            }
+
+            function saveCellStates() {
+                localStorage.setItem(storageKey, JSON.stringify(cellStates));
+            }
+
+            function updateStats() {
+                const clickedCount = cellStates.filter(Boolean).length;
+                const percentage = (clickedCount / 100) * 100;
+                statsElement.textContent = `Clicked: ${clickedCount} / 100 (${percentage.toFixed(1)}%)`;
+                progressBar.style.width = `${percentage}%`;
+            }
+
+            function createCells() {
+                const fragment = document.createDocumentFragment();
+                for (let i = 0; i < 100; i++) {
+                    const cell = document.createElement("div");
+                    cell.className = "cell";
+                    cell.textContent = i + 1;
+                    if (cellStates[i]) {
+                        cell.classList.add("clicked");
+                    }
+                    cell.addEventListener("touchstart", handleTouchStart);
+                    cell.addEventListener("touchend", (e) => handleTouchEnd(e, i));
+                    cell.addEventListener("click", () => toggleCell(i));
+                    fragment.appendChild(cell);
+                }
+                grid.appendChild(fragment);
+            }
+
+            function handleTouchStart(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+
+            function handleTouchEnd(e, index) {
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+                const deltaX = Math.abs(touchEndX - touchStartX);
+                const deltaY = Math.abs(touchEndY - touchStartY);
+
+                if (deltaX < 10 && deltaY < 10) {
+                    toggleCell(index);
+                }
+            }
+
+            function toggleCell(index) {
+                cellStates[index] = !cellStates[index];
+                const cell = grid.children[index];
+                cell.classList.toggle("clicked");
+                updateStats();
+                showToast(`Cell ${index + 1} toggled`);
+            }
+
+            function resetCells() {
+                if (confirm("Are you sure you want to reset all cells?")) {
+                    cellStates.fill(false);
+                    document.querySelectorAll(".cell").forEach((cell) => {
+                        cell.classList.remove("clicked");
+                    });
+                    updateStats();
+                    showToast("All cells reset");
+                }
+            }
+
+            function saveData() {
+                saveCellStates();
+                showToast("Data saved successfully");
+            }
+
+            function toggleDarkMode() {
+                document.body.classList.toggle("dark-mode");
+                localStorage.setItem(darkModeKey, document.body.classList.contains("dark-mode"));
+            }
+
+            function loadDarkMode() {
+                if (localStorage.getItem(darkModeKey) === "true") {
+                    document.body.classList.add("dark-mode");
+                }
+            }
+
+            function showToast(message) {
+                toast.textContent = message;
+                toast.classList.add("show");
+                setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 3000);
+            }
+
+            resetButton.addEventListener("click", resetCells);
+            saveButton.addEventListener("click", saveData);
+            darkModeToggle.addEventListener("click", toggleDarkMode);
+
+            loadDarkMode();
+            createCells();
             updateStats();
-            showToast("All cells reset");
-          }
-        }
-
-        function saveData() {
-          saveCellStates();
-          showToast("Data saved successfully");
-        }
-
-        function toggleDarkMode() {
-          document.body.classList.toggle("dark-mode");
-          localStorage.setItem(
-            darkModeKey,
-            document.body.classList.contains("dark-mode")
-          );
-        }
-
-        function loadDarkMode() {
-          if (localStorage.getItem(darkModeKey) === "true") {
-            document.body.classList.add("dark-mode");
-          }
-        }
-
-        function showToast(message) {
-          toast.textContent = message;
-          toast.classList.add("show");
-          setTimeout(() => {
-            toast.classList.remove("show");
-          }, 3000);
-        }
-
-        resetButton.addEventListener("click", resetCells);
-        saveButton.addEventListener("click", saveData);
-        darkModeToggle.addEventListener("click", toggleDarkMode);
-
-        loadDarkMode();
-        createCells();
-        updateStats();
-      });
+        });
     </script>
-  </body>
+</body>
 </html>
