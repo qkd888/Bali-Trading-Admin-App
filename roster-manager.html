@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shift Roster Manager</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .navbar {
+        background-color: #333;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 1rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          transition: all 0.4s ease-in-out;
+          color: azure;
+          font-weight: bold;
+        }
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px;
+        transition: all 0.3s ease;
+      }
+
+      @media screen and (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          right: 0px;
+          height: 92vh;
+          top: 8vh;
+          background-color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 50%;
+          transform: translateX(100%);
+          transition: transform 0.5s ease-in;
+        }
+
+        .nav-links li {
+          opacity: 0;
+          margin: 1rem 0;
+        }
+
+        .burger {
+          display: block;
+        }
+      }
+
+      .nav-active {
+        transform: translateX(0%);
+      }
+
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0px);
+        }
+      }
+
+      .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .toggle .line2 {
+        opacity: 0;
+      }
+
+      .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+    </style>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .work {
+        background-color: #4caf50;
+        color: white;
+      }
+      .off {
+        background-color: #f44336;
+        color: white;
+      }
+      .button {
+        margin: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        background-color: #008cba;
+        color: white;
+        border: none;
+        border-radius: 4px;
+      }
+      .button:hover {
+        background-color: #005f7f;
+      }
+      .button-delete {
+        background-color: #f44336;
+      }
+      .button-delete:hover {
+        background-color: #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <!--**********************************NAVBAR-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <nav class="navbar">
+      <div class="logo">Bali Trading Admin App</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="customer-orders.html">Customer orders</a></li>
+        <li><a href="order-numbers.html">Order Numbers</a></li>
+        <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+        <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+        <li><a href="roster-manager.html">Rosters</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+
+    <!--*****************************************-->
+    <!--*****************************************-->
+    <!--*****************************************-->
+    <!--*****************************************-->
+    <h1>Shift Roster Manager</h1>
+    <button id="newMonthBtn" class="button">Add New Month</button>
+    <button id="saveBtn" class="button">Save Current Roster</button>
+    <div id="currentRoster">
+      <h2 id="currentMonth"></h2>
+      <table id="rosterTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Quintin</th>
+            <th>Salomie</th>
+            <th>Magnolia</th>
+            <th>Andre</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="rosterBody"></tbody>
+      </table>
+      <button id="convertPdfBtn" class="button">Convert to PDF</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script>
+      const employees = ["Quintin", "Salomie", "Magnolia", "Andre"];
+      const days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      let currentMonth = "";
+
+      document.addEventListener("DOMContentLoaded", initializeApp);
+
+      function initializeApp() {
+        document
+          .getElementById("newMonthBtn")
+          .addEventListener("click", startNewMonth);
+        document
+          .getElementById("saveBtn")
+          .addEventListener("click", saveCurrentRoster);
+        document
+          .getElementById("convertPdfBtn")
+          .addEventListener("click", convertToPdf);
+      }
+
+      function startNewMonth() {
+        currentMonth = prompt("Enter the month and year (e.g., July 2024):");
+        if (currentMonth) {
+          document.getElementById("currentMonth").textContent = currentMonth;
+          populateRosterTable(currentMonth);
+        }
+      }
+
+      function populateRosterTable(monthYear) {
+        const tbody = document.getElementById("rosterBody");
+        tbody.innerHTML = "";
+
+        const [monthName, year] = monthYear.split(" ");
+        const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth();
+        const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+
+        for (let i = 1; i <= daysInMonth; i++) {
+          const date = new Date(year, monthIndex, i);
+          const dayName = days[date.getDay()];
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${i}</td>
+            <td>${dayName}</td>
+            ${employees
+              .map(() => `<td class="off" onclick="toggleCell(this)">Off</td>`)
+              .join("")}
+            <td><button class="button button-delete" onclick="deleteRow(this)">Delete</button></td>
+          `;
+          tbody.appendChild(row);
+        }
+      }
+
+      function toggleCell(cell) {
+        cell.classList.toggle("work");
+        cell.classList.toggle("off");
+        cell.textContent = cell.classList.contains("work") ? "Work" : "Off";
+      }
+
+      function deleteRow(button) {
+        const row = button.parentElement.parentElement;
+        row.parentElement.removeChild(row);
+      }
+
+      function saveCurrentRoster() {
+        const rosterData = [];
+        const rows = document.querySelectorAll("#rosterBody tr");
+        rows.forEach((row) => {
+          const cells = row.querySelectorAll("td");
+          rosterData.push({
+            date: cells[0].textContent,
+            day: cells[1].textContent,
+            shifts: {
+              Quintin: cells[2].textContent,
+              Salomie: cells[3].textContent,
+              Magnolia: cells[4].textContent,
+              Andre: cells[5].textContent,
+            },
+          });
+        });
+
+        let rosters = JSON.parse(localStorage.getItem("rosters") || "[]");
+        rosters = rosters.filter((roster) => roster.month !== currentMonth);
+        rosters.push({ month: currentMonth, roster: rosterData });
+        localStorage.setItem("rosters", JSON.stringify(rosters));
+        alert("Roster saved successfully!");
+      }
+
+      function convertToPdf() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Add the title
+        doc.setFontSize(16);
+        doc.text("Shift Roster", 14, 20);
+
+        // Add the month and year
+        doc.setFontSize(12);
+        doc.text(`Month: ${currentMonth}`, 14, 30);
+
+        // Get the table data
+        const headers = [];
+        const data = [];
+
+        const table = document.getElementById("rosterTable");
+
+        // Get headers
+        for (let i = 0; i < table.rows[0].cells.length - 1; i++) {
+          headers.push(table.rows[0].cells[i].textContent);
+        }
+
+        // Get data rows
+        for (let i = 1; i < table.rows.length; i++) {
+          const row = [];
+          for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
+            row.push(table.rows[i].cells[j].textContent);
+          }
+          data.push(row);
+        }
+
+        // Add the table to the PDF
+        doc.autoTable({
+          head: [headers],
+          body: data,
+          startY: 40,
+          theme: "grid",
+          margin: { top: 10, left: 14, right: 14, bottom: 10 },
+          headStyles: { fillColor: [50, 50, 50] },
+          bodyStyles: { fillColor: [245, 245, 245] },
+          styles: { fontSize: 10 },
+          columnStyles: {
+            0: { cellWidth: 15 },
+            1: { cellWidth: 25 },
+            2: { cellWidth: 30 },
+            3: { cellWidth: 30 },
+            4: { cellWidth: 30 },
+            5: { cellWidth: 30 },
+          },
+        });
+
+        // Save the PDF
+        doc.save(`${currentMonth}_roster.pdf`);
+      }
+    </script>
+    <script>
+      const navSlide = () => {
+        const burger = document.querySelector(".burger");
+        const nav = document.querySelector(".nav-links");
+        const navLinks = document.querySelectorAll(".nav-links li");
+
+        burger.addEventListener("click", () => {
+          // Toggle Nav
+          nav.classList.toggle("nav-active");
+
+          // Animate Links
+          navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+              link.style.animation = "";
+            } else {
+              link.style.animation = `navLinkFade 0.5s ease forwards ${
+                index / 7 + 0.3
+              }s`;
+            }
+          });
+
+          // Burger Animation
+          burger.classList.toggle("toggle");
+        });
+      };
+
+      navSlide();
+    </script>
+  </body>
+</html>
