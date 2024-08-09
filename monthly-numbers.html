@@ -14,6 +14,8 @@
 
       body {
         font-family: "Poppins", sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
       }
 
       .navbar {
@@ -45,12 +47,11 @@
         text-decoration: none;
         font-size: 0.8rem;
         transition: all 0.4s ease-in-out;
+      }
 
-        &:hover {
-          transition: all 0.4s ease-in-out;
-          color: azure;
-          font-weight: bold;
-        }
+      .nav-links a:hover {
+        color: azure;
+        font-weight: bold;
       }
 
       .burger {
@@ -117,13 +118,7 @@
       .toggle .line3 {
         transform: rotate(45deg) translate(-5px, -6px);
       }
-    </style>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-      }
+
       .container {
         max-width: 800px;
         margin: auto;
@@ -132,13 +127,16 @@
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
+
       h1 {
         text-align: center;
       }
+
       label {
         display: block;
         margin-bottom: 10px;
       }
+
       select,
       input {
         width: 100%;
@@ -146,30 +144,30 @@
         margin-bottom: 20px;
         font-size: 16px;
       }
+
       table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 20px;
       }
+
       th,
       td {
         border: 1px solid #ddd;
         padding: 10px;
         text-align: center;
       }
+
       th {
         background-color: #f8f8f8;
       }
+
       tfoot td {
         font-weight: bold;
       }
     </style>
   </head>
   <body>
-    <!--**********************************NAVBAR-->
-    <!--****************************************-->
-    <!--****************************************-->
-    <!--****************************************-->
     <nav class="navbar">
       <div class="logo">Bali Trading Admin App</div>
       <ul class="nav-links">
@@ -187,7 +185,6 @@
       </div>
     </nav>
 
-    <!--****************************************-->
     <div class="container">
       <h1>Bali Trading Monthly Numbers App</h1>
       <label for="month-select">Select Month:</label>
@@ -222,34 +219,6 @@
       <button onclick="saveTableData()">Save</button>
     </div>
 
-    <script>
-      const navSlide = () => {
-        const burger = document.querySelector(".burger");
-        const nav = document.querySelector(".nav-links");
-        const navLinks = document.querySelectorAll(".nav-links li");
-
-        burger.addEventListener("click", () => {
-          // Toggle Nav
-          nav.classList.toggle("nav-active");
-
-          // Animate Links
-          navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-              link.style.animation = "";
-            } else {
-              link.style.animation = `navLinkFade 0.5s ease forwards ${
-                index / 7 + 0.3
-              }s`;
-            }
-          });
-
-          // Burger Animation
-          burger.classList.toggle("toggle");
-        });
-      };
-
-      navSlide();
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script>
@@ -275,7 +244,7 @@
           "December",
         ];
         const tableContainer = document.getElementById("table-container");
-        tableContainer.innerHTML = ""; // Clear previous table
+        tableContainer.innerHTML = "";
 
         if (month === "" || year === "") return;
 
@@ -312,26 +281,26 @@
 
           const cashCell = document.createElement("td");
           cashCell.contentEditable = true;
-          cashCell.textContent = storedData[i]?.cash || "";
+          cashCell.textContent = formatCurrency(storedData[i]?.cash || 0);
           row.appendChild(cashCell);
 
           const cardCell = document.createElement("td");
           cardCell.contentEditable = true;
-          cardCell.textContent = storedData[i]?.card || "";
+          cardCell.textContent = formatCurrency(storedData[i]?.card || 0);
           row.appendChild(cardCell);
 
           const totalCell = document.createElement("td");
-          totalCell.textContent = (
-            parseFloat(cashCell.textContent) +
-              parseFloat(cardCell.textContent) || 0
-          ).toFixed(2);
+          totalCell.textContent = formatCurrency(
+            parseCurrency(cashCell.textContent) +
+              parseCurrency(cardCell.textContent)
+          );
           row.appendChild(totalCell);
 
           [cashCell, cardCell].forEach((cell) => {
             cell.addEventListener("input", () => {
-              const cash = parseFloat(cashCell.textContent) || 0;
-              const card = parseFloat(cardCell.textContent) || 0;
-              totalCell.textContent = (cash + card).toFixed(2);
+              const cash = parseCurrency(cashCell.textContent);
+              const card = parseCurrency(cardCell.textContent);
+              totalCell.textContent = formatCurrency(cash + card);
               updateTotals();
             });
           });
@@ -346,7 +315,6 @@
           const td = document.createElement("td");
           td.textContent = footerText;
           footerRow.appendChild(td);
-          // Ensure footer cells are properly initialized
           if (index === 2 || index === 3 || index === 4) {
             td.classList.add("total-cell");
           }
@@ -366,26 +334,21 @@
           grandTotal = 0;
 
         table.querySelectorAll("tbody tr").forEach((row) => {
-          const cash = parseFloat(row.cells[2].textContent) || 0;
-          const card = parseFloat(row.cells[3].textContent) || 0;
-          const total = parseFloat(row.cells[4].textContent) || 0;
+          const cash = parseCurrency(row.cells[2].textContent);
+          const card = parseCurrency(row.cells[3].textContent);
+          const total = parseCurrency(row.cells[4].textContent);
           totalCash += cash;
           totalCard += card;
           grandTotal += total;
         });
 
-        // Update the footer cells with totals
         tfoot.querySelectorAll("td").forEach((cell, index) => {
-          if (index === 0) {
-            cell.textContent = "Total";
-          } else if (index === 1) {
-            cell.textContent = "";
-          } else if (index === 2) {
-            cell.textContent = totalCash.toFixed(2);
+          if (index === 2) {
+            cell.textContent = formatCurrency(totalCash);
           } else if (index === 3) {
-            cell.textContent = totalCard.toFixed(2);
+            cell.textContent = formatCurrency(totalCard);
           } else if (index === 4) {
-            cell.textContent = grandTotal.toFixed(2);
+            cell.textContent = formatCurrency(grandTotal);
           }
         });
       }
@@ -398,8 +361,8 @@
 
         table.querySelectorAll("tbody tr").forEach((row) => {
           const day = row.cells[0].textContent;
-          const cash = parseFloat(row.cells[2].textContent) || 0;
-          const card = parseFloat(row.cells[3].textContent) || 0;
+          const cash = parseCurrency(row.cells[2].textContent);
+          const card = parseCurrency(row.cells[3].textContent);
           data[day] = { cash, card };
         });
 
@@ -421,20 +384,50 @@
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF("p", "pt", "a4");
 
-        // Add Month and Year as title
         pdf.setFontSize(16);
         pdf.text(`Daily Takings Tracker - ${month} ${year}`, 40, 40);
 
-        // Add the table to the PDF
         pdf.autoTable({
           html: table,
-          startY: 60, // Adjust to position after the title
+          startY: 60,
           headStyles: { fillColor: [0, 0, 0], textColor: [255, 255, 255] },
           footStyles: { fillColor: [0, 0, 0], textColor: [255, 255, 255] },
         });
 
         pdf.save("Daily_Takings.pdf");
       }
+
+      function formatCurrency(cents) {
+        return (cents / 100).toFixed(2);
+      }
+
+      function parseCurrency(value) {
+        return Math.round(parseFloat(value) * 100) || 0;
+      }
+
+      const navSlide = () => {
+        const burger = document.querySelector(".burger");
+        const nav = document.querySelector(".nav-links");
+        const navLinks = document.querySelectorAll(".nav-links li");
+
+        burger.addEventListener("click", () => {
+          nav.classList.toggle("nav-active");
+
+          navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+              link.style.animation = "";
+            } else {
+              link.style.animation = `navLinkFade 0.5s ease forwards ${
+                index / 7 + 0.3
+              }s`;
+            }
+          });
+
+          burger.classList.toggle("toggle");
+        });
+      };
+
+      navSlide();
     </script>
   </body>
 </html>
