@@ -1,0 +1,280 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Petty Cash System (ZAR)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      #balance {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      form,
+      .button-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      input,
+      button,
+      select {
+        padding: 5px;
+        font-size: 16px;
+      }
+      input[type="number"] {
+        width: 100px;
+      }
+      button {
+        cursor: pointer;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .delete-btn {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .delete-all-btn {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bali Trading Petty Cash System</h1>
+    <div id="balance">Current Balance: R0.00</div>
+    <form id="transaction-form">
+      <input type="text" id="description" placeholder="Description" required />
+      <input
+        type="number"
+        id="amount"
+        placeholder="Amount"
+        step="0.01"
+        required
+      />
+      <select id="type">
+        <option value="expense">Expense</option>
+        <option value="income">Income</option>
+      </select>
+      <input type="date" id="date" required />
+      <button type="submit">Add Transaction</button>
+    </form>
+    <div class="button-container">
+      <button id="save-data">Save Data</button>
+      <button id="convert-pdf">Convert to PDF</button>
+    </div>
+    <button id="delete-all-data" class="delete-all-btn">Delete All Data</button>
+    <table id="transactions">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      let balance = 0;
+      let transactions = [];
+      let nextId = 1;
+
+      function updateBalance() {
+        document.getElementById(
+          "balance"
+        ).textContent = `Current Balance: R${balance.toFixed(2)}`;
+      }
+
+      function addTransaction(description, amount, type, date) {
+        const transaction = {
+          id: nextId++,
+          description,
+          amount: parseFloat(amount),
+          type,
+          date,
+        };
+        transactions.push(transaction);
+
+        if (type === "expense") {
+          balance -= transaction.amount;
+        } else {
+          balance += transaction.amount;
+        }
+
+        updateBalance();
+        updateTransactionTable();
+        saveData();
+      }
+
+      function updateTransactionTable() {
+        const tbody = document.querySelector("#transactions tbody");
+        tbody.innerHTML = "";
+        for (const transaction of transactions) {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${transaction.description}</td>
+                    <td>R${transaction.amount.toFixed(2)}</td>
+                    <td>${transaction.type}</td>
+                    <td>${transaction.date}</td>
+                    <td><button class="delete-btn" data-id="${
+                      transaction.id
+                    }">Delete</button></td>
+                `;
+          tbody.appendChild(row);
+        }
+        addDeleteListeners();
+      }
+
+      function addDeleteListeners() {
+        document.querySelectorAll(".delete-btn").forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = parseInt(this.getAttribute("data-id"));
+            deleteTransaction(id);
+          });
+        });
+      }
+
+      function deleteTransaction(id) {
+        const index = transactions.findIndex((t) => t.id === id);
+        if (index !== -1) {
+          const transaction = transactions[index];
+          if (transaction.type === "expense") {
+            balance += transaction.amount;
+          } else {
+            balance -= transaction.amount;
+          }
+          transactions.splice(index, 1); // Remove the transaction from the array
+          updateBalance();
+          updateTransactionTable();
+          saveData();
+        }
+      }
+
+      function deleteAllData() {
+        balance = 0;
+        transactions = [];
+        nextId = 1;
+        updateBalance();
+        updateTransactionTable();
+        saveData();
+      }
+
+      function saveData() {
+        localStorage.setItem(
+          "pettyCashData",
+          JSON.stringify({
+            balance,
+            transactions,
+            nextId,
+          })
+        );
+        alert("Data saved successfully.");
+      }
+
+      function loadData() {
+        const data = JSON.parse(localStorage.getItem("pettyCashData"));
+        if (data) {
+          balance = data.balance;
+          transactions = data.transactions;
+          nextId = data.nextId || 1;
+          updateBalance();
+          updateTransactionTable();
+        }
+      }
+
+      function convertToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.text("Petty Cash System Report (ZAR)", 14, 15);
+        doc.text(`Current Balance: R${balance.toFixed(2)}`, 14, 25);
+
+        let yPos = 40;
+        doc.text("Transactions:", 14, yPos);
+        yPos += 10;
+
+        transactions.forEach((transaction, index) => {
+          if (yPos > 280) {
+            doc.addPage();
+            yPos = 20;
+          }
+          doc.text(
+            `${index + 1}. ${
+              transaction.description
+            } - R${transaction.amount.toFixed(2)} (${transaction.type}) - ${
+              transaction.date
+            }`,
+            14,
+            yPos
+          );
+          yPos += 10;
+        });
+
+        doc.save("petty-cash-report.pdf");
+        alert("PDF generated and downloaded successfully.");
+      }
+
+      document
+        .getElementById("transaction-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const description = document.getElementById("description").value;
+          const amount = document.getElementById("amount").value;
+          const type = document.getElementById("type").value;
+          const date = document.getElementById("date").value;
+          addTransaction(description, amount, type, date);
+          this.reset();
+          alert("Transaction added successfully.");
+        });
+
+      document.getElementById("save-data").addEventListener("click", saveData);
+      document
+        .getElementById("convert-pdf")
+        .addEventListener("click", convertToPDF);
+
+      document
+        .getElementById("delete-all-data")
+        .addEventListener("click", function () {
+          if (confirm("Are you sure you want to delete all data?")) {
+            deleteAllData();
+            alert("All data deleted successfully.");
+          }
+        });
+
+      // Load data when the page loads
+      loadData();
+    </script>
+  </body>
+</html>
