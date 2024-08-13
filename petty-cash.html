@@ -5,11 +5,111 @@
     <title>Enhanced Petty Cash System (ZAR)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
       body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
+        font-family: "Poppins", sans-serif;
+        max-width: 100%;
         margin: 0 auto;
-        padding: 20px;
+      }
+      .navbar {
+        background-color: #000000;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 1rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          transition: all 0.4s ease-in-out;
+          color: azure;
+          font-weight: bold;
+        }
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px;
+        transition: all 0.3s ease;
+      }
+
+      @media screen and (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          right: 0px;
+          height: 92vh;
+          top: 8vh;
+          background-color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 50%;
+          transform: translateX(100%);
+          transition: transform 0.5s ease-in;
+        }
+
+        .nav-links li {
+          opacity: 0;
+          margin: 1rem 0;
+        }
+
+        .burger {
+          display: block;
+        }
+      }
+
+      .nav-active {
+        transform: translateX(0%);
+      }
+
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0px);
+        }
+      }
+
+      .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .toggle .line2 {
+        opacity: 0;
+      }
+
+      .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
       }
       h1 {
         text-align: center;
@@ -70,6 +170,28 @@
     </style>
   </head>
   <body>
+    <!--**********************************NAVBAR-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <nav class="navbar">
+      <div class="logo">Bali Trading Admin App. Designed By &copy QKDEV</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="customer-orders.html">Customer orders</a></li>
+        <li><a href="order-numbers.html">Order Numbers</a></li>
+        <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+        <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+        <li><a href="roster-manager.html">Rosters</a></li>
+        <li><a href="petty-cash.html">Petty-Cash</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+
     <h1>Bali Trading Petty Cash System</h1>
     <div id="balance">Current Balance: R0.00</div>
     <form id="transaction-form">
@@ -105,6 +227,35 @@
       </thead>
       <tbody></tbody>
     </table>
+
+    <script>
+      const navSlide = () => {
+        const burger = document.querySelector(".burger");
+        const nav = document.querySelector(".nav-links");
+        const navLinks = document.querySelectorAll(".nav-links li");
+
+        burger.addEventListener("click", () => {
+          // Toggle Nav
+          nav.classList.toggle("nav-active");
+
+          // Animate Links
+          navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+              link.style.animation = "";
+            } else {
+              link.style.animation = `navLinkFade 0.5s ease forwards ${
+                index / 7 + 0.3
+              }s`;
+            }
+          });
+
+          // Burger Animation
+          burger.classList.toggle("toggle");
+        });
+      };
+
+      navSlide();
+    </script>
 
     <script>
       let balance = 0;
