@@ -183,6 +183,28 @@
           width: 100%;
         }
       }
+      .animated-text {
+            position: relative;
+            width: 150px;
+            height: 30px;
+        }
+        .word {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .word.active {
+            opacity: 1;
+        }
     </style>
   </head>
   <body>
@@ -214,6 +236,11 @@
 
     <div class="hero">
       <h1>Welcome to Bali Trading Admin App</h1>
+      <div class="animated-text">
+            <span class="word active">Home</span>
+            <span class="word">Lifestyle</span>
+            <span class="word">Decor</span>
+        </div>
       <p>What would you like to do?</p>
       <p>Click the Navbar</p>
       <p>Scroll Down For Contact Numbers</p>
@@ -643,6 +670,19 @@
         </tr>
       </tbody>
     </table>
+
+    <script>
+        const words = document.querySelectorAll('.word');
+        let currentWord = 0;
+
+        function changeWord() {
+            words[currentWord].classList.remove('active');
+            currentWord = (currentWord + 1) % words.length;
+            words[currentWord].classList.add('active');
+        }
+
+        setInterval(changeWord, 3000);
+    </script>
 
     <script>
       const navSlide = () => {
