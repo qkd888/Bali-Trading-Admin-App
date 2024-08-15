@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Days Worked Tracker</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+      body {
+        font-family: "Poppins", sans-serif;s
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .navbar {
+        background-color: #000000;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 1rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          transition: all 0.4s ease-in-out;
+          color: azure;
+          font-weight: bold;
+        }
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px;
+        transition: all 0.3s ease;
+      }
+
+      @media screen and (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          right: 0px;
+          height: 92vh;
+          top: 8vh;
+          background-color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 50%;
+          transform: translateX(100%);
+          transition: transform 0.5s ease-in;
+        }
+
+        .nav-links li {
+          opacity: 0;
+          margin: 1rem 0;
+        }
+
+        .burger {
+          display: block;
+        }
+      }
+
+      .nav-active {
+        transform: translateX(0%);
+      }
+
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0px);
+        }
+      }
+
+      .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .toggle .line2 {
+        opacity: 0;
+      }
+
+      .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ccc;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+      }
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .actions button {
+        width: 48%;
+      }
+      @media (max-width: 600px) {
+        .actions {
+          flex-direction: column;
+        }
+        .actions button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+      .dates-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .date-item {
+        display: inline-block;
+        background-color: #eee;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .date-item:hover {
+        background-color: #ccc;
+      }
+      .date-item.selected {
+        background-color: #007bff;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!--**********************************NAVBAR-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <nav class="navbar">
+      <div class="logo">
+        Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="customer-orders.html">Customer orders</a></li>
+        <li><a href="order-numbers.html">Order Numbers</a></li>
+        <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+        <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+        <li><a href="roster-manager.html">Rosters</a></li>
+        <li><a href="petty-cash.html">Petty Cash</a></li>
+        <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h2>Staff Days Worked Tracker</h2>
+      <div class="form-group">
+        <label for="month">Select Month:</label>
+        <input type="month" id="month" />
+      </div>
+      <div class="form-group">
+        <label for="name">Worker's Name:</label>
+        <input type="text" id="name" placeholder="Enter worker's name" />
+      </div>
+      <div class="form-group">
+        <label>Select Dates Worked:</label>
+        <div id="datesContainer" class="dates-container"></div>
+      </div>
+      <button onclick="addEntry()">Add Entry</button>
+      <table id="entriesTable">
+        <thead>
+          <tr>
+            <th>Worker's Name</th>
+            <th>Days Worked</th>
+            <th>Dates</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="actions">
+        <button onclick="saveData()">Save Data</button>
+        <button onclick="deleteAllData()">Delete All Data</button>
+      </div>
+      <button onclick="convertToPDF()">Convert to PDF</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+      const navSlide = () => {
+        const burger = document.querySelector(".burger");
+        const nav = document.querySelector(".nav-links");
+        const navLinks = document.querySelectorAll(".nav-links li");
+
+        burger.addEventListener("click", () => {
+          // Toggle Nav
+          nav.classList.toggle("nav-active");
+
+          // Animate Links
+          navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+              link.style.animation = "";
+            } else {
+              link.style.animation = `navLinkFade 0.5s ease forwards ${
+                index / 7 + 0.3
+              }s`;
+            }
+          });
+
+          // Burger Animation
+          burger.classList.toggle("toggle");
+        });
+      };
+
+      navSlide();
+    </script>
+    <script>
+      const entriesTable = document
+        .getElementById("entriesTable")
+        .querySelector("tbody");
+      const datesContainer = document.getElementById("datesContainer");
+      let entries = JSON.parse(localStorage.getItem("staffEntries")) || [];
+      let selectedDates = [];
+
+      document.getElementById("month").addEventListener("change", function () {
+        const selectedMonth = this.value;
+        datesContainer.innerHTML = "";
+        selectedDates = [];
+        if (selectedMonth) {
+          const date = new Date(selectedMonth);
+          const year = date.getFullYear();
+          const month = date.getMonth();
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+          for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `${year}-${String(month + 1).padStart(
+              2,
+              "0"
+            )}-${String(day).padStart(2, "0")}`;
+            const dateItem = document.createElement("div");
+            dateItem.classList.add("date-item");
+            dateItem.textContent = dateStr;
+            dateItem.dataset.date = dateStr;
+            dateItem.onclick = () => toggleDateSelection(dateItem);
+            datesContainer.appendChild(dateItem);
+          }
+        }
+      });
+
+      function toggleDateSelection(dateItem) {
+        const date = dateItem.dataset.date;
+        if (selectedDates.includes(date)) {
+          selectedDates = selectedDates.filter((d) => d !== date);
+          dateItem.classList.remove("selected");
+        } else {
+          selectedDates.push(date);
+          dateItem.classList.add("selected");
+        }
+      }
+
+      function addEntry() {
+        const name = document.getElementById("name").value.trim();
+        if (name && selectedDates.length > 0) {
+          const daysWorked = selectedDates.length;
+          const dates = selectedDates.join(", ");
+          const entry = { name, daysWorked, dates };
+          entries.push(entry);
+          updateTable();
+          clearForm();
+        } else {
+          alert("Please fill out all fields.");
+        }
+      }
+
+      function updateTable() {
+        entriesTable.innerHTML = "";
+        entries.forEach((entry, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${entry.name}</td>
+                    <td>${entry.daysWorked}</td>
+                    <td>${entry.dates}</td>
+                    <td><button onclick="deleteEntry(${index})">Delete</button></td>
+                `;
+          entriesTable.appendChild(row);
+        });
+        localStorage.setItem("staffEntries", JSON.stringify(entries));
+      }
+
+      function clearForm() {
+        document.getElementById("name").value = "";
+        selectedDates = [];
+        document
+          .querySelectorAll(".date-item")
+          .forEach((item) => item.classList.remove("selected"));
+      }
+
+      function deleteEntry(index) {
+        entries.splice(index, 1);
+        updateTable();
+      }
+
+      function saveData() {
+        localStorage.setItem("staffEntries", JSON.stringify(entries));
+        alert("Data saved successfully!");
+      }
+
+      function deleteAllData() {
+        if (confirm("Are you sure you want to delete all data?")) {
+          entries = [];
+          updateTable();
+          localStorage.removeItem("staffEntries");
+        }
+      }
+
+      function convertToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.setFontSize(10);
+        doc.text("Staff Days Worked Tracker", 10, 10);
+        let y = 20;
+        entries.forEach((entry, index) => {
+          let text = `${index + 1}. ${entry.name} - ${entry.daysWorked} days (${
+            entry.dates
+          })`;
+          const splitText = doc.splitTextToSize(text, 180);
+          doc.text(splitText, 10, y);
+          y += 10 + splitText.length * 5;
+        });
+        doc.save("Staff_Days_Worked.pdf");
+      }
+
+      updateTable();
+    </script>
+  </body>
+</html>
