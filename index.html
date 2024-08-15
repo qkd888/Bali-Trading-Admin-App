@@ -140,49 +140,85 @@
       }
     </style>
     <style>
-      body {
-        margin: 0;
-        background-color: #f0f0f0;
-      }
-      h1 {
-        text-align: center;
-        color: #333;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-      }
-      .table-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-      .main-table {
-        width: 100%;
-      }
-      .secondary-table {
-        width: 48%;
-      }
-      @media (max-width: 768px) {
-        .secondary-table {
-          width: 100%;
-        }
-      }
+     body {
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.main-table {
+  width: 100%;
+}
+
+.secondary-table {
+  width: 48%;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  .table-container {
+    gap: 10px;
+  }
+
+  .secondary-table {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  th, td {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  .table-container {
+    padding: 0 0.5rem;
+  }
+}
+
       .animated-text {
             position: relative;
             width: 150px;
