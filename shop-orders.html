@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Order Management</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+      :root {
+        --primary-color: #3498db;
+        --secondary-color: #2ecc71;
+        --danger-color: #e74c3c;
+        --text-color: #333;
+        --bg-color: #ecf0f1;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+      }
+
+      .navbar {
+        background-color: #000000;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 1rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          transition: all 0.4s ease-in-out;
+          color: azure;
+          font-weight: bold;
+        }
+      }
+
+      .burger {
+        display: none;
+        cursor: pointer;
+      }
+
+      .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px;
+        transition: all 0.3s ease;
+      }
+
+      @media screen and (max-width: 1080px) {
+        .nav-links {
+          position: absolute;
+          right: 0px;
+          height: 92vh;
+          top: 8vh;
+          background-color: #333;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 50%;
+          transform: translateX(100%);
+          transition: transform 0.5s ease-in;
+        }
+
+        .nav-links li {
+          opacity: 0;
+          margin: 1rem 0;
+        }
+
+        .burger {
+          display: block;
+        }
+      }
+
+      .nav-active {
+        transform: translateX(0%);
+      }
+
+      @keyframes navLinkFade {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0px);
+        }
+      }
+
+      .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .toggle .line2 {
+        opacity: 0;
+      }
+
+      .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: var(--primary-color);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input,
+      button {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+      }
+      button {
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 10px;
+      }
+      button:hover {
+        background-color: #27ae60;
+      }
+      .delete-btn {
+        background-color: var(--danger-color);
+      }
+      .delete-btn:hover {
+        background-color: #c0392b;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background-color: var(--primary-color);
+        color: white;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      @media (max-width: 600px) {
+        .container {
+          padding: 10px;
+        }
+        input,
+        button {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--**********************************NAVBAR-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <nav class="navbar">
+      <div class="logo">
+        Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="customer-orders.html">Customer orders</a></li>
+        <li><a href="order-numbers.html">Order Numbers</a></li>
+        <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+        <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+        <li><a href="roster-manager.html">Rosters</a></li>
+        <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
+        <li><a href="petty-cash.html">Petty Cash</a></li>
+        <li><a href="shop-orders.html">Shop Orders</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+
+    <!--****************************************-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <div class="container">
+      <h1>Shop Order Management</h1>
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" id="date" required />
+      </div>
+      <div class="form-group">
+        <label for="sku">Product SKU:</label>
+        <input type="text" id="sku" placeholder="Enter SKU" required />
+      </div>
+      <div class="form-group">
+        <label for="description">Product Description:</label>
+        <input
+          type="text"
+          id="description"
+          placeholder="Enter Description"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input
+          type="number"
+          id="quantity"
+          placeholder="Enter Quantity"
+          required
+          min="1"
+        />
+      </div>
+      <button onclick="addOrder()">Add Order</button>
+      <button onclick="saveData()">Save Data</button>
+      <button onclick="deleteAllData()" class="delete-btn">
+        Delete All Data
+      </button>
+      <button onclick="convertToPDF()">Convert to PDF</button>
+
+      <table id="orderTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>SKU</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="orderBody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      const navSlide = () => {
+        const burger = document.querySelector(".burger");
+        const nav = document.querySelector(".nav-links");
+        const navLinks = document.querySelectorAll(".nav-links li");
+
+        burger.addEventListener("click", () => {
+          // Toggle Nav
+          nav.classList.toggle("nav-active");
+
+          // Animate Links
+          navLinks.forEach((link, index) => {
+            if (link.style.animation) {
+              link.style.animation = "";
+            } else {
+              link.style.animation = `navLinkFade 0.5s ease forwards ${
+                index / 7 + 0.3
+              }s`;
+            }
+          });
+
+          // Burger Animation
+          burger.classList.toggle("toggle");
+        });
+      };
+
+      navSlide();
+    </script>
+
+    <script>
+      let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+      function addOrder() {
+        const date = document.getElementById("date").value;
+        const sku = document.getElementById("sku").value;
+        const description = document.getElementById("description").value;
+        const quantity = document.getElementById("quantity").value;
+
+        if (date && sku && description && quantity) {
+          orders.push({ date, sku, description, quantity });
+          updateTable();
+          clearInputs();
+          saveData();
+        } else {
+          alert("Please fill all fields");
+        }
+      }
+
+      function updateTable() {
+        const tbody = document.getElementById("orderBody");
+        tbody.innerHTML = "";
+        orders.forEach((order, index) => {
+          const row = tbody.insertRow();
+          row.insertCell(0).textContent = new Date(
+            order.date
+          ).toLocaleDateString();
+          row.insertCell(1).textContent = order.sku;
+          row.insertCell(2).textContent = order.description;
+          row.insertCell(3).textContent = order.quantity;
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.onclick = () => deleteOrder(index);
+          deleteButton.className = "delete-btn";
+          row.insertCell(4).appendChild(deleteButton);
+        });
+      }
+
+      function clearInputs() {
+        document.getElementById("date").value = "";
+        document.getElementById("sku").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("quantity").value = "";
+      }
+
+      function deleteOrder(index) {
+        orders.splice(index, 1);
+        updateTable();
+        saveData();
+      }
+
+      function saveData() {
+        localStorage.setItem("orders", JSON.stringify(orders));
+        alert("Data saved successfully");
+      }
+
+      function deleteAllData() {
+        if (confirm("Are you sure you want to delete all data?")) {
+          orders = [];
+          localStorage.removeItem("orders");
+          updateTable();
+          alert("All data deleted");
+        }
+      }
+
+      function convertToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Set title
+        doc.setFontSize(18);
+        doc.text("Shop Orders", 14, 15);
+
+        // Prepare data for the table
+        const tableData = orders.map((order) => [
+          new Date(order.date).toLocaleDateString(),
+          order.sku,
+          order.description,
+          order.quantity,
+        ]);
+
+        // Add the table to the PDF
+        doc.autoTable({
+          head: [["Date", "SKU", "Description", "Quantity"]],
+          body: tableData,
+          startY: 20,
+          theme: "grid",
+          styles: {
+            fontSize: 8,
+            cellPadding: 2,
+            overflow: "linebreak",
+          },
+          columnStyles: {
+            0: { cellWidth: 25 },
+            1: { cellWidth: 30 },
+            2: { cellWidth: "auto" },
+            3: { cellWidth: 20 },
+          },
+          didDrawPage: function (data) {
+            // Footer
+            let str = "Page " + doc.internal.getNumberOfPages();
+            doc.setFontSize(10);
+            let pageSize = doc.internal.pageSize;
+            let pageHeight = pageSize.height
+              ? pageSize.height
+              : pageSize.getHeight();
+            doc.text(str, data.settings.margin.left, pageHeight - 10);
+          },
+        });
+
+        doc.save("shop_orders.pdf");
+      }
+
+      updateTable();
+    </script>
+  </body>
+</html>
