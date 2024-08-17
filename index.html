@@ -244,6 +244,32 @@
         colour: black;
         font-weight: bold;
       }
+      #backToTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: #007bff79;
+        color: white;
+        cursor: pointer;
+        padding: 20px;
+        border-radius: 100%;
+        font-size: 18px;
+        transition: background-color 0.3s;
+        transition: all 0.4s ease-in-out;
+      }
+      #backToTopBtn:hover {
+        background-color: #0056b3;
+      }
+      @media (max-width: 768px) {
+        #backToTopBtn {
+          padding: 10px;
+          font-size: 14px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -719,7 +745,36 @@
         </tr>
       </tbody>
     </table>
+    <button id="backToTopBtn" title="Go to top">↑</button>
+    <script>
+      // Get the button
+      var mybutton = document.getElementById("backToTopBtn");
 
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function () {
+        scrollFunction();
+      };
+
+      function scrollFunction() {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      mybutton.onclick = function () {
+        // Smooth scroll to top
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      };
+    </script>
     <script>
       const navSlide = () => {
         const burger = document.querySelector(".burger");
