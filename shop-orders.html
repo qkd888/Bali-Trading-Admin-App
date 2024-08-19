@@ -50,12 +50,11 @@
         text-decoration: none;
         font-size: 0.8rem;
         transition: all 0.4s ease-in-out;
+      }
 
-        &:hover {
-          transition: all 0.4s ease-in-out;
-          color: azure;
-          font-weight: bold;
-        }
+      .nav-links a:hover {
+        color: azure;
+        font-weight: bold;
       }
 
       .burger {
@@ -169,12 +168,6 @@
       button:hover {
         background-color: #27ae60;
       }
-      .delete-btn {
-        background-color: var(--danger-color);
-      }
-      .delete-btn:hover {
-        background-color: #c0392b;
-      }
       table {
         width: 100%;
         border-collapse: collapse;
@@ -205,10 +198,6 @@
     </style>
   </head>
   <body>
-    <!--**********************************NAVBAR-->
-    <!--****************************************-->
-    <!--****************************************-->
-    <!--****************************************-->
     <nav class="navbar">
       <div class="logo">
         Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
@@ -231,9 +220,6 @@
       </div>
     </nav>
 
-    <!--****************************************-->
-    <!--****************************************-->
-    <!--****************************************-->
     <div class="container">
       <h1>Bali Trading Shop Order Manager</h1>
       <div class="form-group">
@@ -265,11 +251,8 @@
       </div>
       <button onclick="addOrder()">Add Order</button>
       <button onclick="saveData()">Save Data</button>
-
       <button onclick="convertToPDF()">Convert to PDF</button>
-      <button onclick="deleteAllData()" class="delete-btn">
-        Delete All Data
-      </button>
+      <button onclick="clearForm()" class="delete-btn">Clear</button>
 
       <table id="orderTable">
         <thead>
@@ -278,7 +261,6 @@
             <th>SKU</th>
             <th>Description</th>
             <th>Quantity</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody id="orderBody"></tbody>
@@ -292,10 +274,7 @@
         const navLinks = document.querySelectorAll(".nav-links li");
 
         burger.addEventListener("click", () => {
-          // Toggle Nav
           nav.classList.toggle("nav-active");
-
-          // Animate Links
           navLinks.forEach((link, index) => {
             if (link.style.animation) {
               link.style.animation = "";
@@ -305,16 +284,12 @@
               }s`;
             }
           });
-
-          // Burger Animation
           burger.classList.toggle("toggle");
         });
       };
 
       navSlide();
-    </script>
 
-    <script>
       let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
       function addOrder() {
@@ -323,108 +298,49 @@
         const description = document.getElementById("description").value;
         const quantity = document.getElementById("quantity").value;
 
-        if (date && sku && description && quantity) {
-          orders.push({ date, sku, description, quantity });
-          updateTable();
-          clearInputs();
-          saveData();
-        } else {
-          alert("Please fill all fields");
-        }
+        const order = { date, sku, description, quantity };
+        orders.push(order);
+        updateTable();
       }
 
       function updateTable() {
-        const tbody = document.getElementById("orderBody");
-        tbody.innerHTML = "";
+        const orderBody = document.getElementById("orderBody");
+        orderBody.innerHTML = "";
         orders.forEach((order, index) => {
-          const row = tbody.insertRow();
-          row.insertCell(0).textContent = new Date(
-            order.date
-          ).toLocaleDateString();
+          const row = orderBody.insertRow();
+          row.insertCell(0).textContent = order.date;
           row.insertCell(1).textContent = order.sku;
           row.insertCell(2).textContent = order.description;
           row.insertCell(3).textContent = order.quantity;
-          const deleteButton = document.createElement("button");
-          deleteButton.textContent = "Delete";
-          deleteButton.onclick = () => deleteOrder(index);
-          deleteButton.className = "delete-btn";
-          row.insertCell(4).appendChild(deleteButton);
         });
-      }
-
-      function clearInputs() {
-        document.getElementById("date").value = "";
-        document.getElementById("sku").value = "";
-        document.getElementById("description").value = "";
-        document.getElementById("quantity").value = "";
-      }
-
-      function deleteOrder(index) {
-        orders.splice(index, 1);
-        updateTable();
-        saveData();
       }
 
       function saveData() {
         localStorage.setItem("orders", JSON.stringify(orders));
-        alert("Data saved successfully");
-      }
-
-      function deleteAllData() {
-        if (confirm("Are you sure you want to delete all data?")) {
-          orders = [];
-          localStorage.removeItem("orders");
-          updateTable();
-          alert("All data deleted");
-        }
+        alert("Orders saved to local storage!");
       }
 
       function convertToPDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-
-        // Set title
-        doc.setFontSize(18);
-        doc.text("York St Shop Orders", 14, 15);
-
-        // Prepare data for the table
-        const tableData = orders.map((order) => [
-          new Date(order.date).toLocaleDateString(),
-          order.sku,
-          order.description,
-          order.quantity,
-        ]);
-
-        // Add the table to the PDF
+        doc.text("Shop Orders", 14, 16);
         doc.autoTable({
           head: [["Date", "SKU", "Description", "Quantity"]],
-          body: tableData,
-          startY: 20,
-          theme: "grid",
-          styles: {
-            fontSize: 8,
-            cellPadding: 2,
-            overflow: "linebreak",
-          },
-          columnStyles: {
-            0: { cellWidth: 25 },
-            1: { cellWidth: 30 },
-            2: { cellWidth: "auto" },
-            3: { cellWidth: 20 },
-          },
-          didDrawPage: function (data) {
-            // Footer
-            let str = "Page " + doc.internal.getNumberOfPages();
-            doc.setFontSize(10);
-            let pageSize = doc.internal.pageSize;
-            let pageHeight = pageSize.height
-              ? pageSize.height
-              : pageSize.getHeight();
-            doc.text(str, data.settings.margin.left, pageHeight - 10);
-          },
+          body: orders.map((order) => [
+            order.date,
+            order.sku,
+            order.description,
+            order.quantity,
+          ]),
         });
-
         doc.save("shop_orders.pdf");
+      }
+
+      function clearForm() {
+        document.getElementById("date").value = "";
+        document.getElementById("sku").value = "";
+        document.getElementById("description").value = "";
+        document.getElementById("quantity").value = "";
       }
 
       updateTable();
