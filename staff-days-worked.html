@@ -12,7 +12,6 @@
         color: black;
         margin: 0;
       }
-
       .navbar {
         background-color: #000000;
         padding: 1rem;
@@ -20,40 +19,33 @@
         justify-content: space-between;
         align-items: center;
       }
-
       .logo {
         color: white;
         font-size: 1rem;
         font-weight: bold;
       }
-
       .nav-links {
         display: flex;
         list-style: none;
       }
-
       .nav-links li {
         margin-left: 1rem;
       }
-
       .nav-links a {
         color: white;
         text-decoration: none;
         font-size: 0.8rem;
         transition: all 0.4s ease-in-out;
       }
-
       .nav-links a:hover {
         transition: all 0.4s ease-in-out;
         color: azure;
         font-weight: bold;
       }
-
       .burger {
         display: none;
         cursor: pointer;
       }
-
       .burger div {
         width: 25px;
         height: 3px;
@@ -61,7 +53,6 @@
         margin: 5px;
         transition: all 0.3s ease;
       }
-
       @media screen and (max-width: 1080px) {
         .nav-links {
           position: absolute;
@@ -78,21 +69,17 @@
           opacity: 1;
           transition: transform 0.5s ease-in;
         }
-
         .nav-links li {
           opacity: 0;
           margin: 1rem 0;
         }
-
         .burger {
           display: block;
         }
       }
-
       .nav-active {
         transform: translateX(0%);
       }
-
       @keyframes navLinkFade {
         from {
           opacity: 0;
@@ -103,15 +90,12 @@
           transform: translateX(0px);
         }
       }
-
       .toggle .line1 {
         transform: rotate(-45deg) translate(-5px, 6px);
       }
-
       .toggle .line2 {
         opacity: 0;
       }
-
       .toggle .line3 {
         transform: rotate(45deg) translate(-5px, -6px);
       }
@@ -201,10 +185,7 @@
     </style>
   </head>
   <body>
-    <!--**********************************NAVBAR-->
-    <!--****************************************-->
-    <!--****************************************-->
-    <!--****************************************-->
+    <!-- NAVBAR -->
     <nav class="navbar">
       <div class="logo">
         Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
@@ -227,6 +208,7 @@
       </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
     <div class="container">
       <h2>Staff Days Worked Tracker</h2>
       <div class="form-group">
@@ -255,23 +237,21 @@
       </table>
       <div class="actions">
         <button onclick="saveData()">Save Data</button>
-        <button onclick="clearForm()">Clear</button>
       </div>
       <button onclick="convertToPDF()">Convert to PDF</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+      // NAVBAR TOGGLE
       const navSlide = () => {
         const burger = document.querySelector(".burger");
         const nav = document.querySelector(".nav-links");
         const navLinks = document.querySelectorAll(".nav-links li");
 
         burger.addEventListener("click", () => {
-          // Toggle Nav
           nav.classList.toggle("nav-active");
 
-          // Animate Links
           navLinks.forEach((link, index) => {
             if (link.style.animation) {
               link.style.animation = "";
@@ -282,14 +262,12 @@
             }
           });
 
-          // Burger Animation
           burger.classList.toggle("toggle");
         });
       };
-
       navSlide();
-    </script>
-    <script>
+
+      // MAIN FUNCTIONALITY
       const entriesTable = document
         .getElementById("entriesTable")
         .querySelector("tbody");
