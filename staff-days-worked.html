@@ -41,12 +41,12 @@
         text-decoration: none;
         font-size: 0.8rem;
         transition: all 0.4s ease-in-out;
+      }
 
-        &:hover {
-          transition: all 0.4s ease-in-out;
-          color: azure;
-          font-weight: bold;
-        }
+      .nav-links a:hover {
+        transition: all 0.4s ease-in-out;
+        color: azure;
+        font-weight: bold;
       }
 
       .burger {
@@ -255,7 +255,7 @@
       </table>
       <div class="actions">
         <button onclick="saveData()">Save Data</button>
-        <button onclick="deleteAllData()">Delete All Data</button>
+        <button onclick="clearForm()">Clear</button>
       </div>
       <button onclick="convertToPDF()">Convert to PDF</button>
     </div>
@@ -307,105 +307,91 @@
           const month = date.getMonth();
           const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-          for (let day = 1; day <= daysInMonth; day++) {
-            const dateStr = `${year}-${String(month + 1).padStart(
-              2,
-              "0"
-            )}-${String(day).padStart(2, "0")}`;
+          for (let i = 1; i <= daysInMonth; i++) {
             const dateItem = document.createElement("div");
-            dateItem.classList.add("date-item");
-            dateItem.textContent = dateStr;
-            dateItem.dataset.date = dateStr;
-            dateItem.onclick = () => toggleDateSelection(dateItem);
+            dateItem.className = "date-item";
+            dateItem.textContent = i;
+            dateItem.addEventListener("click", function () {
+              if (dateItem.classList.contains("selected")) {
+                dateItem.classList.remove("selected");
+                selectedDates = selectedDates.filter((date) => date !== i);
+              } else {
+                dateItem.classList.add("selected");
+                selectedDates.push(i);
+              }
+            });
             datesContainer.appendChild(dateItem);
           }
         }
       });
 
-      function toggleDateSelection(dateItem) {
-        const date = dateItem.dataset.date;
-        if (selectedDates.includes(date)) {
-          selectedDates = selectedDates.filter((d) => d !== date);
-          dateItem.classList.remove("selected");
-        } else {
-          selectedDates.push(date);
-          dateItem.classList.add("selected");
-        }
-      }
-
       function addEntry() {
-        const name = document.getElementById("name").value.trim();
+        const name = document.getElementById("name").value;
+        const month = document.getElementById("month").value;
         if (name && selectedDates.length > 0) {
-          const daysWorked = selectedDates.length;
-          const dates = selectedDates.join(", ");
-          const entry = { name, daysWorked, dates };
-          entries.push(entry);
-          updateTable();
+          entries.push({ name, month, dates: [...selectedDates] });
+          renderTable();
           clearForm();
+          saveData();
         } else {
-          alert("Please fill out all fields.");
+          alert("Please fill in all fields and select dates.");
         }
-      }
-
-      function updateTable() {
-        entriesTable.innerHTML = "";
-        entries.forEach((entry, index) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-                    <td>${entry.name}</td>
-                    <td>${entry.daysWorked}</td>
-                    <td>${entry.dates}</td>
-                    <td><button onclick="deleteEntry(${index})">Delete</button></td>
-                `;
-          entriesTable.appendChild(row);
-        });
-        localStorage.setItem("staffEntries", JSON.stringify(entries));
-      }
-
-      function clearForm() {
-        document.getElementById("name").value = "";
-        selectedDates = [];
-        document
-          .querySelectorAll(".date-item")
-          .forEach((item) => item.classList.remove("selected"));
       }
 
       function deleteEntry(index) {
         entries.splice(index, 1);
-        updateTable();
+        renderTable();
+        saveData();
+      }
+
+      function clearForm() {
+        document.getElementById("name").value = "";
+        document.getElementById("month").value = "";
+        datesContainer.innerHTML = "";
+        selectedDates = [];
       }
 
       function saveData() {
         localStorage.setItem("staffEntries", JSON.stringify(entries));
-        alert("Data saved successfully!");
       }
 
-      function deleteAllData() {
-        if (confirm("Are you sure you want to delete all data?")) {
-          entries = [];
-          updateTable();
-          localStorage.removeItem("staffEntries");
-        }
+      function renderTable() {
+        entriesTable.innerHTML = "";
+        entries.forEach((entry, index) => {
+          const row = entriesTable.insertRow();
+          row.insertCell(0).textContent = entry.name;
+          row.insertCell(1).textContent = entry.dates.length;
+          row.insertCell(2).textContent = entry.dates.join(", ");
+          const deleteCell = row.insertCell(3);
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.onclick = () => deleteEntry(index);
+          deleteCell.appendChild(deleteButton);
+        });
       }
+
+      renderTable();
 
       function convertToPDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        doc.setFontSize(10);
-        doc.text("Staff Days Worked Tracker", 10, 10);
-        let y = 20;
-        entries.forEach((entry, index) => {
-          let text = `${index + 1}. ${entry.name} - ${entry.daysWorked} days (${
-            entry.dates
-          })`;
-          const splitText = doc.splitTextToSize(text, 180);
-          doc.text(splitText, 10, y);
-          y += 10 + splitText.length * 5;
-        });
-        doc.save("Staff_Days_Worked.pdf");
-      }
 
-      updateTable();
+        doc.text("Staff Days Worked Tracker", 20, 10);
+
+        let rowIndex = 20;
+        entries.forEach((entry, index) => {
+          doc.text(
+            `${index + 1}. ${entry.name} - Days Worked: ${
+              entry.dates.length
+            } - Dates: ${entry.dates.join(", ")}`,
+            10,
+            rowIndex
+          );
+          rowIndex += 10;
+        });
+
+        doc.save("staff_days_worked.pdf");
+      }
     </script>
   </body>
 </html>
