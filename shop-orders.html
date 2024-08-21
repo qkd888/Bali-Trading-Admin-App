@@ -51,12 +51,11 @@
         text-decoration: none;
         font-size: 0.8rem;
         transition: all 0.4s ease-in-out;
+      }
 
-        &:hover {
-          transition: all 0.4s ease-in-out;
-          color: azure;
-          font-weight: bold;
-        }
+      .nav-links a:hover {
+        color: azure;
+        font-weight: bold;
       }
 
       .burger {
@@ -192,7 +191,7 @@
       }
 
       .shop-orders button:hover {
-        background-color: #4a90e2;
+        background-color: #357abf;
       }
 
       .button-group {
@@ -221,10 +220,6 @@
     </style>
   </head>
   <body>
-    <!--**********************************NAVBAR-->
-    <!--****************************************-->
-    <!--****************************************-->
-    <!--****************************************-->
     <nav class="navbar">
       <div class="logo">
         Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
@@ -289,10 +284,8 @@
         const navLinks = document.querySelectorAll(".nav-links li");
 
         burger.addEventListener("click", () => {
-          // Toggle Nav
           nav.classList.toggle("nav-active");
 
-          // Animate Links
           navLinks.forEach((link, index) => {
             if (link.style.animation) {
               link.style.animation = "";
@@ -303,14 +296,12 @@
             }
           });
 
-          // Burger Animation
           burger.classList.toggle("toggle");
         });
       };
 
       navSlide();
-    </script>
-    <script>
+
       // Function to clear the form
       function clearForm() {
         document.getElementById("order-date").value = "";
@@ -333,10 +324,10 @@
           const newRow = document.createElement("tr");
 
           newRow.innerHTML = `
-                <td><input type="text" placeholder="Enter SKU"></td>
-                <td><input type="text" placeholder="Enter Product Description"></td>
-                <td><input type="number" placeholder="Enter Quantity"></td>
-            `;
+            <td><input type="text" placeholder="Enter SKU" /></td>
+            <td><input type="text" placeholder="Enter Product Description" /></td>
+            <td><input type="number" placeholder="Enter Quantity" /></td>
+          `;
 
           tableBody.appendChild(newRow);
         });
@@ -345,18 +336,25 @@
       document
         .getElementById("save-order")
         .addEventListener("click", function () {
-          const orderData = [];
-          const date = document.getElementById("order-date").value;
+          const orderDate = document.getElementById("order-date").value;
           const rows = document.querySelectorAll("#order-table-body tr");
-          rows.forEach((row) => {
-            const sku = row.cells[0].querySelector("input").value;
-            const description = row.cells[1].querySelector("input").value;
-            const quantity = row.cells[2].querySelector("input").value;
-            orderData.push({ sku, description, quantity });
+
+          const orders = Array.from(rows).map((row) => {
+            const sku = row.querySelector("td:nth-child(1) input").value;
+            const description = row.querySelector(
+              "td:nth-child(2) input"
+            ).value;
+            const quantity = row.querySelector("td:nth-child(3) input").value;
+            return { sku, description, quantity };
           });
-          const order = { date, orderData };
-          localStorage.setItem("shopOrder", JSON.stringify(order));
-          alert("Order saved locally.");
+
+          const orderData = {
+            date: orderDate,
+            orders: orders,
+          };
+
+          localStorage.setItem("shopOrder", JSON.stringify(orderData));
+          alert("Order saved successfully!");
         });
 
       // Event listener for the Convert to PDF button
@@ -366,24 +364,27 @@
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF();
 
-          doc.text("Bali Trading York Shop Orders", 10, 10);
-          const date = document.getElementById("order-date").value;
-          doc.text(`Date: ${date}`, 10, 20);
-
-          let rowY = 30;
-          doc.text("SKU", 10, rowY);
-          doc.text("Product Description", 50, rowY);
-          doc.text("Quantity", 150, rowY);
-
+          const orderDate = document.getElementById("order-date").value;
           const rows = document.querySelectorAll("#order-table-body tr");
-          rows.forEach((row) => {
-            rowY += 10;
-            doc.text(row.cells[0].querySelector("input").value, 10, rowY);
-            doc.text(row.cells[1].querySelector("input").value, 50, rowY);
-            doc.text(row.cells[2].querySelector("input").value, 150, rowY);
+
+          let y = 20;
+          doc.text(`Order Date: ${orderDate}`, 10, y);
+          y += 10;
+
+          rows.forEach((row, index) => {
+            const sku = row.querySelector("td:nth-child(1) input").value;
+            const description = row.querySelector(
+              "td:nth-child(2) input"
+            ).value;
+            const quantity = row.querySelector("td:nth-child(3) input").value;
+
+            doc.text(`SKU: ${sku}`, 10, y);
+            doc.text(`Description: ${description}`, 60, y);
+            doc.text(`Quantity: ${quantity}`, 160, y);
+            y += 10;
           });
 
-          doc.save("shop_order.pdf");
+          doc.save("york_shop_order.pdf");
         });
     </script>
   </body>
