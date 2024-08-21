@@ -276,8 +276,10 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
     <script>
+      // Initialize the navigation slide functionality
       const navSlide = () => {
         const burger = document.querySelector(".burger");
         const nav = document.querySelector(".nav-links");
@@ -309,12 +311,34 @@
         inputs.forEach((input) => {
           input.value = "";
         });
+        localStorage.removeItem("shopOrder");
       }
 
       // Event listener for the Clear button
       document
         .getElementById("clear-form")
         .addEventListener("click", clearForm);
+
+      // Function to load orders from local storage
+      function loadOrders() {
+        const savedOrder = JSON.parse(localStorage.getItem("shopOrder"));
+        if (savedOrder) {
+          document.getElementById("order-date").value = savedOrder.date;
+
+          const tableBody = document.getElementById("order-table-body");
+          tableBody.innerHTML = ""; // Clear existing rows
+
+          savedOrder.orders.forEach((order) => {
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+        <td><input type="text" value="${order.sku}" placeholder="Enter SKU" /></td>
+        <td><input type="text" value="${order.description}" placeholder="Enter Product Description" /></td>
+        <td><input type="number" value="${order.quantity}" placeholder="Enter Quantity" /></td>
+      `;
+            tableBody.appendChild(newRow);
+          });
+        }
+      }
 
       // Event listener for the Add Order button
       document
@@ -324,10 +348,10 @@
           const newRow = document.createElement("tr");
 
           newRow.innerHTML = `
-            <td><input type="text" placeholder="Enter SKU" /></td>
-            <td><input type="text" placeholder="Enter Product Description" /></td>
-            <td><input type="number" placeholder="Enter Quantity" /></td>
-          `;
+    <td><input type="text" placeholder="Enter SKU" /></td>
+    <td><input type="text" placeholder="Enter Product Description" /></td>
+    <td><input type="number" placeholder="Enter Quantity" /></td>
+  `;
 
           tableBody.appendChild(newRow);
         });
@@ -362,30 +386,53 @@
         .getElementById("convert-to-pdf")
         .addEventListener("click", function () {
           const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
+          const doc = new jsPDF({
+            orientation: "landscape",
+            unit: "pt",
+            format: "A4",
+          });
 
+          // Add the heading to the PDF
+          doc.setFontSize(16);
+          doc.text("Bali Trading York St Shop Orders", 40, 40);
+
+          // Add the order date
           const orderDate = document.getElementById("order-date").value;
+          doc.setFontSize(12);
+          doc.text(`Order Date: ${orderDate}`, 40, 60);
+
+          // Prepare table data
           const rows = document.querySelectorAll("#order-table-body tr");
+          const tableContent = [];
 
-          let y = 20;
-          doc.text(`Order Date: ${orderDate}`, 10, y);
-          y += 10;
-
-          rows.forEach((row, index) => {
+          rows.forEach((row) => {
             const sku = row.querySelector("td:nth-child(1) input").value;
             const description = row.querySelector(
               "td:nth-child(2) input"
             ).value;
             const quantity = row.querySelector("td:nth-child(3) input").value;
+            tableContent.push([sku, description, quantity]);
+          });
 
-            doc.text(`SKU: ${sku}`, 10, y);
-            doc.text(`Description: ${description}`, 60, y);
-            doc.text(`Quantity: ${quantity}`, 160, y);
-            y += 10;
+          // Add table header
+          tableContent.unshift(["SKU", "Product Description", "Quantity"]);
+
+          // Convert table to PDF
+          doc.autoTable({
+            startY: 80,
+            head: [tableContent[0]],
+            body: tableContent.slice(1),
+            theme: "grid",
+            headStyles: { fillColor: [0, 0, 0] },
+            alternateRowStyles: { fillColor: [240, 240, 240] },
+            margin: { top: 10, right: 40, bottom: 30, left: 40 },
           });
 
           doc.save("york_shop_order.pdf");
         });
+
+      // Load orders when the page is loaded
+      window.addEventListener("load", loadOrders);
     </script>
   </body>
 </html>
