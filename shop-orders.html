@@ -387,19 +387,19 @@
         .addEventListener("click", function () {
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF({
-            orientation: "landscape",
-            unit: "pt",
-            format: "A4",
+            orientation: "portrait",
+            unit: "mm",
+            format: "a4",
           });
 
           // Add the heading to the PDF
           doc.setFontSize(16);
-          doc.text("Bali Trading York St Shop Orders", 40, 40);
+          doc.text("Bali Trading York St Shop Orders", 10, 20);
 
           // Add the order date
           const orderDate = document.getElementById("order-date").value;
           doc.setFontSize(12);
-          doc.text(`Order Date: ${orderDate}`, 40, 60);
+          doc.text(`Order Date: ${orderDate}`, 10, 30);
 
           // Prepare table data
           const rows = document.querySelectorAll("#order-table-body tr");
@@ -419,13 +419,13 @@
 
           // Convert table to PDF
           doc.autoTable({
-            startY: 80,
+            startY: 40,
             head: [tableContent[0]],
             body: tableContent.slice(1),
             theme: "grid",
             headStyles: { fillColor: [0, 0, 0] },
             alternateRowStyles: { fillColor: [240, 240, 240] },
-            margin: { top: 10, right: 40, bottom: 30, left: 40 },
+            margin: { top: 10, right: 10, bottom: 10, left: 10 },
           });
 
           doc.save("york_shop_order.pdf");
