@@ -25,6 +25,7 @@
       align-items: center;
       position: relative;
       z-index: 1000;
+      color: white;
     }
 
     .logo {
@@ -45,6 +46,7 @@
       overflow: hidden;
       max-height: 0;
       transition: max-height 0.5s ease-in-out;
+      color: white;
     }
 
     .nav-links.nav-active {
@@ -83,7 +85,7 @@
       transition: all 0.3s ease;
     }
 
-    @media screen and (max-width: 1080px) {
+    @media screen and (max-width: 100080px) {
       .burger {
         display: block;
       }
@@ -252,6 +254,15 @@
       <div class="logo">
         Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
       </div>
+      
+    <!--**********************************NAVBAR-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <!--****************************************-->
+    <nav class="navbar">
+      <div class="logo">
+        Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+      </div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="customer-orders.html">Customer orders</a></li>
@@ -269,7 +280,6 @@
         <div class="line3"></div>
       </div>
     </nav>
-
     <div class="customer-order-container">
       <h1>Bali Trading Customer Order Manager</h1>
       <button id="newOrderBtn">Create New Order</button>
@@ -383,7 +393,7 @@
         });
       };
 
-      navSlide();
+      navSlide()
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
