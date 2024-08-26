@@ -23,6 +23,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
       }
 
       .logo {
@@ -66,13 +71,13 @@
         transition: all 0.3s ease;
       }
 
-      @media screen and (max-width: 1080px) {
+      @media screen and (max-width: 100080px) {
         .nav-links {
           position: absolute;
           right: -100px;
           margin-right: 4.5rem;
           height: 92vh;
-          top: 7vh;
+          top: 5vh;
           background-color: #000000;
           display: flex;
           flex-direction: column;
@@ -130,6 +135,7 @@
       h2,
       h3 {
         color: #000000;
+        margin-top: 4rem;
       }
       .customer-order-container {
         padding: 20px;
@@ -229,7 +235,7 @@
         z-index: 99;
         border: none;
         outline: none;
-        background-color: #4a90e2;
+        background-color: #000000;
         color: white;
         cursor: pointer;
         padding: 20px;
@@ -239,7 +245,7 @@
         transition: all 0.4s ease-in-out;
       }
       #backToTopBtn:hover {
-        background-color: #0056b3;
+        background-color: #000000;
       }
       @media (max-width: 768px) {
         #backToTopBtn {
