@@ -5,17 +5,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Staff Days Worked Tracker</title>
+
+
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+         :root {
+            --primary-bg: rgb(24, 24, 24);
+            --secondary-bg: rgb(0, 0, 0);
+            --border-color: rgba(113, 119, 144, 0.25);
+            --text-color: #f9fafb;
+            --accent-color: #FF5722;
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: rgba(255, 255, 255, 0.15);
+            --shadow-dark: rgba(0, 0, 0, 0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: "Poppins", sans-serif;
-            background-color: #f0f0f0;
-            color: black;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
             margin: 0;
         }
         
         .navbar {
-            background-color: #000000;
+            background-color: black);
             padding: 1rem;
             display: flex;
             justify-content: space-between;
@@ -25,10 +46,11 @@
             top: 0;
             left: 0;
             z-index: 1000;
+            box-shadow: var(--shadow);
         }
         
         .logo {
-            color: white;
+            color: #ff6b6b;
             font-size: 1rem;
             font-weight: bold;
         }
@@ -39,7 +61,7 @@
             margin-right: 4.5rem;
             height: 92vh;
             top: 4vh;
-            background-color: #000000;
+            background-color: var(--secondary-bg);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -51,18 +73,18 @@
         
         .nav-links li {
             margin-left: 1rem;
+            list-style: none;
         }
         
         .nav-links a {
-            color: white;
+            color: #ff6b6b;
             text-decoration: none;
             font-size: 0.8rem;
             transition: all 0.4s ease-in-out;
         }
         
         .nav-links a:hover {
-            transition: all 0.4s ease-in-out;
-            color: azure;
+            color: var(--accent-color);
             font-weight: bold;
         }
         
@@ -75,7 +97,7 @@
         .burger div {
             width: 25px;
             height: 3px;
-            background-color: white;
+            background-color: #ff6b6b;
             margin: 5px;
             transition: all 0.3s ease;
         }
@@ -87,7 +109,7 @@
                 margin-right: 4.5rem;
                 height: 92vh;
                 top: 4vh;
-                background-color: #000000;
+                background-color: var(--secondary-bg);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -136,15 +158,17 @@
             max-width: 800px;
             margin: auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: var(--glass-bg);
             border-radius: 8px;
-            box-shadow: 0 8px 6px rgb(0, 0, 0);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
         }
         
         h2 {
             text-align: center;
             margin-bottom: 20px;
             margin-top: 5rem;
+            color: #ff6b6b;
         }
         
         .form-group {
@@ -155,6 +179,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: #ff6b6b;
         }
         
         input,
@@ -163,8 +188,10 @@
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--glass-border);
             border-radius: 4px;
+            background: var(--primary-bg);
+            color: var(--text-color);
         }
         
         table {
@@ -176,13 +203,16 @@
         table,
         th,
         td {
-            border: 1px solid #ccc;
+            border: 1px solid var(--glass-border);
+            color: #ff6b6b;
         }
         
         th,
         td {
             padding: 10px;
             text-align: center;
+            background-color: var(--secondary-bg);
+            color: #ff6b6b;
         }
         
         .actions {
@@ -213,30 +243,33 @@
         
         .date-item {
             display: inline-block;
-            background-color: #eee;
+            background-color: var(--glass-bg);
             padding: 5px 10px;
             border-radius: 4px;
             cursor: pointer;
+            color: var(--text-color);
         }
         
         .date-item:hover {
-            background-color: #ccc;
+            background-color: var(--secondary-bg);
         }
         
         .date-item.selected {
-            background-color: #007bff;
+            background-color: var(--accent-color);
             color: white;
         }
         
         button {
-            background: #4a90e2;
+            background: var(--accent-color);
             color: white;
             border: none;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
         }
         
         button:hover {
-            background-color: #357abd;
+            background-color: #E64A19;
+            transform: translateY(-5px);
         }
     </style>
 </head>

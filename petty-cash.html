@@ -6,12 +6,42 @@
     <title>Bali Trading Petty-cash System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+         :root {
+            --primary-color: #23272f;
+            /* Dark background */
+            --secondary-color: #FF5722;
+            /* Soft blue/glass color */
+            --shadow-color: #1c1f25;
+            /* Darker shadow for neomorphism */
+            --inner-shadow-color: #2a2e36;
+            /* Lighter inner shadow for neomorphism */
+            --text-color: #ffffff;
+            /* Light gray text */
+            --accent-color: #FF5722;
+            /* Lighter blue accent */
+            --border-color: #3b4048;
+            /* Darker border color */
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --nav-bg: #000;
+            /* Black navbar background */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: "Poppins", sans-serif;
+            background: var(--primary-color);
+            color: var(--text-color);
             max-width: 100%;
             margin: 0 auto;
             padding: 1rem;
+            overflow-x: hidden;
         }
         
         #backToTopBtn {
@@ -22,29 +52,25 @@
             z-index: 99;
             border: none;
             outline: none;
-            background-color: #000000;
-            color: white;
+            background: var(--secondary-color);
+            color: var(--text-color);
             cursor: pointer;
             padding: 20px;
-            border-radius: 100%;
+            border-radius: 50%;
             font-size: 18px;
-            transition: background-color 0.3s;
             transition: all 0.4s ease-in-out;
+            box-shadow: 8px 8px 15px var(--shadow-color), -8px -8px 15px var(--inner-shadow-color);
         }
         
         #backToTopBtn:hover {
-            background-color: #000000;
-        }
-        
-        @media (max-width: 768px) {
-            #backToTopBtn {
-                padding: 10px;
-                font-size: 14px;
-            }
+            background: #FF5722;
+            /* Lighter blue on hover */
+            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
+            /* Increased shadow on hover */
         }
         
         .navbar {
-            background-color: #000000;
+            background: var(--nav-bg);
             padding: 1rem;
             display: flex;
             justify-content: space-between;
@@ -54,136 +80,187 @@
             top: 0;
             left: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .logo {
-            color: white;
+            color: #ff6b6b;
             font-size: 1rem;
             font-weight: bold;
         }
         
         .nav-links {
-            position: absolute;
-            right: -100px;
-            margin-right: 4.5rem;
-            height: 92vh;
-            top: 4vh;
-            background-color: #000000;
+            position: fixed;
+            right: 0;
+            height: 100vh;
+            top: 0;
+            background: var(--nav-bg);
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 40%;
-            transform: translateX(-300%);
-            opacity: 1;
-            transition: transform 0.5s ease-in;
+            justify-content: flex-start;
+            width: 60%;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in;
+            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.3);
+            list-style: none;
+            padding: 4rem 0 0 0;
+            margin: 0;
         }
         
         .nav-links li {
-            margin-left: 1rem;
+            margin: 0.5rem 0;
+            opacity: 0;
+            width: 100%;
+            text-align: center;
         }
         
         .nav-links a {
-            color: white;
+            color: #ff6b6b;
             text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.4s ease-in-out;
-            &:hover {
-                transition: all 0.4s ease-in-out;
-                color: azure;
-                font-weight: bold;
-            }
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: all 0.3s ease-in-out;
+            padding: 0.3rem 1rem;
+            display: block;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
         }
         
         .burger {
             display: block;
-        }
-    }
-    .nav-active {
-        transform: translateX(0%);
-    }
-    @keyframes navLinkFade {
-        from {
-            opacity: 0;
-            transform: translateX(50px);
+            cursor: pointer;
+            z-index: 1001;
+            position: relative;
+            margin-right: 1rem;
         }
         
-        to {
-            opacity: 1;
-            transform: translateX(0px);
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #ff6b6b;
+            margin: 4px;
+            transition: all 0.3s ease;
+            border-radius: 2px;
         }
-    }
-    .toggle .line1 {
-        transform: rotate(-45deg) translate(-5px, 6px);
-    }
-    .toggle .line2 {
-        opacity: 0;
-    }
-    .toggle .line3 {
-        transform: rotate(45deg) translate(-5px, -6px);
-    }
-    h1 {
-        text-align: center;
-        margin-top: 5rem;
-    }
-    #balance {
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    form,
-    .button-container {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-    input,
-    button,
-    select {
-        padding: 5px;
-        font-size: 16px;
-    }
-    input[type="number"] {
-        width: 100px;
-    }
-    button {
-        cursor: pointer;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    th,
-    td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    .delete-btn {
-        background-color: #4a90e2;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-    .delete-all-btn {
-        background-color: #4a90e2;
-        color: white;
-        border: none;
-        padding: 10px;
-        width: 100%;
-        cursor: pointer;
-    }
-    .transaction-form {
-        box-shadow: 0 8px 6px rgb(0, 0, 0);
-    }
-    button {
-        background: #4a90e2;
-    }
+        
+        .nav-active {
+            transform: translateX(0%);
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+        
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .toggle .line2 {
+            opacity: 0;
+        }
+        
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 5rem;
+            color: #FF5722;
+        }
+        
+        #balance {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffb773;
+        }
+        
+        form,
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        input,
+        button,
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary-color);
+            /* Darker input background */
+            color: var(--text-color);
+            box-shadow: inset 4px 4px 8px var(--shadow-color), inset -4px -4px 8px var(--inner-shadow-color);
+        }
+        
+        input[type="number"] {
+            width: 100px;
+        }
+        
+        button {
+            cursor: pointer;
+            background: #ff56229a;
+            /* Glassy blue button */
+            color: var(--text-color);
+            transition: all 0.4s ease-in-out;
+            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
+        }
+        
+        button:hover {
+            background: #ff5622fb;
+            /* Lighter blue on hover */
+            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
+            /* Increased shadow on hover */
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #ff562200;
+            box-shadow: 8px 8px 15px var(--shadow-color), -8px -8px 15px var(--inner-shadow-color);
+        }
+        
+        th,
+        td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+            background: #ff562283;
+            color: var(--text-color);
+        }
+        
+        th {
+            background-color: var(--secondary-color);
+            /* Glassy blue table header */
+            color: var(--text-color);
+            box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--inner-shadow-color);
+        }
+        
+        .delete-btn {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
+        }
     </style>
 </head>
 

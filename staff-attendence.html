@@ -22,7 +22,7 @@
         }
         
         .logo {
-            color: white;
+            color: #ff6b6b;
             font-size: 1rem;
             font-weight: bold;
         }
@@ -37,7 +37,7 @@
         }
         
         .nav-links a {
-            color: white;
+            color: #ff6b6b;
             text-decoration: none;
             font-size: 0.8rem;
             transition: all 0.4s ease-in-out;
@@ -56,7 +56,7 @@
         .burger div {
             width: 25px;
             height: 3px;
-            background-color: white;
+            background-color: #ff6b6b;
             margin: 5px;
             transition: all 0.3s ease;
         }
@@ -113,12 +113,19 @@
             transform: rotate(45deg) translate(-5px, -6px);
         }
         
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
          :root {
-            --primary-bg: rgba(16, 18, 27, 0.4);
-            --secondary-bg: rgba(16, 18, 27, 0.7);
+            --primary-bg: rgb(24, 24, 24);
+            --secondary-bg: rgba(34, 40, 49, 0.7);
             --border-color: rgba(113, 119, 144, 0.25);
             --text-color: #f9fafb;
             --shadow-color: rgba(0, 0, 0, 0.3);
+            --accent-color: #FF5722;
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: rgba(255, 255, 255, 0.15);
+            --shadow-dark: rgba(0, 0, 0, 0.5);
         }
         
         * {
@@ -128,10 +135,10 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            background: linear-gradient(45deg, #fdfeff, #ffffff);
-            color: black;
+            background: var(--primary-bg);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -144,6 +151,7 @@
             margin: 0 auto;
             padding: 20px;
             margin-top: 3rem;
+            color: #FF5722;
         }
         
         .worker-grid {
@@ -154,8 +162,8 @@
         }
         
         .worker-button {
-            background: rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
+            background: var(--glass-bg);
+            color: var(--text-color);
             border: 1px solid var(--border-color);
             padding: 20px;
             border-radius: 15px;
@@ -167,8 +175,8 @@
         
         .worker-button:hover {
             transform: translateY(-2px);
-            background: #000;
-            color: white;
+            background: var(--secondary-bg);
+            color: var(--accent-color);
         }
         
         .modal {
@@ -181,9 +189,7 @@
             background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             overflow-y: auto;
-            /* Enable vertical scrolling */
             padding: 20px 0;
-            /* Add padding to prevent content from touching the edges */
         }
         
         .modal-content {
@@ -198,14 +204,11 @@
             box-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px rgba(255, 255, 255, 0.02);
             color: #fdfeff;
             max-height: 90vh;
-            /* Set maximum height */
             overflow-y: auto;
-            /* Enable scrolling for modal content */
         }
         
         .close {
             position: sticky;
-            /* Make close button stick to top when scrolling */
             top: 1px;
             right: 15px;
             cursor: pointer;
@@ -267,7 +270,6 @@
                 width: 95%;
                 margin: 10px auto;
                 max-height: 85vh;
-                /* Slightly smaller on mobile */
             }
             .attendance-item {
                 flex-direction: column;

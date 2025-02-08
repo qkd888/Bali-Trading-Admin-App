@@ -34,7 +34,7 @@
         }
         
         .logo {
-            color: white;
+            color: #ff6b6b;
             font-size: 1rem;
             font-weight: bold;
         }
@@ -57,16 +57,18 @@
         
         .nav-links li {
             margin-left: 1rem;
+            color: #ff6b6b;
+            list-style: none;
         }
         
         .nav-links a {
-            color: white;
+            color: #ff6b6b;
             text-decoration: none;
             font-size: 0.8rem;
             transition: all 0.4s ease-in-out;
             &:hover {
                 transition: all 0.4s ease-in-out;
-                color: azure;
+                color: #ff6b6b;
                 font-weight: bold;
             }
         }
@@ -79,7 +81,7 @@
         .burger div {
             width: 25px;
             height: 3px;
-            background-color: white;
+            background-color: #ff6b6b;
             margin: 5px;
             transition: all 0.3s ease;
         }
@@ -135,157 +137,360 @@
         .toggle .line3 {
             transform: rotate(45deg) translate(-5px, -6px);
         }
-        
+    </style>
+    <style>
          :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #4a90e2;
-            --danger-color: #4a90e2;
-            --warning-color: #4a90e2;
-            --done-color: #4a90e2;
+            --primary-color: #1a1e24;
+            /* Darker, richer background */
+            --secondary-color: #ff6b6b;
+            /* Vibrant coral/red-orange */
+            --shadow-color: #14171c;
+            /* Even darker shadow */
+            --inner-shadow-color: #20242b;
+            /* Slightly lighter inner shadow */
+            --text-color: #f0f0f5;
+            /* Off-white text for high contrast */
+            --accent-color: #f2c94c;
+            /* Golden yellow for highlights */
+            --font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-color);
+            font-family: var(--font-family);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .customer-order-container {
+            padding: 30px;
+            /* Increased padding */
+            flex: 1;
+            max-width: 1000px;
+            /* Increased max-width */
+            margin: 30px auto;
+            /* Increased margin */
         }
         
         h1,
         h2,
         h3 {
-            color: #000000;
-            margin-top: 4rem;
-        }
-        
-        .customer-order-container {
-            padding: 20px;
+            color: #ff6b6b;
+            margin-top: 2.5rem;
+            /* Increased margin */
+            text-align: center;
         }
         
         #orderForm,
         .order-item {
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 8px 6px rgb(0, 0, 0);
+            background-color: var(--primary-color);
+            padding: 25px;
+            /* Increased padding */
+            margin-bottom: 25px;
+            /* Increased margin */
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px var(--shadow-color), -10px -10px 20px var(--inner-shadow-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 5rem;
+        }
+        
+        #orderForm:hover,
+        .order-item:hover {
+            transform: translateY(-2px);
+            /* Increased lift */
+            box-shadow: 12px 12px 24px var(--shadow-color), -12px -12px 24px var(--inner-shadow-color);
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            /* Increased margin */
         }
         
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            /* Increased margin */
+            font-weight: 600;
+            color: var(--text-color);
         }
         
         input,
         textarea,
         select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 14px;
+            /* Increased padding */
+            border: none;
+            border-radius: 12px;
             box-sizing: border-box;
             font-size: 16px;
+            background-color: var(--primary-color);
+            box-shadow: inset 5px 5px 10px var(--shadow-color), inset -5px -5px 10px var(--inner-shadow-color);
+            color: #ff6b6b;
+            outline: none;
+            transition: box-shadow 0.2s ease;
+        }
+        
+        input:focus,
+        textarea:focus,
+        select:focus {
+            box-shadow: inset 6px 6px 12px var(--shadow-color), inset -6px -6px 12px var(--inner-shadow-color);
+            color: #ff6b6b;
         }
         
         textarea {
-            height: 100px;
+            height: 140px;
+            /* Increased height */
             resize: vertical;
         }
         
         button {
-            color: #000000;
-            padding: 10px 15px;
+            color: white;
+            padding: 14px 24px;
+            /* Increased padding */
             border: none;
-            border-radius: 4px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s ease;
+            transition: all 0.2s ease;
+            background-color: var(--secondary-color);
+            box-shadow: 0px 4px 5px 0px #091316, /* Adjusted shadow color */
+            -3px 3px 10px #000000;
+            /* Adjusted shadow color */
         }
         
         button:hover {
-            opacity: 0.9;
+            transform: scale(1.04);
+            box-shadow: 0px 4px 8px 0px #000000;
         }
         
-        #newOrderBtn {
-            background-color: #4a90e2;
-            margin-bottom: 20px;
-        }
+        #newOrderBtn {}
         
         .order-actions {
             display: flex;
             justify-content: flex-end;
-            margin-top: 10px;
+            margin-top: 20px;
+            /* Increased margin */
         }
         
         .order-actions button {
-            margin-left: 10px;
+            margin-left: 15px;
+            /* Increased margin */
         }
         
         .edit-btn {
-            background-color: var(--warning-color);
+            background-color: #ffc107;
+            box-shadow: 0px 4px 8px 0px #000000;
+            color: #000000;
+        }
+        
+        .edit-btn:hover {
+            box-shadow: 0px 4px 8px 0px #000000;
         }
         
         .delete-btn {
-            background-color: var(--danger-color);
+            background-color: #dc3545;
+            box-shadow: 0px 4px 8px 0px #000000;
+            color: #000000;
+        }
+        
+        .delete-btn:hover {
+            box-shadow: 0px 4px 8px 0px #000000;
         }
         
         .done-btn {
-            background-color: var(--secondary-color);
+            background-color: #28a745;
+            box-shadow: 0px 4px 8px 0px #000000;
+            color: #000000;
+        }
+        
+        .done-btn:hover {
+            box-shadow: 0px 4px 8px 0px #000000;
         }
         
         .order-done {
-            background-color: var(--done-color);
-            color: #7f8c8d;
-        }
-        
-        .order-done .done-btn {
-            background-color: var(--primary-color);
+            opacity: 0.7;
         }
         
         #notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            border-radius: 4px;
+            top: 30px;
+            /* Increased margin */
+            right: 30px;
+            /* Increased margin */
+            padding: 14px 24px;
+            /* Increased padding */
+            border-radius: 12px;
             color: white;
-            font-weight: bold;
+            font-weight: 500;
             display: none;
             z-index: 1000;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        #notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #notification.hide {
+            opacity: 0;
+            transform: translateY(-25px);
+            /* Increased margin */
         }
         
         .success {
-            background-color: var(--secondary-color);
+            background-color: #28a745;
         }
         
         .error {
-            background-color: var(--danger-color);
+            background-color: #dc3545;
         }
         
         #backToTopBtn {
             display: none;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            /* Increased margin */
+            right: 30px;
+            /* Increased margin */
             z-index: 99;
             border: none;
             outline: none;
-            background-color: #000000;
+            background-color: var(--secondary-color);
             color: white;
             cursor: pointer;
-            padding: 20px;
-            border-radius: 100%;
-            font-size: 18px;
-            transition: background-color 0.3s;
-            transition: all 0.4s ease-in-out;
+            padding: 16px;
+            /* Increased padding */
+            border-radius: 50%;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 4px 4px 8px #52b3d5, -4px -4px 8px #6fd1ff;
         }
         
         #backToTopBtn:hover {
-            background-color: #000000;
+            background-color: #0056b3;
+            box-shadow: 5px 5px 10px #52b3d5, -5px -5px 10px #6fd1ff;
         }
+        /* Responsive Styles */
         
         @media (max-width: 768px) {
+            .customer-order-container {
+                padding: 15px;
+                margin: 15px auto;
+            }
+            #orderForm,
+            .order-item {
+                padding: 20px;
+                margin-bottom: 15px;
+            }
+            input,
+            textarea,
+            select {
+                padding: 12px;
+                font-size: 15px;
+            }
+            button {
+                padding: 12px 20px;
+                font-size: 15px;
+            }
             #backToTopBtn {
+                padding: 14px;
+                font-size: 15px;
+                bottom: 15px;
+                right: 15px;
+            }
+            .order-actions {
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 15px;
+            }
+            .order-actions button {
+                margin: 8px 0;
+                margin-left: 0;
+            }
+            h1,
+            h2,
+            h3 {
+                font-size: 2rem;
+                margin-top: 2rem;
+            }
+            label {
+                font-size: 15px;
+            }
+            #notification {
+                top: 15px;
+                left: 15px;
+                right: 15px;
+                font-size: 15px;
+                padding: 12px 20px;
+            }
+        }
+        /* Smaller screen sizes (e.g., small tablets/large phones) */
+        
+        @media (max-width: 576px) {
+            .customer-order-container {
+                padding: 10px;
+                margin: 10px auto;
+            }
+            #orderForm,
+            .order-item {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+            input,
+            textarea,
+            select {
                 padding: 10px;
                 font-size: 14px;
+            }
+            button {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+            h1,
+            h2,
+            h3 {
+                font-size: 1.7rem;
+                margin-top: 1.7rem;
+            }
+            label {
+                font-size: 14px;
+            }
+            #notification {
+                font-size: 14px;
+                padding: 10px 18px;
+            }
+            .order-item {
+                /* Adjustments for very small screens */
+                padding: 15px;
+            }
+        }
+        /* Very small screen sizes (e.g., small phones) */
+        
+        @media (max-width: 400px) {
+            input,
+            textarea,
+            select {
+                font-size: 13px;
+            }
+            button {
+                font-size: 13px;
+            }
+            h1,
+            h2,
+            h3 {
+                font-size: 1.5rem;
+                margin-top: 1.5rem;
+            }
+            #notification {
+                font-size: 13px;
+            }
+            .order-item {
+                padding: 10px;
             }
         }
     </style>
