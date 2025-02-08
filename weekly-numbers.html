@@ -169,7 +169,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-primary);
+            background-color: #000000;
             color: var(--text-primary);
             line-height: 1.6;
             max-width: 100%;
@@ -187,7 +187,7 @@
             border: none;
             outline: none;
             background-color: var(--accent-color);
-            color: white;
+            color: #63d3ff85;
             cursor: pointer;
             padding: 20px;
             border-radius: 100%;
@@ -196,7 +196,7 @@
         }
         
         #backToTopBtn:hover {
-            background-color: #E64A19;
+            background-color: #63d3ff;
             transform: translateY(-5px);
         }
         
@@ -222,12 +222,12 @@
         h1 {
             margin-top: 4rem;
             text-align: center;
-            color: var(--accent-color);
+            color: #63d3ff;
             margin-bottom: 20px;
         }
         
         h2 {
-            color: var(--text-primary);
+            color: #63d3ff;
         }
         /* Forms and Inputs */
         
@@ -241,7 +241,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: var(--text-primary);
+            color: #63d3ff;
         }
         
         input[type="date"],
@@ -254,7 +254,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 5px;
             background: var(--bg-secondary);
-            color: var(--text-primary);
+            color: #63d3ff;
             box-shadow: inset var(--shadow-light);
         }
         
@@ -275,11 +275,12 @@
             padding: 12px;
             text-align: left;
             background-color: var(--bg-secondary);
+            color: #63d3ff;
         }
         
         th {
             background-color: var(--bg-primary);
-            color: var(--text-primary);
+            color: #63d3ff;
             font-weight: bold;
         }
         
@@ -299,15 +300,15 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: var(--accent-color);
-            color: white;
+            background-color: #63d3ff;
+            color: #000000;
             border: none;
             border-radius: 5px;
             transition: background-color 0.3s, transform 0.1s;
         }
         
         button:hover {
-            background-color: #E64A19;
+            background-color: #63d3ff;
             transform: translateY(-2px);
         }
         
@@ -354,7 +355,7 @@
         /* Navbar */
         
         .navbar {
-            background-color: var(--bg-secondary);
+            background-color: #000000;
             padding: 1rem;
             display: flex;
             justify-content: space-between;
@@ -368,7 +369,7 @@
         }
         
         .logo {
-            color: #ff6b6b;
+            color: #63d3ff;
             font-size: 1.5rem;
             font-weight: bold;
         }
@@ -394,24 +395,37 @@
         }
         
         .nav-links a {
-            color: #ff6b6b;
+            color: #63d3ff;
             text-decoration: none;
             font-size: 0.8rem;
             transition: all 0.4s ease-in-out;
         }
         
         .nav-links a:hover {
-            color: var(--accent-color);
+            color: #63d3ff;
             font-weight: bold;
         }
         
-        .burger {
+        .burger div {
             display: block;
-            color: #ff6b6b;
+            background: #63d3ff;
+        }
+        
+        .line1 {
+            background-color: #ff6b6b;
+        }
+        
+        .line2 {
+            background-color: #ff6b6b;
+        }
+        
+        .line3 {
+            background-color: #ff6b6b;
         }
         
         .nav-active {
             transform: translateX(0%);
+            color: #ff6b6b;
         }
         
         @keyframes navLinkFade {

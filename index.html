@@ -17,6 +17,7 @@
             font-family: "Poppins", sans-serif;
             max-width: 100%;
             margin: 0 auto;
+            background-color: #000000;
         }
         
         .navbar {
@@ -33,7 +34,7 @@
         }
         
         .logo {
-            color: #ff6b6b;
+            color: #63d3ff;
             font-size: 1rem;
             font-weight: bold;
         }
@@ -56,18 +57,18 @@
         
         .nav-links li {
             margin-left: 1rem;
-            color: #ff6b6b;
+            color: #63d3ff;
             list-style: none;
         }
         
         .nav-links a {
-            color: #ff6b6b;
+            color: #63d3ff;
             text-decoration: none;
             font-size: 0.8rem;
             transition: all 0.4s ease-in-out;
             &:hover {
                 transition: all 0.4s ease-in-out;
-                color: #ff6b6b;
+                color: #63d3ff;
                 font-weight: bold;
             }
         }
@@ -80,7 +81,7 @@
         .burger div {
             width: 25px;
             height: 3px;
-            background-color: #ff6b6b;
+            background-color: #63d3ff;
             margin: 5px;
             transition: all 0.3s ease;
         }
@@ -97,7 +98,7 @@
                 flex-direction: column;
                 align-items: center;
                 width: 50%;
-                transform: translateX(-300%);
+                transform: translateX(300%);
                 opacity: 1;
                 transition: transform 0.3s ease-in;
             }
@@ -158,10 +159,10 @@
             width: 100%;
             height: 100vh;
             margin-top: -5rem;
-            background: #ffffff00;
+            background-color: #000000;
             height: 100vh;
             .h1-hero {
-                color: #ff6b6b;
+                color: #63d3ff;
                 ;
                 font-weight: bold;
                 text-align: center;
@@ -171,11 +172,11 @@
                 font-weight: bold;
                 margin-top: 1rem;
                 text-align: center;
-                color: #ff6b6b;
+                color: #63d3ff;
             }
             .animated-text {
                 text-align: center;
-                color: #ff6b6b;
+                color: #63d3ff
             }
             .word {
                 font-size: 0.7rem;
@@ -205,7 +206,7 @@
         
         body {
             margin: 0;
-            background-color: var(--primary-color);
+            background-color: #000000;
             /* Dark Background */
             color: var(--text-color);
             /* Light Text */
@@ -213,7 +214,7 @@
         
         .h1-contact {
             text-align: center;
-            color: #ff6b6b;
+            color: #63d3ff;
             margin-top: 8rem;
             margin-bottom: 1rem;
             font-size: 1rem;
@@ -224,7 +225,7 @@
             flex-direction: column;
             gap: 20px;
             padding: 0 1rem;
-            color: #ff6b6b;
+            color: #63d3ff;
         }
         
         table {
@@ -248,15 +249,15 @@
             padding: 8px;
             text-align: left;
             font-size: 1rem;
-            color: #ff6b6b;
+            color: #63d3ff;
             /* Light text in table cells */
         }
         
         th {
-            color: #ff6b6b;
+            color: #63d3ff;
             /* Glassy blue header */
             font-weight: bold;
-            color: #ff6b6b;
+            color: #63d3ff;
             box-shadow: inset 2px 2px 4px var(--shadow-color), inset -2px -2px 4px var(--inner-shadow-color);
             /* Neomorphic header shadow */
         }
@@ -311,7 +312,7 @@
             z-index: 99;
             border: none;
             outline: none;
-            background-color: var(--secondary-color);
+            background-color: #63d3ff8a;
             /* Glassy blue button */
             color: var(--text-color);
             /* Light text */
@@ -326,7 +327,7 @@
         }
         
         #backToTopBtn:hover {
-            background-color: #79a3e6;
+            background-color: #63d3ff;
             /* Lighter blue on hover */
             box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
             /* Increased shadow on hover */
@@ -860,7 +861,7 @@
                     if (link.style.animation) {
                         link.style.animation = "";
                     } else {
-                        link.style.animation = `navLinkFade 0.4s ease forwards ${
+                        link.style.animation = `navLinkFade 0.9s ease forwards ${
                 index / 7 + 0.3
               }s`;
                     }
