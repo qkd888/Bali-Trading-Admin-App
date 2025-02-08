@@ -37,8 +37,24 @@
         }
         
         .nav-links {
+<<<<<<< HEAD
             display: flex;
             list-style: none;
+=======
+          position: absolute;
+          right: -100px;
+          margin-right: 4.5rem;
+          height: 92vh;
+          top: 5vh;
+          background-color: #000000;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 40%;
+          transform: translateX(-300%);
+          opacity: 1;
+          transition: transform 0.5s ease-in;
+>>>>>>> af1c300c2b1d9199f838545ddf321512d0b12c26
         }
         
         .nav-links li {
@@ -442,6 +458,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
     <script>
+<<<<<<< HEAD
         document.addEventListener("DOMContentLoaded", initializeTable);
 
         const days = [
@@ -571,6 +588,135 @@
             doc.setFontSize(10);
             doc.text(
                 `1. Was the Mall/Area busy? ${
+=======
+      document.addEventListener("DOMContentLoaded", initializeTable);
+
+      const days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const tableBody = document.getElementById("tableBody");
+      const grandTotalElement = document.getElementById("grandTotal");
+      const weekStartInput = document.getElementById("weekStart");
+      const alertElement = document.getElementById("alert");
+
+      function initializeTable() {
+        setWeekStartToMonday();
+        updateDates();
+        loadSavedData();
+      }
+
+      function setWeekStartToMonday() {
+        const today = new Date();
+        const monday = new Date(
+          today.setDate(today.getDate() - today.getDay() + 1)
+        );
+        weekStartInput.value = monday.toISOString().split("T")[0];
+      }
+
+      function updateDates() {
+        tableBody.innerHTML = "";
+        const weekStart = new Date(weekStartInput.value);
+
+        for (let i = 0; i < 7; i++) {
+          const currentDate = new Date(weekStart);
+          currentDate.setDate(weekStart.getDate() + i);
+
+          const row = tableBody.insertRow();
+          createCell(row, 0, currentDate.toLocaleDateString(), "Date");
+          createCell(row, 1, days[currentDate.getDay()], "Day");
+
+          const amountCell = row.insertCell(2);
+          const input = document.createElement("input");
+          input.type = "number";
+          input.min = "0";
+          input.step = "0.01";
+          input.value = "0";
+          input.addEventListener("input", updateGrandTotal);
+          amountCell.appendChild(input);
+          amountCell.setAttribute("data-label", "Amount");
+        }
+        updateGrandTotal();
+      }
+
+      function createCell(row, index, text, label) {
+        const cell = row.insertCell(index);
+        cell.textContent = text;
+        cell.setAttribute("data-label", label);
+      }
+
+      function updateGrandTotal() {
+        const total = Array.from(tableBody.querySelectorAll("input")).reduce(
+          (sum, input) => sum + parseFloat(input.value || "0"),
+          0
+        );
+        grandTotalElement.textContent = total.toFixed(2);
+      }
+
+      function clearData() {
+        document
+          .querySelectorAll("input:not(#weekStart), textarea")
+          .forEach((input) => {
+            input.type === "number" ? (input.value = "0") : (input.value = "");
+          });
+        updateGrandTotal();
+        showAlert("Data cleared successfully", "success");
+      }
+
+      function saveData() {
+        const data = {
+          weekStart: weekStartInput.value,
+          question1: document.getElementById("question1").value,
+          question2: document.getElementById("question2").value,
+          question3: document.getElementById("question3").value,
+          amounts: Array.from(tableBody.querySelectorAll("input")).map(
+            (input) => input.value
+          ),
+        };
+        localStorage.setItem("weeklyAmountsData", JSON.stringify(data));
+        showAlert("Data saved successfully", "success");
+      }
+
+      function loadSavedData() {
+        const savedData = JSON.parse(localStorage.getItem("weeklyAmountsData"));
+        if (savedData) {
+          weekStartInput.value = savedData.weekStart;
+          document.getElementById("question1").value = savedData.question1;
+          document.getElementById("question2").value = savedData.question2;
+          document.getElementById("question3").value = savedData.question3;
+          updateDates();
+          const inputs = tableBody.querySelectorAll("input");
+          savedData.amounts.forEach(
+            (amount, index) => (inputs[index].value = amount)
+          );
+          updateGrandTotal();
+          showAlert("Saved data loaded", "success");
+        }
+      }
+
+      function convertToPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Add title
+        doc.setFontSize(20);
+        doc.text("York Weekly Amounts", 105, 15, null, null, "center");
+
+        // Add week start date
+        doc.setFontSize(12);
+        doc.text(`Week Starting: ${weekStartInput.value}`, 20, 25);
+
+        // Add questions and answers
+        doc.text("Questions:", 20, 35);
+        doc.setFontSize(10);
+        doc.text(
+          `1. Was the Mall/Area busy? ${
+>>>>>>> af1c300c2b1d9199f838545ddf321512d0b12c26
             document.getElementById("question1").value
           }`,
                 25,
@@ -580,6 +726,7 @@
                 `2. What were the best sellers for the week? ${
             document.getElementById("question2").value
           }`,
+<<<<<<< HEAD
                 25,
                 55
             );
@@ -631,6 +778,55 @@
                 alertElement.style.display = "none";
             }, 3000);
         }
+=======
+          25,
+          55
+        );
+        doc.text(
+          `3. Client Requests: ${document.getElementById("question3").value}`,
+          25,
+          65
+        );
+
+        // Add table
+        const tableData = Array.from(tableBody.rows).map((row) => [
+          row.cells[0].textContent,
+          row.cells[1].textContent,
+          row.cells[2].querySelector("input").value,
+        ]);
+
+        doc.autoTable({
+          head: [["Date", "Day of the Week", "Amount"]],
+          body: tableData,
+          foot: [["Grand Total", "", grandTotalElement.textContent]],
+          startY: 75,
+        });
+
+        // Add page numbers
+        const pageCount = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+          doc.setPage(i);
+          doc.setFontSize(10);
+          doc.text(
+            `Page ${i} of ${pageCount}`,
+            doc.internal.pageSize.width - 30,
+            doc.internal.pageSize.height - 10
+          );
+        }
+
+        // Save the PDF
+        doc.save("york_weekly_amounts.pdf");
+      }
+
+      function showAlert(message, type) {
+        alertElement.textContent = message;
+        alertElement.className = `alert alert-${type}`;
+        alertElement.style.display = "block";
+        setTimeout(() => {
+          alertElement.style.display = "none";
+        }, 3000);
+      }
+>>>>>>> af1c300c2b1d9199f838545ddf321512d0b12c26
     </script>
 </body>
 
