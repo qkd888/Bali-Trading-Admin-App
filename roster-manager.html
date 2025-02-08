@@ -1,241 +1,245 @@
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shift Roster Manager</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Poppins", sans-serif;
-      }
-      #backToTopBtn {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99;
-        border: none;
-        outline: none;
-        background-color: #000000b7;
-        color: white;
-        cursor: pointer;
-        padding: 20px;
-        border-radius: 100%;
-        font-size: 18px;
-        transition: background-color 0.3s;
-        transition: all 0.4s ease-in-out;
-      }
-      #backToTopBtn:hover {
-        background-color: #000000;
-      }
-      @media (max-width: 768px) {
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Poppins", sans-serif;
+        }
+        
         #backToTopBtn {
-          padding: 10px;
-          font-size: 14px;
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: #000000b7;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            border-radius: 100%;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            transition: all 0.4s ease-in-out;
         }
-      }
-
-      .navbar {
-        background-color: #000000;
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-      }
-
-      .logo {
-        color: white;
-        font-size: 1rem;
-        font-weight: bold;
-      }
-
-      .nav-links {
-        display: flex;
-        list-style: none;
-      }
-
-      .nav-links li {
-        margin-left: 1rem;
-      }
-
-      .nav-links a {
-        color: white;
-        text-decoration: none;
-        font-size: 0.8rem;
-        transition: all 0.4s ease-in-out;
-      }
-
-      .nav-links a:hover {
-        transition: all 0.4s ease-in-out;
-        color: azure;
-        font-weight: bold;
-      }
-
-      .burger {
-        display: none;
-        cursor: pointer;
-      }
-
-      .burger div {
-        width: 25px;
-        height: 3px;
-        background-color: white;
-        margin: 5px;
-        transition: all 0.3s ease;
-      }
-
-      @media screen and (max-width: 100080px) {
+        
+        #backToTopBtn:hover {
+            background-color: #000000;
+        }
+        
+        @media (max-width: 768px) {
+            #backToTopBtn {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        .navbar {
+            background-color: #000000;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        
         .nav-links {
-          position: absolute;
-          right: -100px;
-          margin-right: 4.5rem;
-          height: 92vh;
-          top: 5vh;
-          background-color: #000000;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 50%;
-          transform: translateX(-300%);
-          opacity: 1;
-          transition: transform 0.5s ease-in;
+            display: flex;
+            list-style: none;
         }
-
+        
         .nav-links li {
-          opacity: 0;
-          margin: 1rem 0;
+            margin-left: 1rem;
         }
-
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .nav-links a:hover {
+            transition: all 0.4s ease-in-out;
+            color: azure;
+            font-weight: bold;
+        }
+        
         .burger {
-          display: block;
+            display: none;
+            cursor: pointer;
         }
-      }
-
-      .nav-active {
-        transform: translateX(0%);
-      }
-
-      @keyframes navLinkFade {
-        from {
-          opacity: 0;
-          transform: translateX(50px);
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
         }
-        to {
-          opacity: 1;
-          transform: translateX(0px);
+        
+        @media screen and (max-width: 100080px) {
+            .nav-links {
+                position: absolute;
+                right: -100px;
+                margin-right: 4.5rem;
+                height: 92vh;
+                top: 5vh;
+                background-color: #000000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(-300%);
+                opacity: 1;
+                transition: transform 0.5s ease-in;
+            }
+            .nav-links li {
+                opacity: 0;
+                margin: 1rem 0;
+            }
+            .burger {
+                display: block;
+            }
         }
-      }
-
-      .toggle .line1 {
-        transform: rotate(-45deg) translate(-5px, 6px);
-      }
-
-      .toggle .line2 {
-        opacity: 0;
-      }
-
-      .toggle .line3 {
-        transform: rotate(45deg) translate(-5px, -6px);
-      }
-
-      body {
-        max-width: 100%;
-        margin: 0 auto;
-      }
-
-      h1,
-      h2 {
-        color: #000000;
-        margin-top: 5rem;
-      }
-
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-top: 20px;
-        box-shadow: 0 8px 6px rgb(0, 0, 0);
-      }
-
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-      }
-
-      th {
-        background-color: #f2f2f2;
-      }
-
-      .work {
-        background-color: #4caf50;
-        color: white;
-      }
-
-      .off {
-        background-color: #f44336;
-        color: white;
-      }
-
-      .button {
-        margin: 5px;
-        padding: 10px 15px;
-        cursor: pointer;
-        background-color: #4a90e2;
-        color: white;
-        border: none;
-        border-radius: 4px;
-      }
-
-      .button:hover {
-        background-color: ##4a90e2;
-      }
-
-      .button-delete {
-        background-color: #4a90e2;
-      }
-
-      .button-delete:hover {
-        background-color: #4a90e2;
-      }
+        
+        .nav-active {
+            transform: translateX(0%);
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+        
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .toggle .line2 {
+            opacity: 0;
+        }
+        
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        body {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        h1,
+        h2 {
+            color: #000000;
+            margin-top: 5rem;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 8px 6px rgb(0, 0, 0);
+        }
+        
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .work {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .off {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .button {
+            margin: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        .button:hover {
+            background-color: ##4a90e2;
+        }
+        
+        .button-delete {
+            background-color: #4a90e2;
+        }
+        
+        .button-delete:hover {
+            background-color: #4a90e2;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <!--**********************************NAVBAR-->
     <!--****************************************-->
     <!--****************************************-->
     <!--****************************************-->
     <nav class="navbar">
-      <div class="logo">
-        Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="customer-orders.html">Customer orders</a></li>
-        <li><a href="order-numbers.html">Order Numbers</a></li>
-        <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
-        <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
-        <li><a href="roster-manager.html">Rosters</a></li>
-        <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
-        <li><a href="petty-cash.html">Petty Cash</a></li>
-        <li><a href="shop-orders.html">Shop Orders</a></li>
-      </ul>
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
+        <div class="logo">
+            Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="customer-orders.html">Customer orders</a></li>
+            <li><a href="order-numbers.html">Order Numbers</a></li>
+            <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+            <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+            <li><a href="roster-manager.html">Rosters</a></li>
+            <li><a href="staff-attendence.html">Staff Attendence</a></li>
+            <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
+            <li><a href="petty-cash.html">Petty Cash</a></li>
+            <li><a href="shop-orders.html">Shop Orders</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
     </nav>
 
     <!--*****************************************-->
@@ -249,110 +253,110 @@
       <option value="" disabled selected>Select a saved roster</option>
     </select>
     <div id="currentRoster">
-      <h2 id="currentMonth"></h2>
-      <table id="rosterTable">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Day</th>
-            <th>Quintin</th>
+        <h2 id="currentMonth"></h2>
+        <table id="rosterTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Quintin</th>
 
-            <th>Magnolia</th>
-            <th>Andre</th>
-            <th>Elzette</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="rosterBody"></tbody>
-      </table>
-      <button id="convertPdfBtn" class="button">Convert to PDF</button>
+                    <th>Magnolia</th>
+                    <th>Andre</th>
+                    <th>Elzette</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="rosterBody"></tbody>
+        </table>
+        <button id="convertPdfBtn" class="button">Convert to PDF</button>
     </div>
     <button id="backToTopBtn" title="Go to top">top</button>
     <script>
-      // Get the button
-      var mybutton = document.getElementById("backToTopBtn");
+        // Get the button
+        var mybutton = document.getElementById("backToTopBtn");
 
-      // When the user scrolls down 20px from the top of the document, show the button
-      window.onscroll = function () {
-        scrollFunction();
-      };
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction();
+        };
 
-      function scrollFunction() {
-        if (
-          document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20
-        ) {
-          mybutton.style.display = "block";
-        } else {
-          mybutton.style.display = "none";
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
         }
-      }
 
-      // When the user clicks on the button, scroll to the top of the document
-      mybutton.onclick = function () {
-        // Smooth scroll to top
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      };
+        // When the user clicks on the button, scroll to the top of the document
+        mybutton.onclick = function() {
+            // Smooth scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        };
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script>
-      const employees = ["Quintin", "Salomie", "Magnolia", "Andre"];
-      const days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      let currentMonth = "";
+        const employees = ["Quintin", "Salomie", "Magnolia", "Andre"];
+        const days = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+        ];
+        let currentMonth = "";
 
-      document.addEventListener("DOMContentLoaded", initializeApp);
+        document.addEventListener("DOMContentLoaded", initializeApp);
 
-      function initializeApp() {
-        document
-          .getElementById("newMonthBtn")
-          .addEventListener("click", startNewMonth);
-        document
-          .getElementById("saveBtn")
-          .addEventListener("click", saveCurrentRoster);
-        document
-          .getElementById("convertPdfBtn")
-          .addEventListener("click", convertToPdf);
-        document
-          .getElementById("savedRostersDropdown")
-          .addEventListener("change", loadSelectedRoster);
+        function initializeApp() {
+            document
+                .getElementById("newMonthBtn")
+                .addEventListener("click", startNewMonth);
+            document
+                .getElementById("saveBtn")
+                .addEventListener("click", saveCurrentRoster);
+            document
+                .getElementById("convertPdfBtn")
+                .addEventListener("click", convertToPdf);
+            document
+                .getElementById("savedRostersDropdown")
+                .addEventListener("change", loadSelectedRoster);
 
-        populateSavedRostersDropdown();
-      }
-
-      function startNewMonth() {
-        currentMonth = prompt("Enter the month and year (e.g., July 2024):");
-        if (currentMonth) {
-          document.getElementById("currentMonth").textContent = currentMonth;
-          populateRosterTable(currentMonth);
+            populateSavedRostersDropdown();
         }
-      }
 
-      function populateRosterTable(monthYear) {
-        const tbody = document.getElementById("rosterBody");
-        tbody.innerHTML = "";
+        function startNewMonth() {
+            currentMonth = prompt("Enter the month and year (e.g., July 2024):");
+            if (currentMonth) {
+                document.getElementById("currentMonth").textContent = currentMonth;
+                populateRosterTable(currentMonth);
+            }
+        }
 
-        const [monthName, year] = monthYear.split(" ");
-        const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth();
-        const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+        function populateRosterTable(monthYear) {
+            const tbody = document.getElementById("rosterBody");
+            tbody.innerHTML = "";
 
-        for (let i = 1; i <= daysInMonth; i++) {
-          const date = new Date(year, monthIndex, i);
-          const dayName = days[date.getDay()];
-          const row = document.createElement("tr");
-          row.innerHTML = `
+            const [monthName, year] = monthYear.split(" ");
+            const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth();
+            const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const date = new Date(year, monthIndex, i);
+                const dayName = days[date.getDay()];
+                const row = document.createElement("tr");
+                row.innerHTML = `
             <td>${i}</td>
             <td>${dayName}</td>
             ${employees
@@ -539,5 +543,6 @@
 
       navSlide();
     </script>
-  </body>
+</body>
+
 </html>

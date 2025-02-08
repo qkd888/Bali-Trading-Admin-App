@@ -1,375 +1,386 @@
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bali Trading Petty-cash System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-      body {
-        font-family: "Poppins", sans-serif;
-        max-width: 100%;
-        margin: 0 auto;
-      }
-      #backToTopBtn {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99;
-        border: none;
-        outline: none;
-        background-color: #000000;
-        color: white;
-        cursor: pointer;
-        padding: 20px;
-        border-radius: 100%;
-        font-size: 18px;
-        transition: background-color 0.3s;
-        transition: all 0.4s ease-in-out;
-      }
-      #backToTopBtn:hover {
-        background-color: #000000;
-      }
-      @media (max-width: 768px) {
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        body {
+            font-family: "Poppins", sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
         #backToTopBtn {
-          padding: 10px;
-          font-size: 14px;
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: #000000;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            border-radius: 100%;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            transition: all 0.4s ease-in-out;
         }
-      }
-      .navbar {
-        background-color: #000000;
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-      }
-
-      .logo {
-        color: white;
-        font-size: 1rem;
-        font-weight: bold;
-      }
-
-      .nav-links {
-        display: flex;
-        list-style: none;
-      }
-
-      .nav-links li {
-        margin-left: 1rem;
-      }
-
-      .nav-links a {
-        color: white;
-        text-decoration: none;
-        font-size: 0.8rem;
-        transition: all 0.4s ease-in-out;
-
-        &:hover {
-          transition: all 0.4s ease-in-out;
-          color: azure;
-          font-weight: bold;
+        
+        #backToTopBtn:hover {
+            background-color: #000000;
         }
-      }
-
-      .burger {
-        display: none;
-        cursor: pointer;
-        margin-right: 1.5rem;
-      }
-
-      .burger div {
-        width: 25px;
-        height: 3px;
-        background-color: white;
-        margin: 5px;
-        transition: all 0.3s ease;
-      }
-
-      @media screen and (max-width: 100080px) {
+        
+        @media (max-width: 768px) {
+            #backToTopBtn {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        .navbar {
+            background-color: #000000;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        
         .nav-links {
-          position: absolute;
-          right: -100px;
-          margin-right: 4.5rem;
-          height: 92vh;
-          top: 4vh;
-          background-color: #000000;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 50%;
-          transform: translateX(-300%);
-          opacity: 1;
-          transition: transform 0.5s ease-in;
+            display: flex;
+            list-style: none;
         }
-
+        
         .nav-links li {
-          opacity: 0;
-          margin: 1rem 0;
+            margin-left: 1rem;
         }
-
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.4s ease-in-out;
+            &:hover {
+                transition: all 0.4s ease-in-out;
+                color: azure;
+                font-weight: bold;
+            }
+        }
+        
         .burger {
-          display: block;
+            display: none;
+            cursor: pointer;
+            margin-right: 1.5rem;
         }
-      }
-
-      .nav-active {
-        transform: translateX(0%);
-      }
-
-      @keyframes navLinkFade {
-        from {
-          opacity: 0;
-          transform: translateX(50px);
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
         }
-        to {
-          opacity: 1;
-          transform: translateX(0px);
+        
+        @media screen and (max-width: 100080px) {
+            .nav-links {
+                position: absolute;
+                right: -100px;
+                margin-right: 4.5rem;
+                height: 92vh;
+                top: 4vh;
+                background-color: #000000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(-300%);
+                opacity: 1;
+                transition: transform 0.5s ease-in;
+            }
+            .nav-links li {
+                opacity: 0;
+                margin: 1rem 0;
+            }
+            .burger {
+                display: block;
+            }
         }
-      }
-
-      .toggle .line1 {
-        transform: rotate(-45deg) translate(-5px, 6px);
-      }
-
-      .toggle .line2 {
-        opacity: 0;
-      }
-
-      .toggle .line3 {
-        transform: rotate(45deg) translate(-5px, -6px);
-      }
-      h1 {
-        text-align: center;
-      }
-      #balance {
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      form,
-      .button-container {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-      }
-      input,
-      button,
-      select {
-        padding: 5px;
-        font-size: 16px;
-      }
-      input[type="number"] {
-        width: 100px;
-      }
-      button {
-        cursor: pointer;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-      .delete-btn {
-        background-color: #4a90e2;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-      }
-      .delete-all-btn {
-        background-color: #4a90e2;
-        color: white;
-        border: none;
-        padding: 10px;
-        width: 100%;
-        cursor: pointer;
-      }
-
-      .transaction-form {
-        box-shadow: 0 8px 6px rgb(0, 0, 0);
-      }
-      button {
-        background: #4a90e2;
-      }
+        
+        .nav-active {
+            transform: translateX(0%);
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+        
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .toggle .line2 {
+            opacity: 0;
+        }
+        
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        #balance {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        form,
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        input,
+        button,
+        select {
+            padding: 5px;
+            font-size: 16px;
+        }
+        
+        input[type="number"] {
+            width: 100px;
+        }
+        
+        button {
+            cursor: pointer;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .delete-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        .delete-all-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .transaction-form {
+            box-shadow: 0 8px 6px rgb(0, 0, 0);
+        }
+        
+        button {
+            background: #4a90e2;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <!--**********************************NAVBAR-->
     <!--****************************************-->
     <!--****************************************-->
     <!--****************************************-->
     <nav class="navbar">
-      <div class="logo">
-        Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="customer-orders.html">Customer orders</a></li>
-        <li><a href="order-numbers.html">Order Numbers</a></li>
-        <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
-        <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
-        <li><a href="roster-manager.html">Rosters</a></li>
-        <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
-        <li><a href="petty-cash.html">Petty Cash</a></li>
-        <li><a href="shop-orders.html">Shop Orders</a></li>
-      </ul>
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
+        <div class="logo">
+            Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="customer-orders.html">Customer orders</a></li>
+            <li><a href="order-numbers.html">Order Numbers</a></li>
+            <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+            <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+            <li><a href="roster-manager.html">Rosters</a></li>
+            <li><a href="staff-attendence.html">Staff Attendence</a></li>
+            <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
+            <li><a href="petty-cash.html">Petty Cash</a></li>
+            <li><a href="shop-orders.html">Shop Orders</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
     </nav>
 
     <h1>Bali Trading Petty Cash System</h1>
     <div id="balance">Current Balance: R0.00</div>
     <form id="transaction-form">
-      <input type="text" id="description" placeholder="Description" required />
-      <input
-        type="number"
-        id="amount"
-        placeholder="Amount"
-        step="0.01"
-        required
-      />
-      <select id="type">
+        <input type="text" id="description" placeholder="Description" required />
+        <input type="number" id="amount" placeholder="Amount" step="0.01" required />
+        <select id="type">
         <option value="expense">Expense</option>
         <option value="income">Income</option>
       </select>
-      <input type="date" id="date" required />
-      <button type="submit">Add Transaction</button>
+        <input type="date" id="date" required />
+        <button type="submit">Add Transaction</button>
     </form>
     <div class="button-container">
-      <button id="save-data">Save Data</button>
-      <button id="convert-pdf">Convert to PDF</button>
+        <button id="save-data">Save Data</button>
+        <button id="convert-pdf">Convert to PDF</button>
     </div>
     <button id="delete-all-data" class="delete-all-btn">Delete All Data</button>
     <table id="transactions">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
     </table>
     <button id="backToTopBtn" title="Go to top">↑</button>
     <script>
-      // Get the button
-      var mybutton = document.getElementById("backToTopBtn");
+        // Get the button
+        var mybutton = document.getElementById("backToTopBtn");
 
-      // When the user scrolls down 20px from the top of the document, show the button
-      window.onscroll = function () {
-        scrollFunction();
-      };
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction();
+        };
 
-      function scrollFunction() {
-        if (
-          document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20
-        ) {
-          mybutton.style.display = "block";
-        } else {
-          mybutton.style.display = "none";
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
         }
-      }
 
-      // When the user clicks on the button, scroll to the top of the document
-      mybutton.onclick = function () {
-        // Smooth scroll to top
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      };
+        // When the user clicks on the button, scroll to the top of the document
+        mybutton.onclick = function() {
+            // Smooth scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        };
     </script>
 
     <script>
-      const navSlide = () => {
-        const burger = document.querySelector(".burger");
-        const nav = document.querySelector(".nav-links");
-        const navLinks = document.querySelectorAll(".nav-links li");
+        const navSlide = () => {
+            const burger = document.querySelector(".burger");
+            const nav = document.querySelector(".nav-links");
+            const navLinks = document.querySelectorAll(".nav-links li");
 
-        burger.addEventListener("click", () => {
-          // Toggle Nav
-          nav.classList.toggle("nav-active");
+            burger.addEventListener("click", () => {
+                // Toggle Nav
+                nav.classList.toggle("nav-active");
 
-          // Animate Links
-          navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-              link.style.animation = "";
-            } else {
-              link.style.animation = `navLinkFade 0.5s ease forwards ${
+                // Animate Links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = "";
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${
                 index / 7 + 0.3
               }s`;
-            }
-          });
+                    }
+                });
 
-          // Burger Animation
-          burger.classList.toggle("toggle");
-        });
-      };
+                // Burger Animation
+                burger.classList.toggle("toggle");
+            });
+        };
 
-      navSlide();
+        navSlide();
     </script>
 
     <script>
-      let balance = 0;
-      let transactions = [];
-      let nextId = 1;
+        let balance = 0;
+        let transactions = [];
+        let nextId = 1;
 
-      function updateBalance() {
-        document.getElementById(
-          "balance"
-        ).textContent = `Current Balance: R${balance.toFixed(2)}`;
-      }
-
-      function addTransaction(description, amount, type, date) {
-        const transaction = {
-          id: nextId++,
-          description,
-          amount: parseFloat(amount),
-          type,
-          date,
-        };
-        transactions.push(transaction);
-
-        if (type === "expense") {
-          balance -= transaction.amount;
-        } else {
-          balance += transaction.amount;
+        function updateBalance() {
+            document.getElementById(
+                "balance"
+            ).textContent = `Current Balance: R${balance.toFixed(2)}`;
         }
 
-        updateBalance();
-        updateTransactionTable();
-        saveData();
-      }
+        function addTransaction(description, amount, type, date) {
+            const transaction = {
+                id: nextId++,
+                description,
+                amount: parseFloat(amount),
+                type,
+                date,
+            };
+            transactions.push(transaction);
 
-      function updateTransactionTable() {
-        const tbody = document.querySelector("#transactions tbody");
-        tbody.innerHTML = "";
-        for (const transaction of transactions) {
-          const row = document.createElement("tr");
-          row.innerHTML = `
+            if (type === "expense") {
+                balance -= transaction.amount;
+            } else {
+                balance += transaction.amount;
+            }
+
+            updateBalance();
+            updateTransactionTable();
+            saveData();
+        }
+
+        function updateTransactionTable() {
+            const tbody = document.querySelector("#transactions tbody");
+            tbody.innerHTML = "";
+            for (const transaction of transactions) {
+                const row = document.createElement("tr");
+                row.innerHTML = `
                     <td>${transaction.description}</td>
                     <td>R${transaction.amount.toFixed(2)}</td>
                     <td>${transaction.type}</td>
@@ -378,129 +389,132 @@
                       transaction.id
                     }">Delete</button></td>
                 `;
-          tbody.appendChild(row);
+                tbody.appendChild(row);
+            }
+            addDeleteListeners();
         }
-        addDeleteListeners();
-      }
 
-      function addDeleteListeners() {
-        document.querySelectorAll(".delete-btn").forEach((button) => {
-          button.addEventListener("click", function () {
-            const id = parseInt(this.getAttribute("data-id"));
-            deleteTransaction(id);
-          });
-        });
-      }
-
-      function deleteTransaction(id) {
-        const index = transactions.findIndex((t) => t.id === id);
-        if (index !== -1) {
-          const transaction = transactions[index];
-          if (transaction.type === "expense") {
-            balance += transaction.amount;
-          } else {
-            balance -= transaction.amount;
-          }
-          transactions.splice(index, 1); // Remove the transaction from the array
-          updateBalance();
-          updateTransactionTable();
-          saveData();
+        function addDeleteListeners() {
+            document.querySelectorAll(".delete-btn").forEach((button) => {
+                button.addEventListener("click", function() {
+                    const id = parseInt(this.getAttribute("data-id"));
+                    deleteTransaction(id);
+                });
+            });
         }
-      }
 
-      function deleteAllData() {
-        balance = 0;
-        transactions = [];
-        nextId = 1;
-        updateBalance();
-        updateTransactionTable();
-        saveData();
-      }
-
-      function saveData() {
-        localStorage.setItem(
-          "pettyCashData",
-          JSON.stringify({
-            balance,
-            transactions,
-            nextId,
-          })
-        );
-        alert("Data saved successfully.");
-      }
-
-      function loadData() {
-        const data = JSON.parse(localStorage.getItem("pettyCashData"));
-        if (data) {
-          balance = data.balance;
-          transactions = data.transactions;
-          nextId = data.nextId || 1;
-          updateBalance();
-          updateTransactionTable();
+        function deleteTransaction(id) {
+            const index = transactions.findIndex((t) => t.id === id);
+            if (index !== -1) {
+                const transaction = transactions[index];
+                if (transaction.type === "expense") {
+                    balance += transaction.amount;
+                } else {
+                    balance -= transaction.amount;
+                }
+                transactions.splice(index, 1); // Remove the transaction from the array
+                updateBalance();
+                updateTransactionTable();
+                saveData();
+            }
         }
-      }
 
-      function convertToPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        function deleteAllData() {
+            balance = 0;
+            transactions = [];
+            nextId = 1;
+            updateBalance();
+            updateTransactionTable();
+            saveData();
+        }
 
-        doc.text("York Petty Cash System Report", 14, 15);
-        doc.text(`Current Balance: R${balance.toFixed(2)}`, 14, 25);
+        function saveData() {
+            localStorage.setItem(
+                "pettyCashData",
+                JSON.stringify({
+                    balance,
+                    transactions,
+                    nextId,
+                })
+            );
+            alert("Data saved successfully.");
+        }
 
-        let yPos = 40;
-        doc.text("Transactions:", 14, yPos);
-        yPos += 10;
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem("pettyCashData"));
+            if (data) {
+                balance = data.balance;
+                transactions = data.transactions;
+                nextId = data.nextId || 1;
+                updateBalance();
+                updateTransactionTable();
+            }
+        }
 
-        transactions.forEach((transaction, index) => {
-          if (yPos > 280) {
-            doc.addPage();
-            yPos = 20;
-          }
-          doc.text(
-            `${index + 1}. ${
+        function convertToPDF() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text("York Petty Cash System Report", 14, 15);
+            doc.text(`Current Balance: R${balance.toFixed(2)}`, 14, 25);
+
+            let yPos = 40;
+            doc.text("Transactions:", 14, yPos);
+            yPos += 10;
+
+            transactions.forEach((transaction, index) => {
+                if (yPos > 280) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                doc.text(
+                    `${index + 1}. ${
               transaction.description
             } - R${transaction.amount.toFixed(2)} (${transaction.type}) - ${
               transaction.date
             }`,
-            14,
-            yPos
-          );
-          yPos += 10;
-        });
+                    14,
+                    yPos
+                );
+                yPos += 10;
+            });
 
-        doc.save("york-petty-cash-report.pdf");
-        alert("PDF generated and downloaded successfully.");
-      }
+            doc.save("york-petty-cash-report.pdf");
+            alert("PDF generated and downloaded successfully.");
+        }
 
-      document
-        .getElementById("transaction-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const description = document.getElementById("description").value;
-          const amount = document.getElementById("amount").value;
-          const type = document.getElementById("type").value;
-          const date = document.getElementById("date").value;
-          addTransaction(description, amount, type, date);
-          this.reset();
-          alert("Transaction added successfully.");
-        });
+        document
+            .getElementById("transaction-form")
+            .addEventListener("submit", function(e) {
+                e.preventDefault();
+                const description = document.getElementById("description").value;
+                const amount = document.getElementById("amount").value;
+                const type = document.getElementById("type").value;
+                const date = document.getElementById("date").value;
+                addTransaction(description, amount, type, date);
+                this.reset();
+                alert("Transaction added successfully.");
+            });
 
-      document.getElementById("save-data").addEventListener("click", saveData);
-      document
-        .getElementById("convert-pdf")
-        .addEventListener("click", convertToPDF);
+        document.getElementById("save-data").addEventListener("click", saveData);
+        document
+            .getElementById("convert-pdf")
+            .addEventListener("click", convertToPDF);
 
-      document
-        .getElementById("delete-all-data")
-        .addEventListener("click", function () {
-          if (confirm("Are you sure you want to delete all data?")) {
-            deleteAllData();
-            alert("All data deleted successfully.");
-          }
-        });
+        document
+            .getElementById("delete-all-data")
+            .addEventListener("click", function() {
+                if (confirm("Are you sure you want to delete all data?")) {
+                    deleteAllData();
+                    alert("All data deleted successfully.");
+                }
+            });
 
-      // Load data when the page loads
-      loadData();
+        // Load data when the page loads
+        loadData();
     </script>
-  </body>
+</body>
+
 </html>

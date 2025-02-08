@@ -1,629 +1,637 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bali Trading Weekly Takings App</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Poppins", sans-serif;
-      }
-
-      .navbar {
-        background-color: #000000;
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-      }
-
-      .logo {
-        color: white;
-        font-size: 1rem;
-        font-weight: bold;
-      }
-
-      .nav-links {
-        display: flex;
-        list-style: none;
-      }
-
-      .nav-links li {
-        margin-left: 1rem;
-      }
-
-      .nav-links a {
-        color: white;
-        text-decoration: none;
-        font-size: 0.8rem;
-        transition: all 0.4s ease-in-out;
-
-        &:hover {
-          transition: all 0.4s ease-in-out;
-          color: azure;
-          font-weight: bold;
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
-
-      .burger {
-        display: none;
-        cursor: pointer;
-      }
-
-      .burger div {
-        width: 25px;
-        height: 3px;
-        background-color: white;
-        margin: 5px;
-        transition: all 0.3s ease;
-      }
-
-      @media screen and (max-width: 100080px) {
+        
+        body {
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .navbar {
+            background-color: #000000;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        
         .nav-links {
-          position: absolute;
-          right: -100px;
-          margin-right: 4.5rem;
-          height: 92vh;
-          top: 5vh;
-          background-color: #000000;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 50%;
-          transform: translateX(-300%);
-          opacity: 1;
-          transition: transform 0.5s ease-in;
+            display: flex;
+            list-style: none;
         }
-
+        
         .nav-links li {
-          opacity: 0;
-          margin: 1rem 0;
+            margin-left: 1rem;
         }
-
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.4s ease-in-out;
+            &:hover {
+                transition: all 0.4s ease-in-out;
+                color: azure;
+                font-weight: bold;
+            }
+        }
+        
         .burger {
-          display: block;
+            display: none;
+            cursor: pointer;
         }
-      }
-
-      .nav-active {
-        transform: translateX(0%);
-      }
-
-      @keyframes navLinkFade {
-        from {
-          opacity: 0;
-          transform: translateX(50px);
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
         }
-        to {
-          opacity: 1;
-          transform: translateX(0px);
+        
+        @media screen and (max-width: 100080px) {
+            .nav-links {
+                position: absolute;
+                right: -100px;
+                margin-right: 4.5rem;
+                height: 92vh;
+                top: 5vh;
+                background-color: #000000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(-300%);
+                opacity: 1;
+                transition: transform 0.5s ease-in;
+            }
+            .nav-links li {
+                opacity: 0;
+                margin: 1rem 0;
+            }
+            .burger {
+                display: block;
+            }
         }
-      }
-
-      .toggle .line1 {
-        transform: rotate(-45deg) translate(-5px, 6px);
-      }
-
-      .toggle .line2 {
-        opacity: 0;
-      }
-
-      .toggle .line3 {
-        transform: rotate(45deg) translate(-5px, -6px);
-      }
+        
+        .nav-active {
+            transform: translateX(0%);
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+        
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .toggle .line2 {
+            opacity: 0;
+        }
+        
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
     </style>
     <style>
-      :root {
-        --primary-color: #4a90e2;
-        --secondary-color: #f5f5f5;
-        --text-color: #333;
-        --border-color: #ddd;
-        --success-color: #4caf50;
-        --warning-color: #ff9800;
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        line-height: 1.6;
-      }
-      #backToTopBtn {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99;
-        border: none;
-        outline: none;
-        background-color: #00000079;
-        color: white;
-        cursor: pointer;
-        padding: 20px;
-        border-radius: 100%;
-        font-size: 18px;
-        transition: background-color 0.3s;
-        transition: all 0.4s ease-in-out;
-      }
-      #backToTopBtn:hover {
-        background-color: #000000;
-      }
-      @media (max-width: 768px) {
-        #backToTopBtn {
-          padding: 10px;
-          font-size: 14px;
+         :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f5f5;
+            --text-color: #333;
+            --border-color: #ddd;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
         }
-      }
-
-      .container {
-        max-width: 1000px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 8px 6px rgb(0, 0, 0);
-      }
-
-      h1 {
-        margin-top: 4rem;
-        text-align: center;
-        color: #000000;
-        margin-bottom: 20px;
-      }
-
-      .date-selector,
-      .questions {
-        margin-bottom: 20px;
-      }
-
-      .date-selector label,
-      .questions label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-
-      .date-selector input,
-      input[type="text"],
-      input[type="number"],
-      textarea {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        font-size: 16px;
-      }
-
-      textarea {
-        resize: vertical;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
-
-      th,
-      td {
-        border: 1px solid var(--border-color);
-        padding: 12px;
-        text-align: left;
-      }
-
-      th {
-        background-color: var(--primary-color);
-        color: white;
-        font-weight: bold;
-      }
-
-      .footer {
-        font-weight: bold;
-        background-color: var(--secondary-color);
-      }
-
-      .buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-      }
-
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 4px;
-        transition: background-color 0.3s, transform 0.1s;
-      }
-
-      button:hover {
-        background-color: #3a7bc8;
-        transform: translateY(-2px);
-      }
-
-      button:active {
-        transform: translateY(0);
-      }
-
-      .alert {
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        display: none;
-      }
-
-      .alert-success {
-        background-color: var(--success-color);
-        color: white;
-      }
-
-      .alert-warning {
-        background-color: var(--warning-color);
-        color: white;
-      }
-
-      @media print {
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-          background-color: white;
-          margin: 0;
-          padding: 0;
+            font-family: "Arial", sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
-
+        
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: #00000079;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            border-radius: 100%;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        #backToTopBtn:hover {
+            background-color: #000000;
+        }
+        
+        @media (max-width: 768px) {
+            #backToTopBtn {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
         .container {
-          box-shadow: none;
-          margin: 0;
-          padding: 0;
-          width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 8px 6px rgb(0, 0, 0);
         }
-
-        .buttons,
+        
+        h1 {
+            margin-top: 4rem;
+            text-align: center;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+        
+        .date-selector,
+        .questions {
+            margin-bottom: 20px;
+        }
+        
+        .date-selector label,
+        .questions label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .date-selector input,
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th,
+        td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .footer {
+            font-weight: bold;
+            background-color: var(--secondary-color);
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        
+        button:hover {
+            background-color: #3a7bc8;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
         .alert {
-          display: none;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            display: none;
         }
-      }
+        
+        .alert-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .alert-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+            .buttons,
+            .alert {
+                display: none;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <!--**********************************NAVBAR-->
     <!--****************************************-->
     <!--****************************************-->
     <!--****************************************-->
     <nav class="navbar">
-      <div class="logo">
-        Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="customer-orders.html">Customer orders</a></li>
-        <li><a href="order-numbers.html">Order Numbers</a></li>
-        <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
-        <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
-        <li><a href="roster-manager.html">Rosters</a></li>
-        <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
-        <li><a href="petty-cash.html">Petty Cash</a></li>
-        <li><a href="shop-orders.html">Shop Orders</a></li>
-      </ul>
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
+        <div class="logo">
+            Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="customer-orders.html">Customer orders</a></li>
+            <li><a href="order-numbers.html">Order Numbers</a></li>
+            <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+            <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+            <li><a href="roster-manager.html">Rosters</a></li>
+            <li><a href="staff-attendence.html">Staff Attendence</a></li>
+            <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
+            <li><a href="petty-cash.html">Petty Cash</a></li>
+            <li><a href="shop-orders.html">Shop Orders</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
     </nav>
 
     <!--***************************************-->
     <div id="app" class="container">
-      <h1>Bali Trading Weekly Takings App</h1>
+        <h1>Bali Trading Weekly Takings App</h1>
 
-      <div class="alert" id="alert"></div>
+        <div class="alert" id="alert"></div>
 
-      <div class="date-selector">
-        <label for="weekStart">Week Starting:</label>
-        <input type="date" id="weekStart" onchange="updateDates()" />
-      </div>
+        <div class="date-selector">
+            <label for="weekStart">Week Starting:</label>
+            <input type="date" id="weekStart" onchange="updateDates()" />
+        </div>
 
-      <div class="questions">
-        <label for="question1">Was the Mall/Area busy?</label>
-        <input type="text" id="question1" name="question1" />
+        <div class="questions">
+            <label for="question1">Was the Mall/Area busy?</label>
+            <input type="text" id="question1" name="question1" />
 
-        <label for="question2">What were the best sellers for the week?</label>
-        <input type="text" id="question2" name="question2" />
+            <label for="question2">What were the best sellers for the week?</label>
+            <input type="text" id="question2" name="question2" />
 
-        <label for="question3">Client Requests:</label>
-        <textarea id="question3" name="question3" rows="3"></textarea>
-      </div>
+            <label for="question3">Client Requests:</label>
+            <textarea id="question3" name="question3" rows="3"></textarea>
+        </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Day of the Week</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-        <tfoot>
-          <tr class="footer">
-            <td colspan="2" data-label="Total">Grand Total</td>
-            <td data-label="Amount" id="grandTotal">0.00</td>
-          </tr>
-        </tfoot>
-      </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Day of the Week</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+            <tfoot>
+                <tr class="footer">
+                    <td colspan="2" data-label="Total">Grand Total</td>
+                    <td data-label="Amount" id="grandTotal">0.00</td>
+                </tr>
+            </tfoot>
+        </table>
 
-      <div class="buttons">
-        <button onclick="saveData()">Save</button>
-        <button onclick="clearData()">Clear</button>
+        <div class="buttons">
+            <button onclick="saveData()">Save</button>
+            <button onclick="clearData()">Clear</button>
 
-        <button onclick="convertToPDF()">Convert to PDF</button>
-      </div>
+            <button onclick="convertToPDF()">Convert to PDF</button>
+        </div>
     </div>
     <button id="backToTopBtn" title="Go to top">top</button>
     <script>
-      // Get the button
-      var mybutton = document.getElementById("backToTopBtn");
+        // Get the button
+        var mybutton = document.getElementById("backToTopBtn");
 
-      // When the user scrolls down 20px from the top of the document, show the button
-      window.onscroll = function () {
-        scrollFunction();
-      };
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction();
+        };
 
-      function scrollFunction() {
-        if (
-          document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20
-        ) {
-          mybutton.style.display = "block";
-        } else {
-          mybutton.style.display = "none";
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
         }
-      }
 
-      // When the user clicks on the button, scroll to the top of the document
-      mybutton.onclick = function () {
-        // Smooth scroll to top
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      };
+        // When the user clicks on the button, scroll to the top of the document
+        mybutton.onclick = function() {
+            // Smooth scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        };
     </script>
 
     <script>
-      const navSlide = () => {
-        const burger = document.querySelector(".burger");
-        const nav = document.querySelector(".nav-links");
-        const navLinks = document.querySelectorAll(".nav-links li");
+        const navSlide = () => {
+            const burger = document.querySelector(".burger");
+            const nav = document.querySelector(".nav-links");
+            const navLinks = document.querySelectorAll(".nav-links li");
 
-        burger.addEventListener("click", () => {
-          // Toggle Nav
-          nav.classList.toggle("nav-active");
+            burger.addEventListener("click", () => {
+                // Toggle Nav
+                nav.classList.toggle("nav-active");
 
-          // Animate Links
-          navLinks.forEach((link, index) => {
-            if (link.style.animation) {
-              link.style.animation = "";
-            } else {
-              link.style.animation = `navLinkFade 0.5s ease forwards ${
+                // Animate Links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = "";
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${
                 index / 7 + 0.3
               }s`;
-            }
-          });
+                    }
+                });
 
-          // Burger Animation
-          burger.classList.toggle("toggle");
-        });
-      };
+                // Burger Animation
+                burger.classList.toggle("toggle");
+            });
+        };
 
-      navSlide();
+        navSlide();
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", initializeTable);
+        document.addEventListener("DOMContentLoaded", initializeTable);
 
-      const days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
-      const tableBody = document.getElementById("tableBody");
-      const grandTotalElement = document.getElementById("grandTotal");
-      const weekStartInput = document.getElementById("weekStart");
-      const alertElement = document.getElementById("alert");
+        const days = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+        ];
+        const tableBody = document.getElementById("tableBody");
+        const grandTotalElement = document.getElementById("grandTotal");
+        const weekStartInput = document.getElementById("weekStart");
+        const alertElement = document.getElementById("alert");
 
-      function initializeTable() {
-        setWeekStartToMonday();
-        updateDates();
-        loadSavedData();
-      }
-
-      function setWeekStartToMonday() {
-        const today = new Date();
-        const monday = new Date(
-          today.setDate(today.getDate() - today.getDay() + 1)
-        );
-        weekStartInput.value = monday.toISOString().split("T")[0];
-      }
-
-      function updateDates() {
-        tableBody.innerHTML = "";
-        const weekStart = new Date(weekStartInput.value);
-
-        for (let i = 0; i < 7; i++) {
-          const currentDate = new Date(weekStart);
-          currentDate.setDate(weekStart.getDate() + i);
-
-          const row = tableBody.insertRow();
-          createCell(row, 0, currentDate.toLocaleDateString(), "Date");
-          createCell(row, 1, days[currentDate.getDay()], "Day");
-
-          const amountCell = row.insertCell(2);
-          const input = document.createElement("input");
-          input.type = "number";
-          input.min = "0";
-          input.step = "0.01";
-          input.value = "0";
-          input.addEventListener("input", updateGrandTotal);
-          amountCell.appendChild(input);
-          amountCell.setAttribute("data-label", "Amount");
+        function initializeTable() {
+            setWeekStartToMonday();
+            updateDates();
+            loadSavedData();
         }
-        updateGrandTotal();
-      }
 
-      function createCell(row, index, text, label) {
-        const cell = row.insertCell(index);
-        cell.textContent = text;
-        cell.setAttribute("data-label", label);
-      }
-
-      function updateGrandTotal() {
-        const total = Array.from(tableBody.querySelectorAll("input")).reduce(
-          (sum, input) => sum + parseFloat(input.value || "0"),
-          0
-        );
-        grandTotalElement.textContent = total.toFixed(2);
-      }
-
-      function clearData() {
-        document
-          .querySelectorAll("input:not(#weekStart), textarea")
-          .forEach((input) => {
-            input.type === "number" ? (input.value = "0") : (input.value = "");
-          });
-        updateGrandTotal();
-        showAlert("Data cleared successfully", "success");
-      }
-
-      function saveData() {
-        const data = {
-          weekStart: weekStartInput.value,
-          question1: document.getElementById("question1").value,
-          question2: document.getElementById("question2").value,
-          question3: document.getElementById("question3").value,
-          amounts: Array.from(tableBody.querySelectorAll("input")).map(
-            (input) => input.value
-          ),
-        };
-        localStorage.setItem("weeklyAmountsData", JSON.stringify(data));
-        showAlert("Data saved successfully", "success");
-      }
-
-      function loadSavedData() {
-        const savedData = JSON.parse(localStorage.getItem("weeklyAmountsData"));
-        if (savedData) {
-          weekStartInput.value = savedData.weekStart;
-          document.getElementById("question1").value = savedData.question1;
-          document.getElementById("question2").value = savedData.question2;
-          document.getElementById("question3").value = savedData.question3;
-          updateDates();
-          const inputs = tableBody.querySelectorAll("input");
-          savedData.amounts.forEach(
-            (amount, index) => (inputs[index].value = amount)
-          );
-          updateGrandTotal();
-          showAlert("Saved data loaded", "success");
+        function setWeekStartToMonday() {
+            const today = new Date();
+            const monday = new Date(
+                today.setDate(today.getDate() - today.getDay() + 1)
+            );
+            weekStartInput.value = monday.toISOString().split("T")[0];
         }
-      }
 
-      function convertToPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        function updateDates() {
+            tableBody.innerHTML = "";
+            const weekStart = new Date(weekStartInput.value);
 
-        // Add title
-        doc.setFontSize(20);
-        doc.text("Weekly Amounts", 105, 15, null, null, "center");
+            for (let i = 0; i < 7; i++) {
+                const currentDate = new Date(weekStart);
+                currentDate.setDate(weekStart.getDate() + i);
 
-        // Add week start date
-        doc.setFontSize(12);
-        doc.text(`Week Starting: ${weekStartInput.value}`, 20, 25);
+                const row = tableBody.insertRow();
+                createCell(row, 0, currentDate.toLocaleDateString(), "Date");
+                createCell(row, 1, days[currentDate.getDay()], "Day");
 
-        // Add questions and answers
-        doc.text("Questions:", 20, 35);
-        doc.setFontSize(10);
-        doc.text(
-          `1. Was the Mall/Area busy? ${
+                const amountCell = row.insertCell(2);
+                const input = document.createElement("input");
+                input.type = "number";
+                input.min = "0";
+                input.step = "0.01";
+                input.value = "0";
+                input.addEventListener("input", updateGrandTotal);
+                amountCell.appendChild(input);
+                amountCell.setAttribute("data-label", "Amount");
+            }
+            updateGrandTotal();
+        }
+
+        function createCell(row, index, text, label) {
+            const cell = row.insertCell(index);
+            cell.textContent = text;
+            cell.setAttribute("data-label", label);
+        }
+
+        function updateGrandTotal() {
+            const total = Array.from(tableBody.querySelectorAll("input")).reduce(
+                (sum, input) => sum + parseFloat(input.value || "0"),
+                0
+            );
+            grandTotalElement.textContent = total.toFixed(2);
+        }
+
+        function clearData() {
+            document
+                .querySelectorAll("input:not(#weekStart), textarea")
+                .forEach((input) => {
+                    input.type === "number" ? (input.value = "0") : (input.value = "");
+                });
+            updateGrandTotal();
+            showAlert("Data cleared successfully", "success");
+        }
+
+        function saveData() {
+            const data = {
+                weekStart: weekStartInput.value,
+                question1: document.getElementById("question1").value,
+                question2: document.getElementById("question2").value,
+                question3: document.getElementById("question3").value,
+                amounts: Array.from(tableBody.querySelectorAll("input")).map(
+                    (input) => input.value
+                ),
+            };
+            localStorage.setItem("weeklyAmountsData", JSON.stringify(data));
+            showAlert("Data saved successfully", "success");
+        }
+
+        function loadSavedData() {
+            const savedData = JSON.parse(localStorage.getItem("weeklyAmountsData"));
+            if (savedData) {
+                weekStartInput.value = savedData.weekStart;
+                document.getElementById("question1").value = savedData.question1;
+                document.getElementById("question2").value = savedData.question2;
+                document.getElementById("question3").value = savedData.question3;
+                updateDates();
+                const inputs = tableBody.querySelectorAll("input");
+                savedData.amounts.forEach(
+                    (amount, index) => (inputs[index].value = amount)
+                );
+                updateGrandTotal();
+                showAlert("Saved data loaded", "success");
+            }
+        }
+
+        function convertToPDF() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add title
+            doc.setFontSize(20);
+            doc.text("Weekly Amounts", 105, 15, null, null, "center");
+
+            // Add week start date
+            doc.setFontSize(12);
+            doc.text(`Week Starting: ${weekStartInput.value}`, 20, 25);
+
+            // Add questions and answers
+            doc.text("Questions:", 20, 35);
+            doc.setFontSize(10);
+            doc.text(
+                `1. Was the Mall/Area busy? ${
             document.getElementById("question1").value
           }`,
-          25,
-          45
-        );
-        doc.text(
-          `2. What were the best sellers for the week? ${
+                25,
+                45
+            );
+            doc.text(
+                `2. What were the best sellers for the week? ${
             document.getElementById("question2").value
           }`,
-          25,
-          55
-        );
-        doc.text(
-          `3. Client Requests: ${document.getElementById("question3").value}`,
-          25,
-          65
-        );
+                25,
+                55
+            );
+            doc.text(
+                `3. Client Requests: ${document.getElementById("question3").value}`,
+                25,
+                65
+            );
 
-        // Add table
-        const tableData = Array.from(tableBody.rows).map((row) => [
-          row.cells[0].textContent,
-          row.cells[1].textContent,
-          row.cells[2].querySelector("input").value,
-        ]);
+            // Add table
+            const tableData = Array.from(tableBody.rows).map((row) => [
+                row.cells[0].textContent,
+                row.cells[1].textContent,
+                row.cells[2].querySelector("input").value,
+            ]);
 
-        doc.autoTable({
-          head: [["Date", "Day of the Week", "Amount"]],
-          body: tableData,
-          foot: [["Grand Total", "", grandTotalElement.textContent]],
-          startY: 75,
-        });
+            doc.autoTable({
+                head: [
+                    ["Date", "Day of the Week", "Amount"]
+                ],
+                body: tableData,
+                foot: [
+                    ["Grand Total", "", grandTotalElement.textContent]
+                ],
+                startY: 75,
+            });
 
-        // Add page numbers
-        const pageCount = doc.internal.getNumberOfPages();
-        for (let i = 1; i <= pageCount; i++) {
-          doc.setPage(i);
-          doc.setFontSize(10);
-          doc.text(
-            `Page ${i} of ${pageCount}`,
-            doc.internal.pageSize.width - 30,
-            doc.internal.pageSize.height - 10
-          );
+            // Add page numbers
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(10);
+                doc.text(
+                    `Page ${i} of ${pageCount}`,
+                    doc.internal.pageSize.width - 30,
+                    doc.internal.pageSize.height - 10
+                );
+            }
+
+            // Save the PDF
+            doc.save("weekly_amounts.pdf");
         }
 
-        // Save the PDF
-        doc.save("weekly_amounts.pdf");
-      }
-
-      function showAlert(message, type) {
-        alertElement.textContent = message;
-        alertElement.className = `alert alert-${type}`;
-        alertElement.style.display = "block";
-        setTimeout(() => {
-          alertElement.style.display = "none";
-        }, 3000);
-      }
+        function showAlert(message, type) {
+            alertElement.textContent = message;
+            alertElement.className = `alert alert-${type}`;
+            alertElement.style.display = "block";
+            setTimeout(() => {
+                alertElement.style.display = "none";
+            }, 3000);
+        }
     </script>
-  </body>
+</body>
+
 </html>
