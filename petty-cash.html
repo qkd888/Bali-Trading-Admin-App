@@ -6,7 +6,7 @@
     <title>Bali Trading Petty-cash System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
         body {
             font-family: "Poppins", sans-serif;
             max-width: 100%;
@@ -63,24 +63,19 @@
         }
         
         .nav-links {
-<<<<<<< HEAD
+            position: absolute;
+            right: -100px;
+            margin-right: 4.5rem;
+            height: 92vh;
+            top: 4vh;
+            background-color: #000000;
             display: flex;
-            list-style: none;
-=======
-          position: absolute;
-          right: -100px;
-          margin-right: 4.5rem;
-          height: 92vh;
-          top: 4vh;
-          background-color: #000000;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 40%;
-          transform: translateX(-300%);
-          opacity: 1;
-          transition: transform 0.5s ease-in;
->>>>>>> af1c300c2b1d9199f838545ddf321512d0b12c26
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+            transform: translateX(-300%);
+            opacity: 1;
+            transition: transform 0.5s ease-in;
         }
         
         .nav-links li {
@@ -100,242 +95,95 @@
         }
         
         .burger {
-<<<<<<< HEAD
-            display: none;
-            cursor: pointer;
-            margin-right: 1.5rem;
+            display: block;
         }
-        
-        .burger div {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        @media screen and (max-width: 100080px) {
-            .nav-links {
-                position: absolute;
-                right: -100px;
-                margin-right: 4.5rem;
-                height: 92vh;
-                top: 4vh;
-                background-color: #000000;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 50%;
-                transform: translateX(-300%);
-                opacity: 1;
-                transition: transform 0.5s ease-in;
-            }
-            .nav-links li {
-                opacity: 0;
-                margin: 1rem 0;
-            }
-            .burger {
-                display: block;
-            }
-        }
-        
-        .nav-active {
-            transform: translateX(0%);
-        }
-        
-        @keyframes navLinkFade {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0px);
-            }
-        }
-        
-        .toggle .line1 {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-        
-        .toggle .line2 {
-            opacity: 0;
-        }
-        
-        .toggle .line3 {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-        
-        h1 {
-            text-align: center;
-        }
-        
-        #balance {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        form,
-        .button-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        input,
-        button,
-        select {
-            padding: 5px;
-            font-size: 16px;
-        }
-        
-        input[type="number"] {
-            width: 100px;
-        }
-        
-        button {
-            cursor: pointer;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-        }
-        
-        .delete-btn {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        
-        .delete-all-btn {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-        }
-        
-        .transaction-form {
-            box-shadow: 0 8px 6px rgb(0, 0, 0);
-        }
-        
-        button {
-            background: #4a90e2;
-        }
-=======
-          display: block;
-        }
-      }
-
-      .nav-active {
+    }
+    .nav-active {
         transform: translateX(0%);
-      }
-
-      @keyframes navLinkFade {
+    }
+    @keyframes navLinkFade {
         from {
-          opacity: 0;
-          transform: translateX(50px);
+            opacity: 0;
+            transform: translateX(50px);
         }
+        
         to {
-          opacity: 1;
-          transform: translateX(0px);
+            opacity: 1;
+            transform: translateX(0px);
         }
-      }
-
-      .toggle .line1 {
+    }
+    .toggle .line1 {
         transform: rotate(-45deg) translate(-5px, 6px);
-      }
-
-      .toggle .line2 {
+    }
+    .toggle .line2 {
         opacity: 0;
-      }
-
-      .toggle .line3 {
+    }
+    .toggle .line3 {
         transform: rotate(45deg) translate(-5px, -6px);
-      }
-      h1 {
+    }
+    h1 {
         text-align: center;
         margin-top: 5rem;
-      }
-      #balance {
+    }
+    #balance {
         font-size: 24px;
         font-weight: bold;
         text-align: center;
         margin-bottom: 20px;
-      }
-      form,
-      .button-container {
+    }
+    form,
+    .button-container {
         display: flex;
         gap: 10px;
         margin-bottom: 20px;
-      }
-      input,
-      button,
-      select {
+    }
+    input,
+    button,
+    select {
         padding: 5px;
         font-size: 16px;
-      }
-      input[type="number"] {
+    }
+    input[type="number"] {
         width: 100px;
-      }
-      button {
+    }
+    button {
         cursor: pointer;
-      }
-      table {
+    }
+    table {
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 20px;
-      }
-      th,
-      td {
+    }
+    th,
+    td {
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;
-      }
-      th {
+    }
+    th {
         background-color: #f2f2f2;
-      }
-      .delete-btn {
+    }
+    .delete-btn {
         background-color: #4a90e2;
         color: white;
         border: none;
         padding: 5px 10px;
         cursor: pointer;
-      }
-      .delete-all-btn {
+    }
+    .delete-all-btn {
         background-color: #4a90e2;
         color: white;
         border: none;
         padding: 10px;
         width: 100%;
         cursor: pointer;
-      }
-
-      .transaction-form {
+    }
+    .transaction-form {
         box-shadow: 0 8px 6px rgb(0, 0, 0);
-      }
-      button {
+    }
+    button {
         background: #4a90e2;
-      }
->>>>>>> af1c300c2b1d9199f838545ddf321512d0b12c26
+    }
     </style>
 </head>
 
