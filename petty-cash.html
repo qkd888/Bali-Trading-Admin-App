@@ -68,9 +68,16 @@
             box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
             /* Increased shadow on hover */
         }
+        /***********NAVBAR/MOBILE NAVBAR************/
+        /*******************************************/
+        /*******************************************/
+        /*******************************************/
+        
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        /* Navbar */
         
         .navbar {
-            background: var(--nav-bg);
+            background-color: black;
             padding: 1rem;
             display: flex;
             justify-content: space-between;
@@ -80,85 +87,103 @@
             top: 0;
             left: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow);
         }
         
         .logo {
             color: #63d3ff;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
+            text-decoration: none;
         }
         
         .nav-links {
-            position: fixed;
-            right: 0;
-            height: 100vh;
-            top: 0;
-            background: var(--nav-bg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            width: 60%;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in;
-            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.3);
             list-style: none;
-            padding: 4rem 0 0 0;
             margin: 0;
+            padding: 0;
+            display: none;
+            /* Initially hidden */
+            flex-direction: column;
+            /* Vertical menu */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease-in-out;
+            /* For smooth mobile transition */
+        }
+        
+        .nav-links.nav-active {
+            display: flex;
+            /* Shown when nav-active class is present */
+            transform: translateY(0%);
+            /* Ensure it starts at the top on mobile */
         }
         
         .nav-links li {
             margin: 0.5rem 0;
             opacity: 0;
-            width: 100%;
-            text-align: center;
+            /* Initially hidden, fade in with animation */
         }
         
         .nav-links a {
             color: #63d3ff;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 400;
-            transition: all 0.3s ease-in-out;
-            padding: 0.3rem 1rem;
-            display: block;
+            font-size: 1.2rem;
+            /* Consistent size for mobile and desktop */
+            transition: all 0.4s ease-in-out;
         }
         
         .nav-links a:hover {
             color: #63d3ff;
+            font-weight: bold;
         }
         
         .burger {
             display: block;
+            /* Always visible */
             cursor: pointer;
             z-index: 1001;
-            position: relative;
-            margin-right: 1rem;
         }
         
         .burger div {
             width: 25px;
             height: 3px;
             background-color: #63d3ff;
-            margin: 4px;
+            margin: 5px;
             transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-        
-        .nav-active {
-            transform: translateX(0%);
         }
         
         @keyframes navLinkFade {
             from {
                 opacity: 0;
-                transform: translateX(50px);
+                transform: translateY(-200px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0px);
+                transform: translateY(0);
             }
+        }
+        
+        .nav-links.nav-active li {
+            /* Apply animation to visible links */
+            animation: navLinkFade 0.3s ease-in forwards;
+        }
+        
+        .nav-links.nav-active li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .nav-links.nav-active li:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .nav-links.nav-active li:nth-child(3) {
+            animation-delay: 0.3s;
         }
         
         .toggle .line1 {
@@ -171,6 +196,10 @@
         
         .toggle .line3 {
             transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        .container {
+            padding: 10px;
         }
         
         h1 {
