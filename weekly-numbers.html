@@ -186,18 +186,21 @@
             z-index: 99;
             border: none;
             outline: none;
-            background-color: var(--accent-color);
-            color: #63d3ff85;
+            background: var(--secondary-color);
+            color: #63d3ff;
             cursor: pointer;
             padding: 20px;
-            border-radius: 100%;
+            border-radius: 50%;
             font-size: 18px;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 8px 8px 15px var(--shadow-color), -8px -8px 15px var(--inner-shadow-color);
         }
         
         #backToTopBtn:hover {
-            background-color: #63d3ff;
-            transform: translateY(-5px);
+            background: #63d3ff;
+            /* Lighter blue on hover */
+            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
+            /* Increased shadow on hover */
         }
         
         @media (max-width: 768px) {
@@ -655,7 +658,7 @@
                     if (link.style.animation) {
                         link.style.animation = "";
                     } else {
-                        link.style.animation = `navLinkFade 0.5s ease forwards ${
+                        link.style.animation = `navLinkFade 0.3s ease forwards ${
                 index / 7 + 0.3
               }s`;
                     }
@@ -671,6 +674,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", initializeTable);
 
@@ -681,11 +686,37 @@
         const grandTotalElement = document.getElementById("grandTotal");
         const weekStartInput = document.getElementById("weekStart");
         const alertElement = document.getElementById("alert");
+        const clearButton = document.getElementById("clearButton");
+        const saveButton = document.getElementById("saveButton");
+        const loadButton = document.getElementById("loadButton");
+        const pdfButton = document.getElementById("pdfButton");
+
 
         function initializeTable() {
             setWeekStartToMonday();
             updateDates();
             loadSavedData();
+
+            clearButton.addEventListener("click", () => {
+                clearData();
+                showAlert("Data will be cleared.", "info"); // Alert before clearing
+            });
+
+            saveButton.addEventListener("click", () => {
+                saveData();
+                showAlert("Data will be saved.", "info"); // Alert before saving
+            });
+
+            loadButton.addEventListener("click", () => {
+                loadSavedData();
+                showAlert("Data will be loaded.", "info"); // Alert before loading
+            });
+
+            pdfButton.addEventListener("click", () => {
+                convertToPDF();
+                showAlert("PDF will be generated.", "info"); // Alert before PDF generation
+            });
+
         }
 
         function setWeekStartToMonday() {
@@ -760,16 +791,18 @@
                 document.getElementById("question1").value = savedData.question1;
                 document.getElementById("question2").value = savedData.question2;
                 document.getElementById("question3").value = savedData.question3;
-                updateDates(); // Important: Call updateDates *before* setting input values
+                updateDates();
 
                 const inputs = tableBody.querySelectorAll("input");
                 savedData.amounts.forEach((amount, index) => {
-                    if (inputs[index]) { // Check if input exists to prevent errors
+                    if (inputs[index]) {
                         inputs[index].value = amount;
                     }
                 });
                 updateGrandTotal();
                 showAlert("Saved data loaded", "success");
+            } else {
+                showAlert("No saved data found", "info");
             }
         }
 
@@ -817,6 +850,7 @@
             }
 
             doc.save("york_weekly_amounts.pdf");
+            showAlert("PDF generated successfully", "success");
         }
 
         function showAlert(message, type) {
@@ -828,6 +862,8 @@
             }, 3000);
         }
     </script>
+
+
 </body>
 
 </html>

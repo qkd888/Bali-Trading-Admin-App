@@ -180,7 +180,7 @@
             padding: 30px;
             /* Increased padding */
             flex: 1;
-            max-width: 1000px;
+            width: 75%;
             /* Increased max-width */
             margin: 30px auto;
             /* Increased margin */
@@ -270,6 +270,7 @@
         button {
             color: rgb(0, 0, 0);
             padding: 14px 24px;
+            margin: 0.5rem;
             /* Increased padding */
             border: none;
             border-radius: 12px;
@@ -375,27 +376,26 @@
         #backToTopBtn {
             display: none;
             position: fixed;
-            bottom: 30px;
-            /* Increased margin */
-            right: 30px;
-            /* Increased margin */
+            bottom: 20px;
+            right: 20px;
             z-index: 99;
             border: none;
             outline: none;
-            background-color: var(--secondary-color);
-            color: white;
+            background: var(--secondary-color);
+            color: #63d3ff;
             cursor: pointer;
-            padding: 16px;
-            /* Increased padding */
+            padding: 20px;
             border-radius: 50%;
-            font-size: 16px;
-            transition: all 0.3s;
-            box-shadow: 4px 4px 8px #52b3d5, -4px -4px 8px #6fd1ff;
+            font-size: 18px;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 8px 8px 15px var(--shadow-color), -8px -8px 15px var(--inner-shadow-color);
         }
         
         #backToTopBtn:hover {
-            background-color: #0056b3;
-            box-shadow: 5px 5px 10px #52b3d5, -5px -5px 10px #6fd1ff;
+            background: #63d3ff;
+            /* Lighter blue on hover */
+            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
+            /* Increased shadow on hover */
         }
         /* Responsive Styles */
         

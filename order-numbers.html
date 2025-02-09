@@ -207,6 +207,7 @@
             border-radius: 5px;
             transition: all 0.3s ease;
             box-shadow: 3px 3px 6px var(--shadow-color);
+            font-weight: bold;
         }
         
         button:hover,
@@ -214,6 +215,8 @@
             opacity: 0.9;
             outline: none;
             box-shadow: 4px 4px 8px var(--shadow-color);
+            background: #63d3ff;
+            color: black;
         }
         
         .grid {
@@ -357,18 +360,21 @@
             z-index: 99;
             border: none;
             outline: none;
-            background-color: rgba(26, 30, 36, 0.5);
-            color: white;
+            background: var(--secondary-color);
+            color: #63d3ff;
             cursor: pointer;
             padding: 20px;
-            border-radius: 100%;
+            border-radius: 50%;
             font-size: 18px;
-            transition: background-color 0.3s;
             transition: all 0.4s ease-in-out;
+            box-shadow: 8px 8px 15px var(--shadow-color), -8px -8px 15px var(--inner-shadow-color);
         }
         
         #backToTopBtn:hover {
-            background-color: #1a1e24;
+            background: #63d3ff;
+            /* Lighter blue on hover */
+            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
+            /* Increased shadow on hover */
         }
         
         @media (max-width: 768px) {

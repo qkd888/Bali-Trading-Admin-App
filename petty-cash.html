@@ -199,21 +199,26 @@
         }
         
         .container {
-            padding: 10px;
+            width: 90%;
+            max-width: 800px;
+            /* Allow container to grow and fill available space */
         }
         
         h1 {
             text-align: center;
-            margin-top: 5rem;
+            margin-top: 2rem;
+            /* Reduced margin */
             color: #63d3ff;
+            font-size: 2rem;
+            /* Slightly larger heading */
         }
         
         #balance {
-            font-size: 24px;
+            font-size: 1.5rem;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 20px;
-            color: #63d3ff;
+            margin-bottom: 1rem;
+            color: #63ff6b;
         }
         
         form,
@@ -221,78 +226,167 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
+            /* Increased margin */
+        }
+        
+        label {
+            /* Style labels */
+            color: #63d3ff;
+            margin-bottom: 5px;
+            /* Add some space below labels */
         }
         
         input,
         button,
         select {
             padding: 10px;
-            font-size: 16px;
+            font-size: 1rem;
             border: none;
-            border-radius: 10px;
-            background: var(--primary-color);
+            border-radius: 5px;
+            /* Slightly less rounded */
+            background-color: #333;
             /* Darker input background */
             color: #63d3ff;
-            box-shadow: inset 4px 4px 8px var(--shadow-color), inset -4px -4px 8px var(--inner-shadow-color);
+            box-shadow: inset 2px 2px 4px var(--shadow-color), inset -2px -2px 4px var(--inner-shadow-color);
+            transition: background-color 0.3s ease;
+            /* Add transition for hover effect */
+        }
+        
+        input:focus {
+            /* Add a subtle focus effect */
+            outline: none;
+            box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
+            background-color: #444;
+            /* Slightly lighter on focus */
         }
         
         input[type="number"] {
-            width: 100px;
-            color: #63d3ff;
+            width: 80px;
         }
         
         button {
             cursor: pointer;
-            background: #63d3ffc6;
-            /* Glassy blue button */
-            color: #000000;
-            transition: all 0.4s ease-in-out;
+            background-color: #63d3ff;
+            color: var(--primary-color);
             font-weight: bold;
-            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
+            box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--inner-shadow-color);
+            transition: all 0.3s ease;
         }
         
         button:hover {
-            background: #63d3ff;
+            background-color: #000000;
+            color: white;
             /* Lighter blue on hover */
-            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
-            /* Increased shadow on hover */
+            box-shadow: 3px 3px 6px var(--shadow-color), -3px -3px 6px var(--inner-shadow-color);
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-            background: #ff562200;
-            box-shadow: 8px 8px 15px var(--shadow-color), -8px -8px 15px var(--inner-shadow-color);
+            margin-bottom: 1.5rem;
+            background-color: #63d3ff18;
+            /* Slightly darker table background */
+            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
             color: #63d3ff;
+            margin-top: 1rem;
+        }
+        
+        th {
+            background: #63d3ff;
         }
         
         th,
         td {
             border: 1px solid var(--border-color);
-            padding: 8px;
+            padding: 10px;
             text-align: left;
-            background: #63d3ff1f;
-            color: #63d3ff;
+            background-color: #63d3ff1c;
+            color: rgb(255, 255, 255);
+            /* Darker cell background */
         }
         
         th {
             background-color: #63d3ff;
-            /* Glassy blue table header */
-            color: #000000;
-            box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--inner-shadow-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            box-shadow: 1px 1px 2px var(--shadow-color), -1px -1px 2px var(--inner-shadow-color);
         }
         
         .delete-btn {
-            background-color: #63d3ff;
-            color: black;
+            background-color: var(--expense-color);
+            /* Red delete button */
+            color: var(--text-color);
             border: none;
             padding: 5px 10px;
             cursor: pointer;
-            transition: all 0.4s ease-in-out;
-            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
+        
+        .delete-btn:hover {
+            background-color: #ff3204;
+            /* Darker red on hover */
+        }
+        
+        .income-row {
+            background-color: #02fd0a8a;
+            /* Light green */
+        }
+        
+        .expense-row {
+            background-color: #ff001942;
+            /* Light red */
+        }
+        /* Optional: Add hover effect */
+        
+        tr:hover {
+            background-color: #000000;
+            /* Light gray on hover */
+        }
+        
+        #alert {
+            display: none;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .alert-success {
+            background-color: #4CAF50;
+            /* Green */
+            color: white;
+        }
+        
+        .alert-info {
+            background-color: #2196F3;
+            /* Blue */
+            color: white;
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            #balance {
+                font-size: 1.2rem;
+            }
+            input,
+            button,
+            select {
+                font-size: 0.9rem;
+            }
+            table {
+                font-size: 0.8rem;
+            }
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+        /**************************************************/
     </style>
 </head>
 
@@ -323,6 +417,7 @@
             <div class="line3"></div>
         </div>
     </nav>
+
 
     <h1>Bali Trading Petty Cash System</h1>
     <div id="balance">Current Balance: R0.00</div>
@@ -419,9 +514,7 @@
         let nextId = 1;
 
         function updateBalance() {
-            document.getElementById(
-                "balance"
-            ).textContent = `Current Balance: R${balance.toFixed(2)}`;
+            document.getElementById("balance").textContent = `Current Balance: R${balance.toFixed(2)}`;
         }
 
         function addTransaction(description, amount, type, date) {
@@ -451,14 +544,20 @@
             for (const transaction of transactions) {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td>${transaction.description}</td>
-                    <td>R${transaction.amount.toFixed(2)}</td>
-                    <td>${transaction.type}</td>
-                    <td>${transaction.date}</td>
-                    <td><button class="delete-btn" data-id="${
-                      transaction.id
-                    }">Delete</button></td>
-                `;
+            <td>${transaction.description}</td>
+            <td>R${transaction.amount.toFixed(2)}</td>
+            <td>${transaction.type}</td>
+            <td>${transaction.date}</td>
+            <td><button class="delete-btn" data-id="${transaction.id}">Delete</button></td>
+        `;
+
+                // Add color accent based on transaction type
+                if (transaction.type === "income") {
+                    row.classList.add("income-row"); // Add green accent
+                } else if (transaction.type === "expense") {
+                    row.classList.add("expense-row"); // Add red accent
+                }
+
                 tbody.appendChild(row);
             }
             addDeleteListeners();
@@ -482,7 +581,7 @@
                 } else {
                     balance -= transaction.amount;
                 }
-                transactions.splice(index, 1); // Remove the transaction from the array
+                transactions.splice(index, 1);
                 updateBalance();
                 updateTransactionTable();
                 saveData();
@@ -540,11 +639,7 @@
                     yPos = 20;
                 }
                 doc.text(
-                    `${index + 1}. ${
-              transaction.description
-            } - R${transaction.amount.toFixed(2)} (${transaction.type}) - ${
-              transaction.date
-            }`,
+                    `${index + 1}. ${transaction.description} - R${transaction.amount.toFixed(2)} (${transaction.type}) - ${transaction.date}`,
                     14,
                     yPos
                 );
@@ -555,34 +650,27 @@
             alert("PDF generated and downloaded successfully.");
         }
 
-        document
-            .getElementById("transaction-form")
-            .addEventListener("submit", function(e) {
-                e.preventDefault();
-                const description = document.getElementById("description").value;
-                const amount = document.getElementById("amount").value;
-                const type = document.getElementById("type").value;
-                const date = document.getElementById("date").value;
-                addTransaction(description, amount, type, date);
-                this.reset();
-                alert("Transaction added successfully.");
-            });
+        document.getElementById("transaction-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const description = document.getElementById("description").value;
+            const amount = document.getElementById("amount").value;
+            const type = document.getElementById("type").value;
+            const date = document.getElementById("date").value;
+            addTransaction(description, amount, type, date);
+            this.reset();
+            alert("Transaction added successfully.");
+        });
 
         document.getElementById("save-data").addEventListener("click", saveData);
-        document
-            .getElementById("convert-pdf")
-            .addEventListener("click", convertToPDF);
+        document.getElementById("convert-pdf").addEventListener("click", convertToPDF);
 
-        document
-            .getElementById("delete-all-data")
-            .addEventListener("click", function() {
-                if (confirm("Are you sure you want to delete all data?")) {
-                    deleteAllData();
-                    alert("All data deleted successfully.");
-                }
-            });
+        document.getElementById("delete-all-data").addEventListener("click", function() {
+            if (confirm("Are you sure you want to delete all data?")) {
+                deleteAllData();
+                alert("All data deleted successfully.");
+            }
+        });
 
-        // Load data when the page loads
         loadData();
     </script>
 </body>
