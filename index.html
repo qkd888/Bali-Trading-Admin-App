@@ -166,173 +166,245 @@
         /********************************************/
         /********************************************/
         /********************************************/
+    </style>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+         :root {
+            --blue-accent: #63d3ff;
+            --bg-primary: #000;
+            /* Pure black background */
+            --neon-glow: 0 0 20px rgba(99, 211, 255, 0.7);
+            /* Stronger neon glow */
+            --text-shadow: 0 0 10px rgba(99, 211, 255, 0.3);
+            /* Text shadow for depth */
+            --overlay-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent overlay */
+        }
+        
+        body {
+            margin: 0;
+            background-color: var(--bg-primary);
+            color: var(--blue-accent);
+            /* Default text color is blue accent */
+            font-family: 'Poppins', sans-serif;
+            /* Prevent scrollbars initially */
+        }
         
         .hero {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
             width: 100%;
             height: 100vh;
-            margin-top: -5rem;
-            background-color: #000000;
-            height: 100vh;
-            .h1-hero {
-                color: #63d3ff;
-                ;
-                font-weight: bold;
-                text-align: center;
-                line-height: 2rem;
-            }
-            p {
-                font-weight: bold;
-                margin-top: 1rem;
-                text-align: center;
-                color: #63d3ff;
-            }
-            .animated-text {
-                text-align: center;
-                color: #63d3ff
-            }
-            .word {
-                font-size: 0.7rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .h1-hero {
+            color: var(--blue-accent);
+            font-weight: 700;
+            /* Stronger bold */
+            font-size: 2rem;
+            /* Larger heading */
+            text-shadow: var(--neon-glow), var(--text-shadow);
+            /* Glow and shadow */
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease forwards;
+            /* Animation for heading */
+            opacity: 0;
+            /* Start invisible */
+            transform: translateY(-20px);
+            /* Start slightly above */
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
         
-        .h1-contact {
-            margin-top: 20rem;
-            color: #000000
+        .hero p {
+            font-weight: 500;
+            /* Slightly less bold */
+            font-size: 1.2rem;
+            color: var(--blue-accent);
+            text-shadow: var(--text-shadow);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.2s ease forwards;
+            /* Animation with delay */
+            opacity: 0;
+            transform: translateY(-20px);
         }
+        
+        .animated-text {
+            color: var(--blue-accent);
+            font-size: 1.5rem;
+            text-shadow: var(--text-shadow);
+            animation: fadeInUp 1.4s ease forwards;
+            /* Animation with delay */
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        
+        .word {
+            font-size: 0.8rem;
+            color: #999;
+            /* Lighter color for small text */
+            margin-top: 0.5rem;
+            /* Space below animated text */
+        }
+        /* ... (rest of your CSS) */
     </style>
 
 
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
          :root {
-            --primary-color: #23272f;
-            --secondary-color: #8ab4f8;
+            --blue-accent: #63d3ff;
+            --bg-primary: #181818;
+            --surface-color: #23272f;
             --shadow-color: #1c1f25;
             --inner-shadow-color: #2a2e36;
             --text-color: #e8e8e8;
-            --accent-color: #a0c3ff;
             --border-color: #3b4048;
+            --glass-bg: rgba(35, 39, 47, 0.7);
+            /* Glassy background */
+            --glass-border: rgba(59, 64, 72, 0.3);
+            /* Glass border */
         }
         
         body {
             margin: 0;
-            background-color: #000000;
+            background-color: var(--bg-primary);
             color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         
         .h1-contact {
             text-align: center;
-            color: #63d3ff;
+            color: var(--blue-accent);
             margin-top: 2rem;
-            /* Adjusted margin */
             margin-bottom: 1rem;
-            font-size: 1.5rem;
-            /* Adjusted font size */
+            font-size: 1.8rem;
+            /* Increased font size */
         }
         
         .table-container {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            padding: 0 1rem;
-            color: #63d3ff;
+            padding: 0 2rem;
+            /* Increased padding */
+            color: var(--blue-accent);
             width: 100%;
-            /* Ensure container takes full width */
             overflow-x: auto;
-            /* Enable horizontal scrolling if needed */
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #ff6b6b00;
-            box-shadow: 6px 6px 12px var(--shadow-color), -6px -6px 12px var(--inner-shadow-color);
+            background-color: var(--glass-bg);
+            /* Use glassy background */
+            box-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--inner-shadow-color);
+            border-radius: 12px;
+            /* More rounded corners */
             margin-bottom: 20px;
-            border-radius: 8px;
             overflow: hidden;
-            table-layout: fixed;
-            /* Key for responsive table layout */
+            table-layout: auto;
+            /* Let table adjust width */
+            border: 1px solid var(--glass-border);
+            /* Glass border */
         }
         
         th,
         td {
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            /* Adjusted padding */
+            border: none;
+            /* Remove default borders */
+            padding: 14px;
+            /* Increased padding */
             text-align: left;
-            /* Default text alignment */
-            font-size: 1rem;
-            color: #63d3ff;
+            font-size: 1.1rem;
+            /* Increased font size */
+            color: var(--blue-accent);
             white-space: nowrap;
-            /* Prevent text wrapping within cells */
             overflow: hidden;
-            /* Hide overflowing content */
             text-overflow: ellipsis;
-            /* Add ellipsis (...) for overflow */
-            min-width: 150px;
-            /* Minimum cell width */
+            min-width: 180px;
+            /* Increased min-width */
+            background-color: transparent;
+            /* Transparent cell background */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transitions */
         }
         
         th {
-            color: #63d3ff;
+            color: var(--blue-accent);
             font-weight: bold;
-            box-shadow: inset 2px 2px 4px var(--shadow-color), inset -2px -2px 4px var(--inner-shadow-color);
+            box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
             text-align: center;
-            /* Center header text */
+            background-color: rgba(35, 39, 47, 0.5);
+            /* Semi-transparent header background */
+        }
+        /* Active row hover */
+        
+        tr:hover {
+            background-color: rgba(99, 99, 99, 0.1);
+            /* Subtle row hover */
+        }
+        /* Active cell styling */
+        
+        td.active {
+            background-color: var(--blue-accent);
+            color: var(--bg-primary);
         }
         
-        .main-table {
-            width: 100%;
-        }
-        
+        .main-table,
         .secondary-table {
             width: 100%;
-            /* Make secondary tables full width on all screen sizes */
         }
         /* Media Queries for Responsiveness */
         
-        @media (max-width: 768px) {
-            .h1-contact {
-                font-size: 1.2rem;
-                margin-top: 1.5rem;
-            }
+        @media (max-width: 900px) {
+            /* Adjust breakpoint as needed */
             .table-container {
-                gap: 10px;
-                padding: 0 0.5rem;
+                padding: 0 1rem;
+            }
+            th,
+            td {
+                font-size: 1rem;
+                padding: 12px;
+                min-width: 150px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .h1-contact {
+                font-size: 1.5rem;
+                margin-top: 1.5rem;
             }
             th,
             td {
                 font-size: 0.9rem;
-                padding: 8px;
+                padding: 10px;
                 min-width: 120px;
-                /* Adjust min-width as needed */
-            }
-            table {
-                display: block;
-                /* Enable horizontal scrolling */
-                overflow-x: auto;
-            }
-            .secondary-table {
-                width: 100%;
             }
         }
         
         @media (max-width: 480px) {
             .h1-contact {
-                font-size: 1rem;
+                font-size: 1.2rem;
                 margin-top: 1rem;
             }
             th,
             td {
                 font-size: 0.8rem;
-                padding: 6px;
+                padding: 8px;
                 min-width: 100px;
-                /* Adjust min-width for very small screens */
             }
         }
         
@@ -349,11 +421,11 @@
             z-index: 99;
             border: none;
             outline: none;
-            background-color: #63d3ff8a;
+            background-color: rgba(99, 99, 99, 0.5);
+            /* Semi-transparent background */
             color: var(--text-color);
             cursor: pointer;
             padding: 15px;
-            /* Adjusted padding */
             border-radius: 50%;
             font-size: 16px;
             transition: background-color 0.3s, box-shadow 0.3s;
@@ -361,13 +433,15 @@
         }
         
         #backToTopBtn:hover {
-            background-color: #63d3ff;
+            background-color: var(--blue-accent);
+            color: var(--bg-primary);
+            /* Or a contrasting color */
             box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
         }
         
         @media (max-width: 768px) {
             #backToTopBtn {
-                padding: 10px;
+                padding: 12px;
                 font-size: 14px;
             }
         }
@@ -912,6 +986,21 @@
         };
 
         navSlide();
+    </script>
+    <script>
+        /* JavaScript for active cell toggling */
+
+        document.addEventListener('DOMContentLoaded',
+            () => {
+                const tableCells = document.querySelectorAll('table td');
+                tableCells.forEach(cell => {
+                    cell.addEventListener('click', () => {
+                        cell.classList.toggle('active');
+                    });
+                });
+            }
+
+        );
     </script>
 </body>
 

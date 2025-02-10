@@ -177,126 +177,245 @@
         .toggle .line3 {
             transform: rotate(45deg) translate(-5px, -6px);
         }
+    </style>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+         :root {
+            --blue-accent: #63d3ff;
+            --bg-primary: #181818;
+            /* Dark background */
+            --surface-color: #222;
+            /* Slightly lighter surface for contrast */
+            --shadow-color: #111;
+            /* Darker shadow */
+            --inner-shadow-color: #333;
+            /* Lighter inner shadow */
+            --border-color: #333;
+            /* Subtle border color */
+            --glass-bg: rgba(34, 34, 34, 0.7);
+            /* Glassy background */
+            --glass-border: rgba(99, 99, 99, 0.3);
+            /* Subtle glass border */
+            --text-color: #eee;
+            /* Light text color */
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
         
         .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
+            max-width: 900px;
+            /* Increased max-width */
+            margin: 5rem auto;
+            /* Added margin top/bottom */
+            padding: 25px;
+            /* Increased padding */
             background-color: var(--glass-bg);
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+            border-radius: 12px;
+            /* More rounded corners */
+            box-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--inner-shadow-color);
             border: 1px solid var(--glass-border);
+            overflow: hidden;
+            /* Prevent content from overflowing */
         }
         
         h2 {
             text-align: center;
-            margin-bottom: 20px;
-            margin-top: 5rem;
-            color: #63d3ff;
+            margin-bottom: 2rem;
+            color: var(--blue-accent);
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
+            /* Increased margin */
         }
         
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #63d3ff;
+            margin-bottom: 8px;
+            /* Increased margin */
+            font-weight: 500;
+            /* Slightly less bold */
+            color: var(--blue-accent);
         }
         
         input,
-        select,
-        button {
-            width: 100%;
-            padding: 10px;
+        select {
+            width: calc(100% - 22px);
+            /* Account for padding and border */
+            padding: 12px;
             margin-top: 5px;
-            border: 1px solid var(--glass-border);
-            border-radius: 4px;
-            background: var(--primary-bg);
+            border: none;
+            border-radius: 6px;
+            /* More rounded corners */
+            background: var(--surface-color);
+            /* Match background */
             color: var(--text-color);
+            box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            box-shadow: inset 4px 4px 8px var(--shadow-color), inset -4px -4px 8px var(--inner-shadow-color);
         }
         
         table {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 25px;
+            /* Increased margin */
             border-collapse: collapse;
-        }
-        
-        table,
-        th,
-        td {
-            border: 1px solid var(--glass-border);
-            color: #63d3ff;
+            table-layout: auto;
+            /* Allow table to adjust width */
         }
         
         th,
         td {
-            padding: 10px;
-            text-align: center;
-            background-color: var(--secondary-bg);
-            color: #63d3ff;
+            padding: 14px;
+            /* Increased padding */
+            text-align: left;
+            /* Align text to the left */
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            color: var(--blue-accent);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            /* Prevent text wrapping */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transitions */
+        }
+        
+        th {
+            background-color: transparent;
+            /* Transparent header background */
+            color: var(--blue-accent);
+            font-weight: bold;
+            box-shadow: 3px 3px 6px var(--shadow-color), -3px -3px 6px var(--inner-shadow-color);
+        }
+        /* Active row styling */
+        
+        tr:hover {
+            background-color: rgba(99, 99, 99, 0.2);
+            /* Subtle hover effect on rows */
+        }
+        
+        td.active {
+            background-color: var(--blue-accent);
+            color: var(--bg-primary);
+            /* Or another contrasting color */
         }
         
         .actions {
             display: flex;
+            flex-wrap: wrap;
+            /* Allow wrapping on smaller screens */
             justify-content: space-between;
-            margin-top: 20px;
+            margin-top: 25px;
+            /* Increased margin */
+            gap: 15px;
+            /* Added gap between buttons */
         }
         
         .actions button {
-            width: 48%;
+            flex: 1 1 calc(50% - 10px);
+            /* Distribute buttons evenly */
+            width: auto;
+            /* Reset width */
         }
         
         @media (max-width: 600px) {
-            .actions {
-                flex-direction: column;
-            }
             .actions button {
-                width: 100%;
+                flex: 1 1 100%;
+                /* Full width buttons on mobile */
                 margin-bottom: 10px;
+                /* Space between buttons on mobile */
+            }
+            .dates-container {
+                flex-direction: column;
+                /* Stack dates vertically */
+                align-items: center;
+                /* Center dates horizontally */
             }
         }
         
         .dates-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 8px;
+            /* Increased gap */
+            margin-top: 15px;
         }
         
         .date-item {
-            display: inline-block;
             background-color: var(--glass-bg);
-            padding: 5px 10px;
-            border-radius: 4px;
+            padding: 8px 12px;
+            /* Increased padding */
+            border-radius: 6px;
+            /* More rounded corners */
             cursor: pointer;
-            color: #63d3ff;
+            color: var(--blue-accent);
+            transition: background-color 0.3s, color 0.3s;
+            /* Smooth transition */
         }
         
         .date-item:hover {
-            background-color: var(--secondary-bg);
+            background-color: rgba(99, 99, 99, 0.3);
+            /* Slightly darker hover */
+            color: #fff;
         }
         
         .date-item.selected {
-            background-color: var(--accent-color);
-            color: white;
+            background-color: var(--blue-accent);
+            color: var(--bg-primary);
         }
         
         button {
-            background: #63d3ff;
-            color: rgb(0, 0, 0);
+            background: var(--blue-accent);
+            color: #222;
             border: none;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.3s;
+            font-weight: 500;
+            /* Slightly less bold */
+            border-radius: 6px;
+            padding: 12px 20px;
+            /* Increased padding */
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 3px 3px 6px var(--shadow-color), -3px -3px 6px var(--inner-shadow-color);
+            margin: 0.5rem;
         }
         
         button:hover {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #52b0e2;
+            /* Slightly darker blue */
+            color: #111;
             transform: translateY(-3px);
+            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
         }
+        /* JavaScript for active cell toggling */
+        
+        document.addEventListener('DOMContentLoaded',
+        ()=> {
+            const tableCells=document.querySelectorAll('table td');
+            tableCells.forEach(cell=> {
+                cell.addEventListener('click', ()=> {
+                    cell.classList.toggle('active');
+                }
+                );
+            }
+            );
+        }
+        
+        );
     </style>
 </head>
 
