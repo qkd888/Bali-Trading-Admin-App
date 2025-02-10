@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Document Management System</title>
+
+
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+         :root {
+            --bg-dark: #1e2127;
+            --card-dark: #282c34;
+            --text-light: #e0e5ec;
+            --accent-blue: #53b0e6;
+            --hover-dark: #30343c;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+        /***********NAVBAR/MOBILE NAVBAR************/
+        /*******************************************/
+        /*******************************************/
+        /*******************************************/
+        
+        .navbar {
+            background-color: black;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo {
+            color: #63d3ff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+            /* Initially hidden */
+            flex-direction: column;
+            /* Vertical menu */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: black;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease-in-out;
+            /* For smooth mobile transition */
+        }
+        
+        .nav-links.nav-active {
+            display: flex;
+            /* Shown when nav-active class is present */
+            transform: translateY(0%);
+            /* Ensure it starts at the top on mobile */
+        }
+        
+        .nav-links li {
+            margin: 0.5rem 0;
+            opacity: 0;
+            /* Initially hidden, fade in with animation */
+        }
+        
+        .nav-links a {
+            color: #63d3ff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            /* Consistent size for mobile and desktop */
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .nav-links a:hover {
+            color: #63d3ff;
+            font-weight: bold;
+        }
+        
+        .burger {
+            display: block;
+            /* Always visible */
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #63d3ff;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateY(-200px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .nav-links.nav-active li {
+            /* Apply animation to visible links */
+            animation: navLinkFade 0.3s ease-in forwards;
+        }
+        
+        .nav-links.nav-active li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .nav-links.nav-active li:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .nav-links.nav-active li:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .toggle .line2 {
+            opacity: 0;
+        }
+        
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background-color: var(--card-dark);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .upload-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .upload-btn {
+            background-color: var(--accent-blue);
+            color: var(--text-light);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            background-color: #2e7bff;
+        }
+        
+        .file-list {
+            max-height: 800px;
+            overflow-y: auto;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: var(--bg-dark);
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--card-dark);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .file-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-blue);
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .file-details {
+            flex-grow: 1;
+        }
+        
+        .file-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .file-meta {
+            font-size: 0.8em;
+            color: #888;
+        }
+        
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #f0506e;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px;
+            margin-left: 10px;
+        }
+        
+        .delete-btn:hover {
+            color: #ff1744;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.925);
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background-color: var(--card-dark);
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.5em;
+            color: var(--accent-blue);
+        }
+        
+        .modal-close {
+            color: var(--text-light);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .modal-preview {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        
+        .preview-container {
+            width: 100%;
+            max-height: 60vh;
+            overflow: auto;
+            margin-bottom: 20px;
+            background-color: var(--bg-dark);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .text-preview {
+            white-space: pre-wrap;
+            font-family: monospace;
+            color: var(--text-light);
+        }
+        
+        .audio-preview,
+        .video-preview {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .pdf-preview {
+            width: 100%;
+            height: 60vh;
+            border: none;
+        }
+        
+        .download-btn {
+            background-color: rgba(255, 0, 0, 0);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .download-btn:hover {
+            background-color: #000000;
+            border: none;
+        }
+        
+        .storage-warning {
+            color: #f0506e;
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(240, 80, 110, 0.1);
+        }
+        
+        .file-type-icon {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            background-color: var(--accent-blue);
+            color: white;
+            margin-right: 10px;
+        }
+        /* Loading spinner */
+        
+        .loading {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--bg-dark);
+            border-top: 5px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<!--****************************************************-->
+<!--****************************************************-->
+<!--****************************************************-->
+<!--****************************************************-->
+<!--****************************************************-->
+<!--****************************************************-->
+<!--****************************************************-->
+<!--****************************************************-->
+
+<body>
+
+    <!--*************NAVBAR-MOBILE-NAVBAR****************-->
+    <!--*************************************************-->
+    <!--*************************************************-->
+    <!--*************************************************-->
+
+    <nav class="navbar">
+        <div class="logo">
+            Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="customer-orders.html">Customer orders</a></li>
+            <li><a href="order-numbers.html">Order Numbers</a></li>
+            <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+            <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+            <li><a href="roster-manager.html">Rosters</a></li>
+            <li><a href="staff-attendence.html">Staff Attendence</a></li>
+            <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
+            <li><a href="petty-cash.html">Petty Cash</a></li>
+            <li><a href="shop-orders.html">Shop Orders</a></li>
+            <li><a href="doc-manager.html">Documents</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+
+
+    <div class="container">
+        <h1>Document Management System</h1>
+        <div class="upload-section">
+            <input type="file" id="fileInput" multiple accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                Upload Files
+            </button>
+        </div>
+        <div id="loading" class="loading"></div>
+        <div id="storageWarning" class="storage-warning"></div>
+        <div class="file-list" id="fileList"></div>
+
+        <div id="fileModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="modalTitle">File Preview</div>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="preview-container" id="previewContainer"></div>
+                <button id="downloadBtn" class="download-btn">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--*******************NAVSLIDE SCRIPT******************-->
+
+    <script>
+        const navSlide = () => {
+            const burger = document.querySelector(".burger");
+            const nav = document.querySelector(".nav-links");
+            const navLinks = document.querySelectorAll(".nav-links li");
+
+            burger.addEventListener("click", () => {
+                // Toggle Nav
+                nav.classList.toggle("nav-active");
+
+                // Animate Links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = "";
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${
+                index / 7 + 0.3
+              }s`;
+                    }
+                });
+
+                // Burger Animation
+                burger.classList.toggle("toggle");
+            });
+        };
+
+        navSlide();
+    </script>
+
+    <!--****************************************************-->
+    <!--****************************************************-->
+    <!--****************************************************-->
+
+    <script>
+        // File System Management using IndexedDB for unlimited storage
+        const fileManager = {
+            files: new Map(),
+            currentFile: null,
+            db: null,
+            DB_NAME: 'FileStorageDB',
+            DB_VERSION: 1,
+            STORE_NAME: 'files',
+
+            elements: {
+                fileInput: document.getElementById('fileInput'),
+                fileList: document.getElementById('fileList'),
+                modal: document.getElementById('fileModal'),
+                previewContainer: document.getElementById('previewContainer'),
+                modalTitle: document.getElementById('modalTitle'),
+                downloadBtn: document.getElementById('downloadBtn'),
+                modalClose: document.querySelector('.modal-close'),
+                storageWarning: document.getElementById('storageWarning'),
+                loading: document.getElementById('loading')
+            },
+
+            async init() {
+                try {
+                    await this.initDatabase();
+                    this.setupEventListeners();
+                    await this.loadSavedFiles();
+                } catch (error) {
+                    console.error('Initialization error:', error);
+                    this.showError('Failed to initialize the file system. Please refresh the page.');
+                }
+            },
+
+            async initDatabase() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
+
+                    request.onerror = () => reject(request.error);
+                    request.onsuccess = () => {
+                        this.db = request.result;
+                        resolve();
+                    };
+
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        if (!db.objectStoreNames.contains(this.STORE_NAME)) {
+                            db.createObjectStore(this.STORE_NAME, {
+                                keyPath: 'id'
+                            });
+                        }
+                    };
+                });
+            },
+
+            setupEventListeners() {
+                this.elements.fileInput.addEventListener('change', (e) => this.handleFileUpload(e));
+                this.elements.modalClose.addEventListener('click', () => this.closeModal());
+                this.elements.downloadBtn.addEventListener('click', () => this.downloadFile());
+                window.addEventListener('click', (e) => {
+                    if (e.target === this.elements.modal) {
+                        this.closeModal();
+                    }
+                });
+            },
+
+            showError(message) {
+                this.elements.storageWarning.textContent = message;
+                this.elements.storageWarning.style.color = 'red';
+                setTimeout(() => {
+                    this.elements.storageWarning.textContent = '';
+                }, 5000);
+            },
+
+            showLoading(show = true) {
+                this.elements.loading.style.display = show ? 'block' : 'none';
+            },
+
+            async loadSavedFiles() {
+                this.showLoading(true);
+                try {
+                    const transaction = this.db.transaction([this.STORE_NAME], 'readonly');
+                    const store = transaction.objectStore(this.STORE_NAME);
+                    const request = store.getAll();
+
+                    request.onsuccess = () => {
+                        const files = request.result;
+                        files.forEach(fileData => {
+                            const file = new File([this.base64ToBlob(fileData.dataUrl)], fileData.name, {
+                                type: fileData.type
+                            });
+                            this.addFileToList(file, fileData.dataUrl, fileData.id, false);
+                        });
+                    };
+
+                    await new Promise((resolve) => {
+                        transaction.oncomplete = resolve;
+                        transaction.onerror = () => {
+                            this.showError('Error loading saved files');
+                            resolve();
+                        };
+                    });
+                } catch (error) {
+                    console.error('Error loading saved files:', error);
+                    this.showError('Failed to load saved files');
+                } finally {
+                    this.showLoading(false);
+                }
+            },
+
+            base64ToBlob(base64Data) {
+                try {
+                    const parts = base64Data.split(';base64,');
+                    const contentType = parts[0].split(':')[1];
+                    const raw = window.atob(parts[1]);
+                    const rawLength = raw.length;
+                    const uInt8Array = new Uint8Array(rawLength);
+
+                    for (let i = 0; i < rawLength; ++i) {
+                        uInt8Array[i] = raw.charCodeAt(i);
+                    }
+
+                    return new Blob([uInt8Array], {
+                        type: contentType
+                    });
+                } catch (error) {
+                    console.error('Error converting base64 to blob:', error);
+                    throw new Error('Failed to process file data');
+                }
+            },
+
+            async handleFileUpload(event) {
+                this.showLoading(true);
+                const newFiles = Array.from(event.target.files);
+
+                try {
+                    for (const file of newFiles) {
+                        const fileId = this.generateFileId();
+                        const dataUrl = await this.readFileAsDataURL(file);
+                        await this.addFileToList(file, dataUrl, fileId, true);
+                    }
+                } catch (error) {
+                    console.error('Error handling file upload:', error);
+                    this.showError('Failed to upload one or more files');
+                } finally {
+                    this.showLoading(false);
+                    // Clear the input to allow uploading the same file again
+                    event.target.value = '';
+                }
+            },
+
+            readFileAsDataURL(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(new Error('Failed to read file'));
+                    reader.readAsDataURL(file);
+                });
+            },
+
+            async addFileToList(file, dataUrl, fileId = this.generateFileId(), saveToDb = true) {
+                try {
+                    this.files.set(fileId, {
+                        file,
+                        dataUrl
+                    });
+
+                    if (saveToDb) {
+                        await this.saveFileToDatabase(fileId, file, dataUrl);
+                    }
+
+                    const fileItem = document.createElement('div');
+                    fileItem.classList.add('file-item');
+                    fileItem.dataset.fileId = fileId;
+
+                    fileItem.innerHTML = `
+                <div class="file-icon">${this.getFileTypeIcon(file.type)}</div>
+                <div class="file-details">
+                    <div class="file-name">${this.escapeHtml(file.name)}</div>
+                    <div class="file-meta">
+                        <span class="file-type-icon">${file.type.split('/')[1].toUpperCase()}</span>
+                        ${this.formatFileSize(file.size)}
+                    </div>
+                </div>
+                <button class="delete-btn">✖</button>
+            `;
+
+                    fileItem.querySelector('.delete-btn').onclick = (e) => {
+                        e.stopPropagation();
+                        this.deleteFile(fileId);
+                    };
+
+                    fileItem.onclick = () => this.previewFile(fileId);
+                    this.elements.fileList.appendChild(fileItem);
+
+                } catch (error) {
+                    console.error('Error adding file to list:', error);
+                    this.showError('Failed to add file');
+                }
+            },
+
+            async saveFileToDatabase(fileId, file, dataUrl) {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction([this.STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(this.STORE_NAME);
+
+                    const fileData = {
+                        id: fileId,
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        dataUrl: dataUrl,
+                        timestamp: Date.now()
+                    };
+
+                    const request = store.put(fileData);
+                    request.onsuccess = () => resolve();
+                    request.onerror = () => reject(request.error);
+                });
+            },
+
+            escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            },
+
+            getFileTypeIcon(fileType) {
+                const icons = {
+                    'image': '🖼️',
+                    'video': '🎥',
+                    'audio': '🎵',
+                    'application/pdf': '📄',
+                    'application/msword': '📝',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '📝',
+                    'application/vnd.ms-excel': '📊',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '📊',
+                    'text/plain': '📋'
+                };
+
+                for (const [type, icon] of Object.entries(icons)) {
+                    if (fileType.startsWith(type)) return icon;
+                }
+                return '📎';
+            },
+
+            createPreviewElement(file, dataUrl) {
+                let element;
+
+                switch (true) {
+                    case file.type.startsWith('image/'):
+                        element = document.createElement('img');
+                        element.className = 'modal-preview';
+                        element.src = dataUrl;
+                        break;
+
+                    case file.type.startsWith('video/'):
+                        element = document.createElement('video');
+                        element.className = 'video-preview';
+                        element.controls = true;
+                        element.src = dataUrl;
+                        break;
+
+                    case file.type.startsWith('audio/'):
+                        element = document.createElement('audio');
+                        element.className = 'audio-preview';
+                        element.controls = true;
+                        element.src = dataUrl;
+                        break;
+
+                    case file.type === 'application/pdf':
+                        element = document.createElement('iframe');
+                        element.className = 'pdf-preview';
+                        element.src = dataUrl;
+                        break;
+
+                    case file.type === 'text/plain':
+                        element = document.createElement('div');
+                        element.className = 'text-preview';
+                        fetch(dataUrl)
+                            .then(response => response.text())
+                            .then(text => element.textContent = text)
+                            .catch(error => {
+                                console.error('Error loading text preview:', error);
+                                element.textContent = 'Error loading preview';
+                            });
+                        break;
+
+                    default:
+                        element = document.createElement('div');
+                        element.className = 'text-preview';
+                        element.textContent = `Preview not available for ${file.type} files`;
+                        break;
+                }
+
+                return element;
+            },
+
+            previewFile(fileId) {
+                const fileData = this.files.get(fileId);
+                if (!fileData) {
+                    this.showError('File not found');
+                    return;
+                }
+
+                try {
+                    this.currentFile = fileData.file;
+                    this.elements.modalTitle.textContent = this.currentFile.name;
+
+                    this.elements.previewContainer.innerHTML = '';
+                    const previewElement = this.createPreviewElement(this.currentFile, fileData.dataUrl);
+                    this.elements.previewContainer.appendChild(previewElement);
+
+                    this.elements.modal.style.display = 'block';
+                } catch (error) {
+                    console.error('Error previewing file:', error);
+                    this.showError('Failed to preview file');
+                }
+            },
+
+            async deleteFile(fileId) {
+                try {
+                    const transaction = this.db.transaction([this.STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(this.STORE_NAME);
+                    await new Promise((resolve, reject) => {
+                        const request = store.delete(fileId);
+                        request.onsuccess = resolve;
+                        request.onerror = () => reject(request.error);
+                    });
+
+                    const fileItem = document.querySelector(`[data-file-id="${fileId}"]`);
+                    if (fileItem) {
+                        this.elements.fileList.removeChild(fileItem);
+                    }
+                    this.files.delete(fileId);
+
+                } catch (error) {
+                    console.error('Error deleting file:', error);
+                    this.showError('Failed to delete file');
+                }
+            },
+
+            downloadFile() {
+                if (!this.currentFile) return;
+
+                try {
+                    const fileData = Array.from(this.files.values()).find(f => f.file === this.currentFile);
+                    if (fileData) {
+                        const link = document.createElement('a');
+                        link.href = fileData.dataUrl;
+                        link.download = this.currentFile.name;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                } catch (error) {
+                    console.error('Error downloading file:', error);
+                    this.showError('Failed to download file');
+                }
+            },
+
+            closeModal() {
+                this.elements.modal.style.display = 'none';
+                this.elements.previewContainer.innerHTML = '';
+                this.currentFile = null;
+            },
+
+            generateFileId() {
+                return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            },
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return `${Math.round(bytes / Math.pow(k, i))} ${sizes[i]}`;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => fileManager.init());
+    </script>
+
+</body>
+
+</html>
