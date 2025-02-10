@@ -42,6 +42,15 @@
         @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
         /* Navbar */
         
+         :root {
+            --blue-accent: #63d3ff;
+            --bg-primary: #111;
+            --bg-secondary: #222;
+            --glass-bg: rgba(34, 34, 34, 0.7);
+            --glass-border: rgba(99, 99, 99, 0.3);
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
         .navbar {
             background-color: black;
             padding: 1rem;
@@ -57,10 +66,15 @@
         }
         
         .logo {
-            color: #63d3ff;
-            font-size: 1.2rem;
+            color: var(--blue-accent);
+            font-size: 1.5rem;
             font-weight: bold;
             text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.1);
         }
         
         .nav-links {
@@ -73,10 +87,10 @@
             /* Vertical menu */
             position: fixed;
             top: 0;
-            left: 0;
-            width: 100%;
+            right: 0;
+            width: 25%;
             height: 100vh;
-            background-color: black;
+            background-color: rgba(0, 0, 0, 0.842);
             align-items: center;
             justify-content: center;
             transition: transform 0.5s ease-in-out;
@@ -127,7 +141,7 @@
         @keyframes navLinkFade {
             from {
                 opacity: 0;
-                transform: translateY(-200px);
+                transform: translateX(400px);
             }
             to {
                 opacity: 1;
@@ -137,7 +151,7 @@
         
         .nav-links.nav-active li {
             /* Apply animation to visible links */
-            animation: navLinkFade 0.3s ease-in forwards;
+            animation: navLinkFade 0.1s ease-in forwards;
         }
         
         .nav-links.nav-active li:nth-child(1) {
@@ -145,11 +159,11 @@
         }
         
         .nav-links.nav-active li:nth-child(2) {
-            animation-delay: 0.2s;
+            animation-delay: 0.1s;
         }
         
         .nav-links.nav-active li:nth-child(3) {
-            animation-delay: 0.3s;
+            animation-delay: 0.1s;
         }
         
         .toggle .line1 {
@@ -162,10 +176,6 @@
         
         .toggle .line3 {
             transform: rotate(45deg) translate(-5px, -6px);
-        }
-        
-        .container {
-            padding: 10px;
         }
         
         .container {

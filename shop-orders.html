@@ -50,6 +50,15 @@
         @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
         /* Navbar */
         
+         :root {
+            --blue-accent: #63d3ff;
+            --bg-primary: #111;
+            --bg-secondary: #222;
+            --glass-bg: rgba(34, 34, 34, 0.7);
+            --glass-border: rgba(99, 99, 99, 0.3);
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
         .navbar {
             background-color: black;
             padding: 1rem;
@@ -65,10 +74,15 @@
         }
         
         .logo {
-            color: #63d3ff;
-            font-size: 1.2rem;
+            color: var(--blue-accent);
+            font-size: 1.5rem;
             font-weight: bold;
             text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.1);
         }
         
         .nav-links {
@@ -81,10 +95,10 @@
             /* Vertical menu */
             position: fixed;
             top: 0;
-            left: 0;
-            width: 100%;
+            right: 0;
+            width: 25%;
             height: 100vh;
-            background-color: black;
+            background-color: rgba(0, 0, 0, 0.842);
             align-items: center;
             justify-content: center;
             transition: transform 0.5s ease-in-out;
@@ -135,7 +149,7 @@
         @keyframes navLinkFade {
             from {
                 opacity: 0;
-                transform: translateY(-200px);
+                transform: translateX(400px);
             }
             to {
                 opacity: 1;
@@ -145,7 +159,7 @@
         
         .nav-links.nav-active li {
             /* Apply animation to visible links */
-            animation: navLinkFade 0.3s ease-in forwards;
+            animation: navLinkFade 0.1s ease-in forwards;
         }
         
         .nav-links.nav-active li:nth-child(1) {
@@ -153,11 +167,11 @@
         }
         
         .nav-links.nav-active li:nth-child(2) {
-            animation-delay: 0.2s;
+            animation-delay: 0.1s;
         }
         
         .nav-links.nav-active li:nth-child(3) {
-            animation-delay: 0.3s;
+            animation-delay: 0.1s;
         }
         
         .toggle .line1 {
@@ -171,103 +185,184 @@
         .toggle .line3 {
             transform: rotate(45deg) translate(-5px, -6px);
         }
+        /*******************************/
+        /*******************************/
+        /*******************************/
+        /*******************************/
+    </style>
+
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        :root {
+            --blue-accent: #63d3ffa5;
+            --bg-primary: #181818;
+            --surface-color: #222;
+            --shadow-color: #111;
+            --inner-shadow-color: #333;
+            --border-color: #333;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
         
         .container {
-            padding: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
         }
         
         h1 {
             text-align: center;
-            margin-top: 5rem;
-            color: #63d3ff;
+            margin-bottom: 2rem;
+            color: var(--blue-accent);
         }
         
         .shop-orders {
-            width: 90%;
-            max-width: 800px;
+            width: 95%;
+            /* Responsive width */
+            max-width: 900px;
+            /* Increased max-width for wider table */
             background-color: var(--surface-color);
-            padding: 20px;
-            box-shadow: 6px 6px 12px var(--shadow-color), -6px -6px 12px var(--inner-shadow-color);
-            border-radius: 8px;
-            margin-top: 20px;
-            color: #63d3ff;
+            padding: 25px;
+            box-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--inner-shadow-color);
+            border-radius: 12px;
+            margin-top: 2rem;
+            color: var(--blue-accent);
+            overflow: hidden;
         }
         
         .shop-orders input,
         .shop-orders button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin: 8px 0;
             font-size: 16px;
             border: none;
-            border-radius: 4px;
-            background-color: var(--primary-color);
-            color: #63d3ff;
-            box-shadow: inset 2px 2px 4px var(--shadow-color), inset -2px -2px 4px var(--inner-shadow-color);
+            border-radius: 6px;
+            background-color: var(--surface-color);
+            color: var(--blue-accent);
+            box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .shop-orders input:focus {
+            outline: none;
+            box-shadow: inset 4px 4px 8px var(--shadow-color), inset -4px -4px 8px var(--inner-shadow-color);
         }
         
         .shop-orders table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            color: #63d3ff;
+            color: var(--blue-accent);
+            table-layout: auto;
+            /* Let table adjust width based on content */
         }
         
         .shop-orders th,
         .shop-orders td {
-            padding: 10px;
+            padding: 14px;
             border-bottom: 1px solid var(--border-color);
             text-align: left;
-            background-color: var(--primary-color);
-            color: #63d3ff;
+            background-color: var(--surface-color);
+            color: var(--blue-accent);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            /* Prevent text wrapping */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transitions */
         }
         
         .shop-orders th {
-            background-color: #ff562200;
-            color: #63d3ff;
-            box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--inner-shadow-color);
+            background-color: transparent;
+            color: var(--blue-accent);
             font-weight: bold;
+            box-shadow: 3px 3px 6px var(--shadow-color), -3px -3px 6px var(--inner-shadow-color);
+        }
+        /* Add active class styling */
+        
+        .shop-orders td.active {
+            background-color: var(--blue-accent);
+            color: var(--bg-primary);
+            /* Or another contrasting color */
         }
         
         .shop-orders button {
-            background-color: #63d3ffa5;
-            color: #000000;
+            background-color: var(--blue-accent);
+            color: #222;
             border: none;
             cursor: pointer;
-            border-radius: 4px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
+            border-radius: 6px;
+            margin-top: 15px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
             font-weight: bold;
+            width: calc(100% - 22px);
         }
         
         .shop-orders button:hover {
-            background-color: #63d3ff;
-            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
+            background-color: #52b0e2;
+            box-shadow: 6px 6px 12px var(--shadow-color), -6px -6px 12px var(--inner-shadow-color);
         }
         
         .button-group {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 20px;
         }
         
-        @media (max-width: 600px) {
+        .button-group button {
+            flex: 1 1 calc(50% - 10px);
+        }
+        
+        @media (max-width: 768px) {
+            /* Adjust breakpoint as needed */
+            .shop-orders {
+                max-width: 95%;
+                /* Make it almost full width on mobile */
+            }
+            .button-group button {
+                flex: 1 1 100%;
+            }
             .shop-orders input,
             .shop-orders button {
-                width: 100%;
                 font-size: 14px;
             }
             .shop-orders th,
             .shop-orders td {
                 font-size: 14px;
-                color: #63d3ffa5;
-            }
-            .button-group {
-                flex-direction: column;
+                padding: 10px;
             }
         }
+        /* JavaScript for active cell toggling */
+        
+        document.addEventListener('DOMContentLoaded',
+        ()=> {
+            const tableCells=document.querySelectorAll('.shop-orders table td'); // Select cells within .shop-orders
+            tableCells.forEach(cell=> {
+                cell.addEventListener('click', ()=> {
+                    cell.classList.toggle('active');
+                }
+                );
+            }
+            );
+        }
+        
+        );
     </style>
 </head>
 
