@@ -35,7 +35,7 @@
             --glass-border: rgba(99, 99, 99, 0.3);
             --shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             --blue-accent-light: #66b2ff;
-            --blue-accent-dark: #1e90ff;
+            --blue-accent-dark: #63d3ff;
             --background: #e0e0e012;
             --shadow-dark: rgba(0, 0, 0, 0.3);
             --shadow-light: rgba(255, 255, 255, 0.5);
@@ -56,7 +56,7 @@
         }
         
         .logo {
-            color: var(--blue-accent-dark);
+            color: #63d3ff;
             font-size: 0.8rem;
             font-weight: bold;
             text-decoration: none;
@@ -65,22 +65,12 @@
             border: none;
             box-shadow: 10px 10px 30px var(--shadow-dark), -10px -10px 30px var(--shadow-dark);
             transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-            animation: glow 1s infinite alternate;
         }
         
         .logo:hover {
             transform: scale(1.1);
             box-shadow: inset 10px 10px 30px var(--shadow-dark), inset -10px -10px 30px var(--shadow-dark);
             color: var(--blue-accent-light);
-        }
-        
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 2px rgb(0, 208, 255), 0 0 2px rgb(7, 129, 156), 0 0 7px rgb(138, 234, 255), 0 0 10px rgb(60, 117, 129), 0 0 12px rgb(57, 105, 116)d, 0 0 15px rgb(192, 242, 253), 0 0 17px rgb(0, 99, 121);
-            }
-            100% {
-                text-shadow: 0 0 2px rgb(46, 217, 255), 0 0 2px rgb(133, 233, 255), 0 0 10px rgb(0, 171, 209), 0 0 12px rgb(81, 155, 172), 0 0 15px rgb(137, 221, 240), 0 0 17px rgb(24, 154, 184), 0 0 20px rgb(0, 183, 255);
-            }
         }
         
         .nav-links {
@@ -212,10 +202,11 @@
             color: var(--blue-1);
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            overflow: hidden;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            scroll-behavior: smooth;
         }
         
         .hero {
@@ -227,6 +218,8 @@
             align-items: center;
             min-height: 100vh;
             padding: 2rem;
+            width: 100%;
+            height: 100vh;
         }
         
         .hero::before,
@@ -238,13 +231,13 @@
             right: 0;
             bottom: 0;
             pointer-events: none;
-            background: radial-gradient(circle at 20% 30%, var(--blue-1) 0.2%, transparent 0.8%), radial-gradient(circle at 80% 70%, var(--blue-2) 0.2%, transparent 0.8%), radial-gradient(circle at 40% 60%, var(--blue-3) 0.2%, transparent 0.8%), radial-gradient(circle at 60% 40%, var(--blue-4) 0.2%, transparent 0.8%), radial-gradient(circle at 30% 80%, var(--blue-5) 0.2%, transparent 0.8%);
+            background: radial-gradient(circle at 20% 30%, var(--blue-1) 0.2%, transparent 0.1%), radial-gradient(circle at 80% 70%, var(--blue-2) 0.2%, transparent 0.8%), radial-gradient(circle at 40% 60%, var(--blue-3) 0.2%, transparent 0.8%), radial-gradient(circle at 60% 40%, var(--blue-4) 0.2%, transparent 0.8%), radial-gradient(circle at 30% 80%, var(--blue-5) 0.2%, transparent 0.8%);
             animation: particleMove 8s linear infinite;
-            opacity: 0.8;
+            opacity: 1;
         }
         
         .hero::after {
-            animation: particleMove 6s linear infinite reverse;
+            animation: particleMove 9s linear infinite reverse;
             filter: blur(1px);
             opacity: 0.6;
         }
@@ -258,7 +251,7 @@
             background-clip: text;
             color: transparent;
             text-shadow: var(--neon-blue);
-            animation: slideIn 3s ease-out forwards, gradientFlow 12s ease infinite, textGlow 15s ease-in-out infinite alternate;
+            animation: slideIn 3s ease-out forwards, gradientFlow 120s ease infinite, textGlow 150s ease-in-out infinite alternate;
             opacity: 1;
             z-index: 1;
             text-align: center;
@@ -269,8 +262,8 @@
             font-size: 0.8rem;
             color: var(--blue-5);
             text-shadow: var(--text-shadow);
-            animation: fadeUp 12s ease infinite, textGlow 25s ease-in-out infinite alternate;
-            opacity: 2;
+            animation: fadeUp 120s ease infinite, textGlow 250s ease-in-out infinite alternate;
+            opacity: 1;
             z-index: 1;
             text-align: center;
             margin-bottom: 1rem;
@@ -285,7 +278,7 @@
             background-clip: text;
             color: transparent;
             text-shadow: var(--neon-blue);
-            animation: slideIn 3s ease-out forwards, gradientFlow 6s ease infinite, textGlow 9s ease-in-out infinite alternate;
+            animation: slideIn 3s ease-out forwards, gradientFlow 60s ease infinite, textGlow 90s ease-in-out infinite alternate;
             opacity: 1;
             z-index: 1;
             text-align: center;
@@ -306,10 +299,10 @@
         
         @keyframes textGlow {
             from {
-                filter: drop-shadow(0 0 2px var(--blue-1)) drop-shadow(0 0 4px var(--blue-2));
+                filter: drop-shadow(0 0 1px var(--blue-1)) drop-shadow(0 0 1px var(--blue-2));
             }
             to {
-                filter: drop-shadow(0 0 4px var(--blue-3)) drop-shadow(0 0 8px var(--blue-4));
+                filter: drop-shadow(0 0 1px var(--blue-3)) drop-shadow(0 0 1px var(--blue-4));
             }
         }
         
@@ -381,6 +374,30 @@
              :root {
                 --neon-blue: 0 0 20px rgba(0, 162, 255, 0.9);
             }
+        }
+        
+        .table-container {
+            padding: 2rem;
+            margin-top: 20vh;
+            background: var(--bg-primary);
+            color: var(--blue-1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--blue-5);
+        }
+        
+        th {
+            background: var(--blue-2);
+            color: var(--bg-primary);
         }
     </style>
 
@@ -1069,7 +1086,7 @@
                 this.size = size;
                 this.color = color;
                 this.splits = splits;
-                this.maxSplits = 4;
+                this.maxSplits = 6;
                 this.element = document.createElement('div');
                 this.element.style.position = 'absolute';
                 this.element.style.borderRadius = '50%';

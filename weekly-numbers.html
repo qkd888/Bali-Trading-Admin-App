@@ -246,7 +246,7 @@
         }
         
         .logo {
-            color: var(--blue-accent-dark);
+            color: #63d3ff;
             font-size: 0.8rem;
             font-weight: bold;
             text-decoration: none;
@@ -255,22 +255,12 @@
             border: none;
             box-shadow: 10px 10px 30px var(--shadow-dark), -10px -10px 30px var(--shadow-dark);
             transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-            animation: glow 1s infinite alternate;
         }
         
         .logo:hover {
             transform: scale(1.1);
             box-shadow: inset 10px 10px 30px var(--shadow-dark), inset -10px -10px 30px var(--shadow-dark);
             color: var(--blue-accent-light);
-        }
-        
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 2px rgb(0, 208, 255), 0 0 2px rgb(7, 129, 156), 0 0 7px rgb(138, 234, 255), 0 0 10px rgb(60, 117, 129), 0 0 12px rgb(57, 105, 116)d, 0 0 15px rgb(192, 242, 253), 0 0 17px rgb(0, 99, 121);
-            }
-            100% {
-                text-shadow: 0 0 2px rgb(46, 217, 255), 0 0 2px rgb(133, 233, 255), 0 0 10px rgb(0, 171, 209), 0 0 12px rgb(81, 155, 172), 0 0 15px rgb(137, 221, 240), 0 0 17px rgb(24, 154, 184), 0 0 20px rgb(0, 183, 255);
-            }
         }
         
         .nav-links {
