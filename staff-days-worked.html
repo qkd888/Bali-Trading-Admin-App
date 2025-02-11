@@ -244,6 +244,12 @@
             color: var(--blue-accent);
         }
         
+        @media (max-width: 380px) {
+            h2 {
+                margin-top: 5rem;
+            }
+        }
+        
         .form-group {
             margin-bottom: 18px;
             /* Increased margin */
@@ -412,21 +418,6 @@
             transform: translateY(-3px);
             box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
         }
-        /* JavaScript for active cell toggling */
-        
-        document.addEventListener('DOMContentLoaded',
-        ()=> {
-            const tableCells=document.querySelectorAll('table td');
-            tableCells.forEach(cell=> {
-                cell.addEventListener('click', ()=> {
-                    cell.classList.toggle('active');
-                }
-                );
-            }
-            );
-        }
-        
-        );
     </style>
 </head>
 
