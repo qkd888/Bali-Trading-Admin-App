@@ -34,6 +34,11 @@
             --glass-bg: rgba(34, 34, 34, 0.7);
             --glass-border: rgba(99, 99, 99, 0.3);
             --shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --blue-accent-light: #66b2ff;
+            --blue-accent-dark: #1e90ff;
+            --background: #e0e0e012;
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+            --shadow-light: rgba(255, 255, 255, 0.5);
         }
         
         .navbar {
@@ -51,15 +56,31 @@
         }
         
         .logo {
-            color: var(--blue-accent);
-            font-size: 1.5rem;
+            color: var(--blue-accent-dark);
+            font-size: 0.8rem;
             font-weight: bold;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            padding: 20px 40px;
+            background: var(--background);
+            border: none;
+            box-shadow: 10px 10px 30px var(--shadow-dark), -10px -10px 30px var(--shadow-dark);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+            animation: glow 1s infinite alternate;
         }
         
         .logo:hover {
             transform: scale(1.1);
+            box-shadow: inset 10px 10px 30px var(--shadow-dark), inset -10px -10px 30px var(--shadow-dark);
+            color: var(--blue-accent-light);
+        }
+        
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 2px rgb(0, 208, 255), 0 0 2px rgb(7, 129, 156), 0 0 7px rgb(138, 234, 255), 0 0 10px rgb(60, 117, 129), 0 0 12px rgb(57, 105, 116)d, 0 0 15px rgb(192, 242, 253), 0 0 17px rgb(0, 99, 121);
+            }
+            100% {
+                text-shadow: 0 0 2px rgb(46, 217, 255), 0 0 2px rgb(133, 233, 255), 0 0 10px rgb(0, 171, 209), 0 0 12px rgb(81, 155, 172), 0 0 15px rgb(137, 221, 240), 0 0 17px rgb(24, 154, 184), 0 0 20px rgb(0, 183, 255);
+            }
         }
         
         .nav-links {
@@ -73,7 +94,7 @@
             position: fixed;
             top: 0;
             right: 0;
-            width: 25%;
+            width: 35%;
             height: 100vh;
             background-color: rgba(0, 0, 0, 0.842);
             align-items: center;
@@ -98,7 +119,7 @@
         .nav-links a {
             color: #63d3ff;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 0.8rem;
             /* Consistent size for mobile and desktop */
             transition: all 0.4s ease-in-out;
         }
@@ -166,97 +187,189 @@
         /********************************************/
         /********************************************/
         /********************************************/
-    </style>
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+        
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
          :root {
-            --blue-accent: #63d3ff;
-            --bg-primary: #000;
-            /* Pure black background */
-            --neon-glow: 0 0 20px rgba(99, 211, 255, 0.7);
-            /* Stronger neon glow */
+            --blue-1: #00ffff85;
+            --blue-2: #00a2ff71;
+            --blue-3: #0062ff63;
+            --blue-4: #0400ff59;
+            --blue-5: #63d3ff70;
+            --bg-primary: #23272F;
+            --neon-blue: 0 0 20px rgba(0, 162, 255, 0.541);
             --text-shadow: 0 0 10px rgba(99, 211, 255, 0.3);
-            /* Text shadow for depth */
-            --overlay-color: rgba(0, 0, 0, 0.5);
-            /* Semi-transparent overlay */
+            --gradient-text: linear-gradient(300deg, var(--blue-1) 0%, var(--blue-2) 25%, var(--blue-3) 50%, var(--blue-4) 75%, var(--blue-5) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            margin: 0;
             background-color: var(--bg-primary);
-            color: var(--blue-accent);
-            /* Default text color is blue accent */
+            color: var(--blue-1);
             font-family: 'Poppins', sans-serif;
-            /* Prevent scrollbars initially */
+            line-height: 1.6;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         
         .hero {
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
+            min-height: 100vh;
+            padding: 2rem;
         }
         
-        .h1-hero {
-            color: var(--blue-accent);
+        .hero::before,
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at 20% 30%, var(--blue-1) 0.2%, transparent 0.8%), radial-gradient(circle at 80% 70%, var(--blue-2) 0.2%, transparent 0.8%), radial-gradient(circle at 40% 60%, var(--blue-3) 0.2%, transparent 0.8%), radial-gradient(circle at 60% 40%, var(--blue-4) 0.2%, transparent 0.8%), radial-gradient(circle at 30% 80%, var(--blue-5) 0.2%, transparent 0.8%);
+            animation: particleMove 8s linear infinite;
+            opacity: 0.8;
+        }
+        
+        .hero::after {
+            animation: particleMove 6s linear infinite reverse;
+            filter: blur(1px);
+            opacity: 0.6;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 4.5rem);
             font-weight: 700;
-            /* Stronger bold */
-            font-size: 2rem;
-            /* Larger heading */
-            text-shadow: var(--neon-glow), var(--text-shadow);
-            /* Glow and shadow */
+            background: var(--gradient-text);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-blue);
+            animation: slideIn 3s ease-out forwards, gradientFlow 6s ease infinite, textGlow 9s ease-in-out infinite alternate;
+            opacity: 1;
+            z-index: 1;
+            text-align: center;
             margin-bottom: 1rem;
-            animation: fadeInUp 1s ease forwards;
-            /* Animation for heading */
-            opacity: 0;
-            /* Start invisible */
-            transform: translateY(-20px);
-            /* Start slightly above */
         }
         
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--blue-5);
+            text-shadow: var(--text-shadow);
+            animation: fadeUp 1.2s ease-out 0.3s forwards;
+            opacity: 1;
+            z-index: 1;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
             }
         }
         
-        .hero p {
-            font-weight: 500;
-            /* Slightly less bold */
-            font-size: 1.2rem;
-            color: var(--blue-accent);
-            text-shadow: var(--text-shadow);
-            margin-bottom: 2rem;
-            animation: fadeInUp 1.2s ease forwards;
-            /* Animation with delay */
-            opacity: 0;
-            transform: translateY(-20px);
+        @keyframes textGlow {
+            from {
+                filter: drop-shadow(0 0 2px var(--blue-1)) drop-shadow(0 0 4px var(--blue-2));
+            }
+            to {
+                filter: drop-shadow(0 0 4px var(--blue-3)) drop-shadow(0 0 8px var(--blue-4));
+            }
         }
         
-        .animated-text {
-            color: var(--blue-accent);
-            font-size: 1.5rem;
-            text-shadow: var(--text-shadow);
-            animation: fadeInUp 1.4s ease forwards;
-            /* Animation with delay */
-            opacity: 0;
-            transform: translateY(-20px);
+        @keyframes particleMove {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(-20px, 20px) scale(1.2);
+            }
+            50% {
+                transform: translate(20px, -20px) scale(1);
+            }
+            75% {
+                transform: translate(-10px, -10px) scale(0.8);
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
         }
         
-        .word {
-            font-size: 0.8rem;
-            color: #999;
-            /* Lighter color for small text */
-            margin-top: 0.5rem;
-            /* Space below animated text */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        /* ... (rest of your CSS) */
+        
+        @keyframes fadeUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @media screen and (min-width: 768px) {
+            .hero {
+                padding: 4rem;
+            }
+            h1 {
+                font-size: clamp(2.5rem, 6vw, 5rem);
+            }
+            p {
+                font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            }
+        }
+        
+        @media screen and (min-width: 1200px) {
+            .hero {
+                padding: 6rem;
+            }
+            h1 {
+                font-size: clamp(3rem, 7vw, 6rem);
+            }
+            p {
+                font-size: clamp(1.4rem, 3vw, 2rem);
+            }
+        }
+        
+        @media (prefers-color-scheme: dark) {
+             :root {
+                --neon-blue: 0 0 20px rgba(0, 162, 255, 0.9);
+            }
+        }
     </style>
+
+
+
 
 
     <style>
@@ -495,9 +608,6 @@
             <span class="word">Dinnerware/</span>
             <span class="word">Ceramics</span>
         </div>
-        <p>What would you like to do?</p>
-        <p>Click the Burger Navbar</p>
-        <p>Scroll Down For Contact Numbers</p>
     </div>
     <h1 class="h1-contact">Bali Trading Contact Numbers</h1>
     <table class="main-table">
@@ -925,6 +1035,92 @@
         </tbody>
     </table>
     <button id="backToTopBtn" title="Go to top">top</button>
+
+
+    <!--***************************************-->
+    <!--***************************************-->
+    <!--***************************************-->
+
+    <script>
+        const particleContainer = document.querySelector('.hero');
+
+        class Particle {
+            constructor(x, y, dx, dy, size, color, splits) {
+                this.x = x;
+                this.y = y;
+                this.dx = dx;
+                this.dy = dy;
+                this.size = size;
+                this.color = color;
+                this.splits = splits;
+                this.maxSplits = 4;
+                this.element = document.createElement('div');
+                this.element.style.position = 'absolute';
+                this.element.style.borderRadius = '50%';
+                this.element.style.width = `${this.size}px`;
+                this.element.style.height = `${this.size}px`;
+                this.element.style.backgroundColor = this.color;
+                particleContainer.appendChild(this.element);
+            }
+
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+
+                // Wall collision detection
+                if (this.x + this.size > window.innerWidth || this.x - this.size < 0) {
+                    this.dx = -this.dx;
+                }
+                if (this.y + this.size > window.innerHeight || this.y - this.size < 0) {
+                    this.dy = -this.dy;
+                }
+
+                // Update position
+                this.element.style.left = `${this.x}px`;
+                this.element.style.top = `${this.y}px`;
+
+                // Particle collision detection and split
+                particles.forEach(particle => {
+                    if (this !== particle && this.collide(particle)) {
+                        this.split();
+                        particle.split();
+                    }
+                });
+            }
+
+            collide(otherParticle) {
+                const dx = this.x - otherParticle.x;
+                const dy = this.y - otherParticle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                return distance < this.size + otherParticle.size;
+            }
+
+            split() {
+                if (this.splits < this.maxSplits) {
+                    particles.push(new Particle(this.x, this.y, -this.dx, -this.dy, this.size / 2, this.color, this.splits + 1));
+                    this.splits++;
+                }
+            }
+        }
+
+        const particles = [];
+        for (let i = 0; i < 20; i++) {
+            const size = Math.random() * 10 + 5;
+            const x = Math.random() * (window.innerWidth - size * 2) + size;
+            const y = Math.random() * (window.innerHeight - size * 2) + size;
+            const dx = (Math.random() - 0.5) * 2;
+            const dy = (Math.random() - 0.5) * 2;
+            const color = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.7)`;
+            particles.push(new Particle(x, y, dx, dy, size, color, 0));
+        }
+
+        function animateParticles() {
+            particles.forEach(particle => particle.update());
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+    </script>
     <script>
         // Get the button
         var mybutton = document.getElementById("backToTopBtn");
