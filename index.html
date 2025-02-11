@@ -190,13 +190,13 @@
         
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
          :root {
-            --blue-1: #00ffff85;
-            --blue-2: #00a2ff71;
-            --blue-3: #0062ff63;
-            --blue-4: #0400ff59;
-            --blue-5: #63d3ff70;
+            --blue-1: #00ffff;
+            --blue-2: #00a2ff;
+            --blue-3: #0062ff4a;
+            --blue-4: #0400ffa2;
+            --blue-5: #63d3ff;
             --bg-primary: #23272F;
-            --neon-blue: 0 0 20px rgba(0, 162, 255, 0.541);
+            --neon-blue: 0 0 20px rgba(0, 217, 255, 0.038);
             --text-shadow: 0 0 10px rgba(99, 211, 255, 0.3);
             --gradient-text: linear-gradient(300deg, var(--blue-1) 0%, var(--blue-2) 25%, var(--blue-3) 50%, var(--blue-4) 75%, var(--blue-5) 100%);
         }
@@ -258,7 +258,7 @@
             background-clip: text;
             color: transparent;
             text-shadow: var(--neon-blue);
-            animation: slideIn 3s ease-out forwards, gradientFlow 6s ease infinite, textGlow 9s ease-in-out infinite alternate;
+            animation: slideIn 3s ease-out forwards, gradientFlow 12s ease infinite, textGlow 15s ease-in-out infinite alternate;
             opacity: 1;
             z-index: 1;
             text-align: center;
@@ -266,10 +266,26 @@
         }
         
         p {
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: 0.8rem;
             color: var(--blue-5);
             text-shadow: var(--text-shadow);
-            animation: fadeUp 1.2s ease-out 0.3s forwards;
+            animation: fadeUp 12s ease infinite, textGlow 25s ease-in-out infinite alternate;
+            opacity: 2;
+            z-index: 1;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .animated-text span {
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: var(--gradient-text);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-blue);
+            animation: slideIn 3s ease-out forwards, gradientFlow 6s ease infinite, textGlow 9s ease-in-out infinite alternate;
             opacity: 1;
             z-index: 1;
             text-align: center;
