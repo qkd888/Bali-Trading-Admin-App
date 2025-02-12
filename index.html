@@ -5,6 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bali Trading Admin App</title>
+
+
+    <!--*************************************************-->
+    <!--*************************************************-->
+    <!--*************************************************-->
+
+
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
         * {
@@ -17,15 +24,11 @@
             font-family: "Poppins", sans-serif;
             max-width: 100%;
             margin: 0 auto;
-            background-color: #000000;
         }
         /***********NAVBAR/MOBILE NAVBAR************/
         /*******************************************/
         /*******************************************/
         /*******************************************/
-        
-        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-        /* Navbar */
         
          :root {
             --blue-accent: #63d3ff;
@@ -173,463 +176,312 @@
         .toggle .line3 {
             transform: rotate(45deg) translate(-5px, -6px);
         }
-        /********************HERO********************/
-        /********************************************/
-        /********************************************/
-        /********************************************/
-        
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-         :root {
-            --blue-1: #00ffff;
-            --blue-2: #00a2ff;
-            --blue-3: #0062ff4a;
-            --blue-4: #0400ffa2;
-            --blue-5: #63d3ff;
-            --bg-primary: #23272F;
-            --neon-blue: 0 0 20px rgba(0, 217, 255, 0);
-            --text-shadow: 0 0 10px rgba(99, 211, 255, 0.3);
-            --gradient-text: linear-gradient(300deg, var(--blue-1) 0%, var(--blue-2) 25%, var(--blue-3) 50%, var(--blue-4) 75%, var(--blue-5) 100%);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: var(--bg-primary);
-            color: black;
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            scroll-behavior: smooth;
-            padding: 1rem;
-        }
-        
-        .hero {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 2rem;
-            width: 100%;
-            height: 100vh;
-        }
-        
-        .hero::before,
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            background: radial-gradient(circle at 20% 30%, var(--blue-1) 0.2%, transparent 0.1%), radial-gradient(circle at 80% 70%, var(--blue-2) 0.2%, transparent 0.8%), radial-gradient(circle at 40% 60%, var(--blue-3) 0.2%, transparent 0.8%), radial-gradient(circle at 60% 40%, var(--blue-4) 0.2%, transparent 0.8%), radial-gradient(circle at 30% 80%, var(--blue-5) 0.2%, transparent 0.8%);
-            animation: particleMove 8s linear infinite;
-            opacity: 1;
-        }
-        
-        .hero::after {
-            animation: particleMove 9s linear infinite reverse;
-            filter: blur(1px);
-            opacity: 0.6;
-        }
-        
-        h1 {
-            font-size: clamp(2rem, 5vw, 4.5rem);
-            font-weight: 700;
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: black;
-            text-shadow: var(--neon-blue);
-            animation: slideIn 3s ease-out forwards, gradientFlow 120s ease infinite, textGlow 150s ease-in-out infinite alternate;
-            opacity: 1;
-            z-index: 1;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        
-        .h1-contact {
-            font-size: clamp(0.8rem, 5vw, 1rem);
-            font-weight: 700;
-            background: var(--gradient-text);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: black;
-            text-shadow: var(--neon-blue);
-            animation: slideIn 3s ease-out forwards, gradientFlow 120s ease infinite, textGlow 150s ease-in-out infinite alternate;
-            opacity: 1;
-            z-index: 1;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        
-        p {
-            font-size: 0.8rem;
-            color: var(--blue-5);
-            text-shadow: var(--text-shadow);
-            animation: fadeUp 120s ease infinite, textGlow 250s ease-in-out infinite alternate;
-            opacity: 1;
-            z-index: 1;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        
-        .animated-text span {
-            font-size: 0.8rem;
-            font-weight: bold;
-            background: var(--gradient-text);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: black;
-            text-shadow: var(--neon-blue);
-            animation: slideIn 3s ease-out forwards, gradientFlow 60s ease infinite, textGlow 90s ease-in-out infinite alternate;
-            opacity: 1;
-            z-index: 1;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        
-        @keyframes gradientFlow {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        
-        @keyframes textGlow {
-            from {
-                filter: drop-shadow(0 0 1px var(--blue-1)) drop-shadow(0 0 1px var(--blue-2));
-            }
-            to {
-                filter: drop-shadow(0 0 1px var(--blue-3)) drop-shadow(0 0 1px var(--blue-4));
-            }
-        }
-        
-        @keyframes particleMove {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            25% {
-                transform: translate(-20px, 20px) scale(1.2);
-            }
-            50% {
-                transform: translate(20px, -20px) scale(1);
-            }
-            75% {
-                transform: translate(-10px, -10px) scale(0.8);
-            }
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        @media screen and (min-width: 768px) {
-            .hero {
-                padding: 4rem;
-            }
-            h1 {
-                font-size: clamp(2.5rem, 6vw, 5rem);
-            }
-            p {
-                font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            }
-        }
-        
-        @media screen and (min-width: 1200px) {
-            .hero {
-                padding: 6rem;
-            }
-            h1 {
-                font-size: clamp(3rem, 7vw, 6rem);
-            }
-            p {
-                font-size: clamp(1.4rem, 3vw, 2rem);
-            }
-        }
-        
-        @media (prefers-color-scheme: dark) {
-             :root {
-                --neon-blue: 0 0 20px rgba(0, 0, 0, 0.9);
-            }
-        }
-        
-        .table-container {
-            padding: 2rem;
-            margin-top: 20vh;
-            background: var(--bg-primary);
-            color: var(--blue-1);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th,
-        td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--blue-5);
-        }
-        
-        th {
-            background: var(--blue-2);
-            color: var(--bg-primary);
-        }
     </style>
 
 
-
+    <!--*************************************************-->
+    <!--*************************************************-->
+    <!--*************************************************-->
 
 
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-         :root {
-            --blue-accent: #9ad3ff;
-            --bg-primary: #181818;
-            --surface-color: #23272f;
-            --shadow-color: #1c1f25;
-            --inner-shadow-color: #2a2e36;
-            --text-color: #e8e8e8;
-            --border-color: #3b4048;
-            --glass-bg: rgba(9, 113, 231, 0.337);
-            /* Glassy background */
-            --glass-border: rgba(59, 64, 72, 0.3);
-            /* Glass border */
-        }
+        /* General Reset */
         
         body {
             margin: 0;
-            background-color: var(--bg-primary);
-            color: var(--text-color);
+            padding: 0;
             font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
+        /* Hero Section */
         
-        .h1-hero {
-            text-align: center;
-            color: black;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-            /* Increased font size */
-        }
-        
-        @media screen and (min-width: 768px) {
-            .h1-hero {
-                font-size: 3.5rem;
-            }
-        }
-        
-        .animated-text span {
-            text-align: center;
-            color: black;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 0.5rem;
-            font-weight: bold;
-        }
-        
-        @media screen and (min-width: 768px) {
-            .animated-text span {
-                font-size: 1.5rem;
-            }
-        }
-        
-        .table-container {
+        .hero {
+            width: 100%;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 0 2rem;
-            /* Increased padding */
-            color: var(--blue-accent);
-            width: 100%;
-            overflow-x: auto;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box;
         }
+        /* Glass Container */
+        /* Heading */
         
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: var(--glass-bg);
-            /* Use glassy background */
-            box-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--inner-shadow-color);
-            border-radius: 12px;
-            /* More rounded corners */
+        .h1-hero-header {
+            font-size: 1.8rem;
+            font-weight: 700;
             margin-bottom: 20px;
-            overflow: hidden;
-            table-layout: auto;
-            /* Let table adjust width */
-            border: 1px solid var(--glass-border);
-            /* Glass border */
+            color: #63d3ff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
+        /* Tags Container */
         
-        th,
-        td {
-            border: none;
-            /* Remove default borders */
-            padding: 14px;
-            /* Increased padding */
-            text-align: left;
-            font-size: 1.1rem;
-            /* Increased font size */
-            color: var(--blue-accent);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            min-width: 180px;
-            /* Increased min-width */
-            background-color: transparent;
-            /* Transparent cell background */
-            transition: background-color 0.3s ease, color 0.3s ease;
-            /* Smooth transitions */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
+        /* Tags */
         
-        th {
-            color: var(--blue-accent);
-            font-weight: bold;
-            box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
-            text-align: center;
-            background-color: rgba(25, 88, 140, 0.5);
-            /* Semi-transparent header background */
+        .tag {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #63d3ff;
         }
-        /* Active row hover */
+        /* Responsive Design */
         
-        tr:hover {
-            background-color: rgba(99, 99, 99, 0.1);
-            /* Subtle row hover */
-        }
-        /* Active cell styling */
-        
-        td.active {
-            background-color: var(--blue-accent);
-            color: var(--bg-primary);
-        }
-        
-        .main-table,
-        .secondary-table {
-            width: 100%;
-        }
-        /* Media Queries for Responsiveness */
-        
-        @media (max-width: 900px) {
-            /* Adjust breakpoint as needed */
-            .table-container {
-                padding: 0 1rem;
+        @media (max-width: 768px) {
+            .h1-hero {
+                font-size: 2rem;
             }
-            th,
-            td {
-                font-size: 1rem;
-                padding: 12px;
-                min-width: 150px;
+            .glass-container {
+                padding: 20px;
             }
-        }
-        
-        @media (max-width: 600px) {
-            .h1-contact {
-                font-size: 1.5rem;
-                margin-top: 1.5rem;
-            }
-            th,
-            td {
+            .tag {
                 font-size: 0.9rem;
-                padding: 10px;
-                min-width: 120px;
+                padding: 8px 16px;
             }
         }
         
         @media (max-width: 480px) {
-            .h1-contact {
-                font-size: 1.2rem;
-                margin-top: 1rem;
+            .h1-hero {
+                font-size: 1.5rem;
             }
-            th,
-            td {
+            .glass-container {
+                padding: 15px;
+            }
+            .tag {
                 font-size: 0.8rem;
-                padding: 8px;
-                min-width: 100px;
-            }
-        }
-        
-        .animated-text {
-            color: var(--text-color);
-            font-weight: bold;
-        }
-        
-        #backToTopBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99;
-            border: none;
-            outline: none;
-            background-color: rgba(99, 99, 99, 0.5);
-            /* Semi-transparent background */
-            color: var(--text-color);
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 16px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
-        }
-        
-        #backToTopBtn:hover {
-            background-color: var(--blue-accent);
-            color: var(--bg-primary);
-            /* Or a contrasting color */
-            box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
-        }
-        
-        @media (max-width: 768px) {
-            #backToTopBtn {
-                padding: 12px;
-                font-size: 14px;
+                padding: 6px 12px;
             }
         }
     </style>
 </head>
+
+</html>
+
+
+
+<!--*************************************************-->
+<!--*************************************************-->
+<!--*************************************************-->
+
+
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+     :root {
+        --blue-accent: #9ad3ff;
+        --bg-primary: #181818;
+        --surface-color: #23272f;
+        --shadow-color: #1c1f25;
+        --inner-shadow-color: #2a2e36;
+        --text-color: #e8e8e8;
+        --border-color: #3b4048;
+        --glass-bg: rgba(9, 113, 231, 0.337);
+        /* Glassy background */
+        --glass-border: rgba(59, 64, 72, 0.3);
+        /* Glass border */
+    }
+    
+    body {
+        margin: 0;
+        background-color: black;
+        color: var(--text-color);
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    
+    .h2-contact {
+        color: #63d3ff;
+    }
+    
+    .table-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 2rem;
+        /* Increased padding */
+        color: var(--blue-accent);
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--glass-bg);
+        /* Use glassy background */
+        box-shadow: 8px 8px 16px var(--shadow-color), -8px -8px 16px var(--inner-shadow-color);
+        border-radius: 12px;
+        /* More rounded corners */
+        margin-bottom: 20px;
+        overflow: hidden;
+        table-layout: auto;
+        /* Let table adjust width */
+        border: 1px solid var(--glass-border);
+        /* Glass border */
+    }
+    
+    th,
+    td {
+        border: none;
+        /* Remove default borders */
+        padding: 14px;
+        /* Increased padding */
+        text-align: left;
+        font-size: 1.1rem;
+        /* Increased font size */
+        color: var(--blue-accent);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 180px;
+        /* Increased min-width */
+        background-color: transparent;
+        /* Transparent cell background */
+        transition: background-color 0.3s ease, color 0.3s ease;
+        /* Smooth transitions */
+    }
+    
+    th {
+        color: var(--blue-accent);
+        font-weight: bold;
+        box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
+        text-align: center;
+        background-color: rgba(25, 88, 140, 0.5);
+        /* Semi-transparent header background */
+    }
+    /* Active row hover */
+    
+    tr:hover {
+        background-color: rgba(99, 99, 99, 0.1);
+        /* Subtle row hover */
+    }
+    /* Active cell styling */
+    
+    td.active {
+        background-color: var(--blue-accent);
+        color: var(--bg-primary);
+    }
+    
+    .main-table,
+    .secondary-table {
+        width: 100%;
+    }
+    /******* Media Queries for Responsiveness *********/
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    
+    @media (max-width: 900px) {
+        /* Adjust breakpoint as needed */
+        .table-container {
+            padding: 0 1rem;
+        }
+        th,
+        td {
+            font-size: 1rem;
+            padding: 12px;
+            min-width: 150px;
+        }
+    }
+    
+    @media (max-width: 600px) {
+        .h1-contact {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        th,
+        td {
+            font-size: 0.9rem;
+            padding: 10px;
+            min-width: 120px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .h1-contact {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+        th,
+        td {
+            font-size: 0.8rem;
+            padding: 8px;
+            min-width: 100px;
+        }
+    }
+    
+    .animated-text {
+        color: var(--text-color);
+        font-weight: bold;
+    }
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    /**************************************************/
+    
+    #backToTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: rgba(99, 99, 99, 0.5);
+        /* Semi-transparent background */
+        color: var(--text-color);
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        font-size: 16px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
+    }
+    
+    #backToTopBtn:hover {
+        background-color: var(--blue-accent);
+        color: var(--bg-primary);
+        /* Or a contrasting color */
+        box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--inner-shadow-color);
+    }
+    
+    @media (max-width: 768px) {
+        #backToTopBtn {
+            padding: 12px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+
+<!--*************************************************-->
+<!--*************************************************-->
+<!--*************************************************-->
+
+
+
 
 <body>
     <!--*************NAVBAR-MOBILE-NAVBAR****************-->
@@ -668,19 +520,21 @@
     <!--****************************************-->
 
     <div class="hero">
-        <h1 class="h1-hero">Welcome to Bali Trading Admin App</h1>
-        <div class="animated-text">
-            <span class="word active">Home Decor/</span>
-            <span class="word">Gifts/</span>
-            <span class="word">Furniture/</span>
-            <span class="word">Kitchenware/</span>
-            <span class="word">Table Decor/</span>
-            <span class="word">Rugs/</span>
-            <span class="word">Dinnerware/</span>
-            <span class="word">Ceramics</span>
+        <div class="glass-container">
+            <h1 class="h1-hero-header">Welcome to Bali Trading Admin App</h1>
+            <div class="tags-container">
+                <span class="tag">Home Decor</span>
+                <span class="tag">Gifts</span>
+                <span class="tag">Furniture</span>
+                <span class="tag">Kitchenware</span>
+                <span class="tag">Table Decor</span>
+                <span class="tag">Rugs</span>
+                <span class="tag">Dinnerware</span>
+                <span class="tag">Ceramics</span>
+            </div>
         </div>
     </div>
-    <h1 class="h1-contact">Bali Trading Contact Numbers</h1>
+    <h2 class="h2-contact">Bali Trading Contact Numbers</h2>
     <table class="main-table">
         <thead>
             <tr>
@@ -1113,197 +967,6 @@
     <!--***************************************-->
     <!--***************************************-->
     <!--***************************************-->
-
-    <script>
-        class Particle {
-            constructor(x, y, size, baseColor) {
-                this.x = x;
-                this.y = y;
-                this.size = size;
-                this.baseColor = baseColor;
-                this.color = this.getRandomShade(this.baseColor);
-                this.dx = (Math.random() - 0.5) * 2;
-                this.dy = (Math.random() - 0.5) * 2;
-                this.element = document.createElement('div');
-                this.element.style.position = 'absolute';
-                this.element.style.borderRadius = '50%';
-                this.element.style.width = `${this.size}px`;
-                this.element.style.height = `${this.size}px`;
-                this.element.style.backgroundColor = this.color;
-                document.body.appendChild(this.element);
-                this.targetX = null;
-                this.targetY = null;
-                this.isSpiraling = false;
-                this.spiralSpeed = 10; // Increased spiral speed
-            }
-
-            getRandomShade(hexColor) {
-                let r = parseInt(hexColor.slice(1, 3), 16);
-                let g = parseInt(hexColor.slice(3, 5), 16);
-                let b = parseInt(hexColor.slice(5, 7), 16);
-
-                const brightnessFactor = 0.7 + Math.random() * 0.6;
-                r = Math.round(r * brightnessFactor);
-                g = Math.round(g * brightnessFactor);
-                b = Math.round(b * brightnessFactor);
-
-                r = Math.max(0, Math.min(255, r));
-                g = Math.max(0, Math.min(255, g));
-                b = Math.max(0, Math.min(255, b));
-
-                return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-            }
-
-            update() {
-                if (this.isSpiraling) {
-                    const dx = this.targetX - this.x;
-                    const dy = this.targetY - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 1) { // Close enough to target
-                        this.isSpiraling = false;
-                        this.x = this.targetX;
-                        this.y = this.targetY;
-                        return;
-                    }
-
-                    this.x += dx / dist * this.spiralSpeed;
-                    this.y += dy / dist * this.spiralSpeed;
-                } else {
-                    this.x += this.dx;
-                    this.y += this.dy;
-
-                    if (this.x + this.size > window.innerWidth || this.x < 0) {
-                        this.dx = -this.dx;
-                    }
-                    if (this.y + this.size > window.innerHeight || this.y < 0) {
-                        this.dy = -this.dy;
-                    }
-                }
-
-                this.element.style.transform = `translate(${this.x}px, ${this.y}px)`;
-
-                if (Math.random() < 0.01) {
-                    this.color = this.getRandomShade(this.baseColor);
-                    this.element.style.backgroundColor = this.color;
-                }
-            }
-
-            setSpiralTarget(centerX, centerY, angle, radius) {
-                this.targetX = centerX + radius * Math.cos(angle);
-                this.targetY = centerY + radius * Math.sin(angle);
-                this.isSpiraling = true;
-            }
-
-            clearSpiralTarget() {
-                this.targetX = null;
-                this.targetY = null;
-                this.isSpiraling = false;
-                this.dx = (Math.random() - 0.5) * 2;
-                this.dy = (Math.random() - 0.5) * 2;
-            }
-
-            distanceTo(otherParticle) {
-                const dx = this.x - otherParticle.x;
-                const dy = this.y - otherParticle.y;
-                return Math.sqrt(dx * dx + dy * dy);
-            }
-
-            collide(otherParticle) {
-                const dx = otherParticle.x - this.x;
-                const dy = otherParticle.y - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                const nx = dx / dist;
-                const ny = dy / dist;
-                const overlap = this.size + otherParticle.size - dist;
-                const pushX = overlap * nx * 0.5;
-                const pushY = overlap * ny * 0.5;
-
-                this.x -= pushX;
-                this.y -= pushY;
-                otherParticle.x += pushX;
-                otherParticle.y += pushY;
-
-                const tempDx = this.dx;
-                const tempDy = this.dy;
-
-                this.dx = otherParticle.dx;
-                this.dy = otherParticle.dy;
-                otherParticle.dx = tempDx;
-                otherParticle.dy = tempDy;
-            }
-        }
-
-        const initParticleSystem = () => {
-            let particles = [];
-            const initialParticleCount = 50;
-            const baseColor = "#63d3ff";
-
-            for (let i = 0; i < initialParticleCount; i++) {
-                const size = Math.random() * 10 + 5;
-                const particle = new Particle(
-                    Math.random() * (window.innerWidth - size),
-                    Math.random() * (window.innerHeight - size),
-                    size,
-                    baseColor
-                );
-                particles.push(particle);
-            }
-
-            let spiralInterval;
-            let spiralTimeout;
-
-            function formSpiral() {
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-                const radius = Math.min(centerX, centerY) * 0.3;
-
-                for (let i = 0; i < particles.length; i++) {
-                    const angle = (i / particles.length) * 2 * Math.PI;
-                    particles[i].setSpiralTarget(centerX, centerY, angle, radius);
-                }
-
-                clearTimeout(spiralTimeout); // Clear any previous timeout
-                spiralTimeout = setTimeout(() => {
-                    particles.forEach(p => p.clearSpiralTarget());
-                }, 500); // 0.5 seconds (500 milliseconds)
-            }
-
-            function checkCollisions() {
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const p1 = particles[i];
-                        const p2 = particles[j];
-
-                        if (p1.distanceTo(p2) < p1.size + p2.size) {
-                            p1.collide(p2);
-                        }
-                    }
-                }
-            }
-
-            function animate() {
-                particles.forEach(particle => particle.update());
-                checkCollisions();
-                requestAnimationFrame(animate);
-            }
-
-            animate();
-
-            clearInterval(spiralInterval); // Clear previous interval
-            spiralInterval = setInterval(formSpiral, 30000);
-
-            window.addEventListener('resize', () => {
-                particles.forEach(p => {
-                    if (p.x + p.size > window.innerWidth) p.x = window.innerWidth - p.size;
-                    if (p.y + p.size > window.innerHeight) p.y = window.innerHeight - p.size;
-                });
-            });
-        };
-
-        document.addEventListener('DOMContentLoaded', initParticleSystem);
-    </script>
 
 
     <script>
