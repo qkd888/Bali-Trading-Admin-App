@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Bulletin Board</title>
+
+    <!--**************Nav/Mobile Nav*****************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+        /* Navbar */
+        
+         :root {
+            --blue-accent: #63d3ff;
+            --bg-primary: #111;
+            --bg-secondary: #222;
+            --glass-bg: rgba(34, 34, 34, 0.7);
+            --glass-border: rgba(99, 99, 99, 0.3);
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --blue-accent-light: #66b2ff;
+            --blue-accent-dark: #63d3ff;
+            --background: #e0e0e012;
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+            --shadow-light: rgba(255, 255, 255, 0.5);
+        }
+        
+        .navbar {
+            background-color: black;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo {
+            color: #63d3ff;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 20px 40px;
+            background: var(--background);
+            border: none;
+            box-shadow: 10px 10px 30px var(--shadow-dark), -10px -10px 30px var(--shadow-dark);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.1);
+            box-shadow: inset 10px 10px 30px var(--shadow-dark), inset -10px -10px 30px var(--shadow-dark);
+            color: var(--blue-accent-light);
+        }
+        
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: none;
+            /* Initially hidden */
+            flex-direction: column;
+            /* Vertical menu */
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 35%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.842);
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease-in-out;
+            /* For smooth mobile transition */
+        }
+        
+        .nav-links.nav-active {
+            display: flex;
+            /* Shown when nav-active class is present */
+            transform: translateY(0%);
+            /* Ensure it starts at the top on mobile */
+        }
+        
+        .nav-links li {
+            margin: 0.5rem 0;
+            opacity: 0;
+            /* Initially hidden, fade in with animation */
+        }
+        
+        .nav-links a {
+            color: #63d3ff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            /* Consistent size for mobile and desktop */
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .nav-links a:hover {
+            color: #63d3ff;
+            font-weight: bold;
+        }
+        
+        .burger {
+            display: block;
+            /* Always visible */
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #63d3ff;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(400px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .nav-links.nav-active li {
+            /* Apply animation to visible links */
+            animation: navLinkFade 0.1s ease-in forwards;
+        }
+        
+        .nav-links.nav-active li:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .nav-links.nav-active li:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .nav-links.nav-active li:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+        
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .toggle .line2 {
+            opacity: 0;
+        }
+        
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+    </style>
+
+
+    <!--**************Bulletin Styling***************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+         :root {
+            --bg-primary: #1a1b1e;
+            --bg-secondary: #22242a;
+            --accent: #4CAF50;
+            --text: #e2e2e2;
+            --shadow-light: rgba(255, 255, 255, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.2);
+            --delete-red: #ff4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            font-family: "Poppins", sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .glass-neo {
+            background: rgba(34, 36, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+        }
+        
+        header {
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            margin-top: 5rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--accent), #63D3FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        p {
+            color: #63D3FF;
+        }
+        
+        .post-form {
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border: none;
+            border-radius: 8px;
+            color: #63D3FF;
+            box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0);
+            border: 1px solid #63D3FF;
+            border-radius: 8px;
+            color: #63D3FF;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            background: rgb(0, 0, 0);
+            border: 1px solid rgb(0, 0, 0);
+        }
+        
+        .delete-btn {
+            background: rgba(0, 0, 0, 0);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .posts-container {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            color: #63D3FF;
+        }
+        
+        .post {
+            padding: 20px;
+            transition: transform 0.2s;
+            position: relative;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #63D3FF;
+        }
+        
+        .post-author {
+            font-weight: bold;
+            color: #63D3FF;
+        }
+        
+        .post-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            color: #63D3FF;
+        }
+        
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .posts-container {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .post {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--*************NAVBAR-MOBILE-NAVBAR****************-->
+    <!--*************************************************-->
+    <!--*************************************************-->
+    <!--*************************************************-->
+
+    <nav class="navbar">
+        <div class="logo">
+            Bali Trading Admin App. <small>Designed By &copy QKDEV</small>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="bulletin.html">Bulletin Board</a></li>
+            <li><a href="customer-orders.html">Customer orders</a></li>
+            <li><a href="order-numbers.html">Order Numbers</a></li>
+            <li><a href="weekly-numbers.html">Weekly Numbers</a></li>
+            <li><a href="monthly-numbers.html">Monthly Numbers</a></li>
+            <li><a href="roster-manager.html">Rosters</a></li>
+            <li><a href="staff-attendence.html">Staff Attendence</a></li>
+            <li><a href="staff-days-worked.html">Staff Days Worked</a></li>
+            <li><a href="petty-cash.html">Petty Cash</a></li>
+            <li><a href="shop-orders.html">Shop Orders</a></li>
+            <li><a href="doc-manager.html">Documents</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!--****************Bulletin ********************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+
+
+    <div class="container">
+        <header class="glass-neo">
+            <h1>Digital Bulletin Board</h1>
+            <p>Please Delete the posts after you handle them</p>
+        </header>
+
+        <form class="post-form glass-neo" id="postForm">
+            <div class="input-group">
+                <input type="text" id="authorInput" placeholder="Your name" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="titleInput" placeholder="Post title" required>
+            </div>
+            <div class="input-group">
+                <textarea id="contentInput" placeholder="Write your announcement here..." required></textarea>
+            </div>
+            <button type="submit">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                </svg>
+                Post Announcement
+            </button>
+        </form>
+
+        <div class="posts-container" id="postsContainer"></div>
+    </div>
+
+    <!--***********Nav/Mobile Nav Scripts************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+
+    <script>
+        const navSlide = () => {
+            const burger = document.querySelector(".burger");
+            const nav = document.querySelector(".nav-links");
+            const navLinks = document.querySelectorAll(".nav-links li");
+
+            burger.addEventListener("click", () => {
+                // Toggle Nav
+                nav.classList.toggle("nav-active");
+
+                // Animate Links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = "";
+                    } else {
+                        link.style.animation = `navLinkFade 0.6s ease forwards ${
+              index / 7 + 0.3
+            }s`;
+                    }
+                });
+
+                // Burger Animation
+                burger.classList.toggle("toggle");
+            });
+        };
+
+        navSlide();
+    </script>
+    <script>
+        /* JavaScript for active cell toggling */
+
+        document.addEventListener('DOMContentLoaded',
+            () => {
+                const tableCells = document.querySelectorAll('table td');
+                tableCells.forEach(cell => {
+                    cell.addEventListener('click', () => {
+                        cell.classList.toggle('active');
+                    });
+                });
+            }
+
+        );
+    </script>
+
+    <!--*************Bulletin scripts ***************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+    <!--*********************************************-->
+
+    <script>
+        class BulletinBoard {
+            constructor() {
+                this.posts = JSON.parse(localStorage.getItem('posts')) || [];
+                this.postForm = document.getElementById('postForm');
+                this.postsContainer = document.getElementById('postsContainer');
+
+                this.initializeEventListeners();
+                this.renderPosts();
+            }
+
+            initializeEventListeners() {
+                this.postForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.createPost();
+                });
+            }
+
+            createPost() {
+                const author = document.getElementById('authorInput').value;
+                const title = document.getElementById('titleInput').value;
+                const content = document.getElementById('contentInput').value;
+
+                const post = {
+                    id: Date.now(),
+                    author,
+                    title,
+                    content,
+                    date: new Date().toLocaleString()
+                };
+
+                this.posts.unshift(post);
+                this.savePosts();
+                this.renderPosts();
+                this.postForm.reset();
+            }
+
+            deletePost(postId) {
+                this.posts = this.posts.filter(post => post.id !== postId);
+                this.savePosts();
+                this.renderPosts();
+            }
+
+            savePosts() {
+                localStorage.setItem('posts', JSON.stringify(this.posts));
+            }
+
+            renderPosts() {
+                this.postsContainer.innerHTML = this.posts.map(post => `
+                    <article class="post glass-neo">
+                        <div class="post-header">
+                            <span class="post-author">${post.author}</span>
+                            <span class="post-date">${post.date}</span>
+                        </div>
+                        <h2>${post.title}</h2>
+                        <p class="post-content">${post.content}</p>
+                        <button onclick="board.deletePost(${post.id})" class="delete-btn">
+                            Delete Post
+                        </button>
+                    </article>
+                `).join('');
+            }
+        }
+
+        const board = new BulletinBoard();
+    </script>
+</body>
+
+</html>
