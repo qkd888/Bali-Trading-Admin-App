@@ -315,8 +315,6 @@
             color: #63d3ff;
         }
         
-        #newOrderBtn {}
-        
         .order-actions {
             display: flex;
             justify-content: flex-end;
@@ -540,6 +538,10 @@
                 padding: 10px;
             }
         }
+        
+        #orderForm {
+            display: none;
+        }
     </style>
 </head>
 
@@ -580,7 +582,7 @@
         <button id="saveDataBtn">Save Data</button>
         <button id="convertToPdfBtn">Convert to PDF</button>
 
-        <div id="orderForm" style="display: none">
+        <div id="orderForm">
             <h2 id="formTitle">New Order</h2>
             <form id="orderFormElement">
                 <div class="form-group">

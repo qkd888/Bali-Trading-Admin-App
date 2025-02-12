@@ -201,9 +201,22 @@
         
         .glass-neo {
             background: rgba(34, 36, 42, 0.7);
-            backdrop-filter: blur(10px);
             border-radius: 16px;
             box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-neo::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
         }
         
         header {
@@ -218,7 +231,10 @@
             margin-bottom: 10px;
             background: linear-gradient(45deg, var(--accent), #63D3FF);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: transparent;
+            /* Fallback for browsers that do not support background-clip */
         }
         
         p {
