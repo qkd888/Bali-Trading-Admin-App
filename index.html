@@ -264,7 +264,19 @@
                 padding: 6px 12px;
             }
         }
+
+        
     </style>
+
+    <style>
+    .quote {
+        font-size: 1.25rem;
+        color: #63d3ff;
+        line-height: 1.6;
+    }
+</style>
+
+    
 </head>
 
 </html>
@@ -533,6 +545,7 @@
                 <span class="tag">Ceramics</span>
             </div>
         </div>
+        <div class="quote"></div>
     </div>
     <h2 class="h2-contact">Bali Trading Contact Numbers</h2>
     <table class="main-table">
@@ -967,6 +980,52 @@
     <!--***************************************-->
     <!--***************************************-->
     <!--***************************************-->
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quoteElement = document.querySelector('.quote');
+
+            // Local array of quotes
+            const quotes = [{
+                text: "Be yourself; everyone else is already taken.",
+                author: "Oscar Wilde"
+            }, {
+                text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+                author: "Albert Einstein"
+            }, {
+                text: "You only live once, but if you do it right, once is enough.",
+                author: "Mae West"
+            }, {
+                text: "In three words I can sum up everything I've learned about life: it goes on.",
+                author: "Robert Frost"
+            }, {
+                text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+                author: "Winston Churchill"
+            }, {
+                text: "The only way to do great work is to love what you do.",
+                author: "Steve Jobs"
+            }, {
+                text: "Life is what happens when you're busy making other plans.",
+                author: "John Lennon"
+            }, {
+                text: "The future belongs to those who believe in the beauty of their dreams.",
+                author: "Eleanor Roosevelt"
+            }];
+
+            function displayRandomQuote() {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const quote = quotes[randomIndex];
+                quoteElement.innerHTML = `"${quote.text}" - <em>${quote.author}</em>`;
+            }
+
+            // Display initial quote
+            displayRandomQuote();
+
+            // Update quote every minute
+            setInterval(displayRandomQuote, 10000);
+        });
+    </script>
 
 
     <script>
