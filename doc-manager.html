@@ -184,135 +184,9 @@
     <!--*************************************************-->
 
     <style>
-        /* Reset and Base Styles */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        /* Hero Section */
-        
-        .hero {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #000;
-            padding: 1rem;
-            position: relative;
-        }
-        /* Header Styles */
-        
-        .h1-hero-header {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #63d3ff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        /* Quote Styles */
-        
-        .quote {
-            text-align: center;
-            width: 90%;
-            max-width: 800px;
-            margin: 1rem auto;
-            font-size: clamp(1rem, 3vw, 1.25rem);
-            color: #63d3ff;
-            line-height: 1.6;
-            padding: 0 1rem;
-        }
-        /* Tags Container */
-        
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.625rem;
-            margin-top: 1.25rem;
-            padding: 0 1rem;
-            width: 100%;
-            max-width: 1200px;
-        }
-        /* Tag Styles */
-        
-        .tag {
-            font-size: clamp(0.875rem, 2vw, 1rem);
-            font-weight: 500;
-            color: #63d3ff;
-            padding: 0.5rem 0.5rem;
-        }
-        /* Paragraph Styles */
-        
-        p {
-            color: #ff0101;
-            margin: 1rem auto;
-            width: min(90%, 800px);
-            text-align: center;
-        }
-        /* Magnolia Animation */
-        
-        .p-magnolia {
-            animation: glow 1s infinite;
-            font-size: clamp(1.5rem, 4vw, 2rem);
-        }
-        
-        @keyframes glow {
-            0% {
-                color: #63d3ff;
-            }
-            50% {
-                color: #00b7ff;
-            }
-            100% {
-                color: #ff0000;
-            }
-        }
-        /* Tablet Styles */
-        
-        @media (min-width: 768px) {
-            .hero {
-                padding: 2rem;
-            }
-            .quote {
-                width: 70%;
-            }
-        }
-        /* Desktop Styles */
-        
-        @media (min-width: 1024px) {
-            .quote {
-                width: 50%;
-            }
-            .tags-container {
-                gap: 1rem;
-            }
-        }
-        /* Large Desktop Styles */
-        
-        @media (min-width: 1440px) {
-            .quote {
-                width: 40%;
-            }
-        }
-        
         body {
             font-family: "Poppins", sans-serif;
-            background-color: rgb(4, 20, 31);
+            background-color: rgb(0, 0, 0);
             color: #63d3ff;
             display: flex;
             justify-content: center;
@@ -324,7 +198,7 @@
         .container {
             width: 100%;
             max-width: 1000px;
-            background-color: #63d3ff59;
+            background-color: #63e5ff1e;
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.836);
             padding: 30px;
@@ -351,8 +225,7 @@
         .upload-btn {
             background-color: var(--accent-blue);
             color: var(--text-light);
-            border-right: 1px solid #63d3ff;
-            border-bottom: 1px solid #63d3ff;
+            border: 1px solid #63d3ff;
             padding: 12px 24px;
             border-radius: 8px;
             cursor: pointer;
