@@ -7,9 +7,7 @@
     <title>Bali Trading Admin App</title>
 
 
-    <!--*************************************************-->
-    <!--*************************************************-->
-    <!--*************************************************-->
+    /***********NAVBAR/MOBILE NAVBAR************/ /*******************************************/ /*******************************************/ /*******************************************/
 
 
     <style>
@@ -25,10 +23,6 @@
             max-width: 100%;
             margin: 0 auto;
         }
-        /***********NAVBAR/MOBILE NAVBAR************/
-        /*******************************************/
-        /*******************************************/
-        /*******************************************/
         
          :root {
             --blue-accent: #63d3ff;
@@ -109,15 +103,15 @@
         }
         
         .nav-links a {
-            color: #63d3ff;
+            color: #90dfff;
             text-decoration: none;
             font-size: 0.8rem;
             /* Consistent size for mobile and desktop */
-            transition: all 0.4s ease-in-out;
+            transition: all 0.05s ease-in-out;
         }
         
         .nav-links a:hover {
-            color: #63d3ff;
+            color: #ace5ff;
             font-weight: bold;
         }
         
@@ -182,9 +176,14 @@
     <!--*************************************************-->
     <!--*************************************************-->
 
-
     <style>
-        /* General Reset */
+        /* Reset and Base Styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
             margin: 0;
@@ -192,54 +191,43 @@
             font-family: 'Poppins', sans-serif;
             background-color: #1a1a1a;
             color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         /* Hero Section */
         
         .hero {
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: #000;
-            overflow: hidden;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 1rem;
+            position: relative;
         }
-        /* Glass Container */
-        /* Heading */
+        /* Header Styles */
         
         .h1-hero-header {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
             color: #63d3ff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
+        /* Quote Styles */
         
         .quote {
             text-align: center;
-            max-width: 90%;
-            margin: auto;
-            font-size: 1em;
+            width: 90%;
+            max-width: 800px;
+            margin: 1rem auto;
+            font-size: clamp(1rem, 3vw, 1.25rem);
             color: #63d3ff;
-            margin-top: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .quote {
-                font-size: 1.2em;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .quote {
-                font-size: 1em;
-            }
+            line-height: 1.6;
+            padding: 0 1rem;
         }
         /* Tags Container */
         
@@ -247,54 +235,33 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 0.625rem;
+            margin-top: 1.25rem;
+            padding: 0 1rem;
+            width: 100%;
+            max-width: 1200px;
         }
-        /* Tags */
+        /* Tag Styles */
         
         .tag {
-            font-size: 1rem;
+            font-size: clamp(0.875rem, 2vw, 1rem);
             font-weight: 500;
             color: #63d3ff;
+            padding: 0.5rem 0.5rem;
         }
-        /* Responsive Design */
+        /* Paragraph Styles */
         
-        @media (max-width: 768px) {
-            .h1-hero {
-                font-size: 2rem;
-            }
-            .glass-container {
-                padding: 20px;
-            }
-            .tag {
-                font-size: 0.9rem;
-                padding: 8px 16px;
-            }
+        p {
+            color: #ff0101;
+            margin: 1rem auto;
+            width: min(90%, 800px);
+            text-align: center;
         }
-        
-        @media (max-width: 480px) {
-            .h1-hero {
-                font-size: 1.5rem;
-            }
-            .glass-container {
-                padding: 15px;
-            }
-            .tag {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-        }
-        
-        .quote {
-            font-size: 1.25rem;
-            color: #63d3ff;
-            line-height: 1.6;
-            max-width: 30%;
-        }
+        /* Magnolia Animation */
         
         .p-magnolia {
             animation: glow 1s infinite;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
         }
         
         @keyframes glow {
@@ -308,17 +275,35 @@
                 color: #ff0000;
             }
         }
+        /* Tablet Styles */
         
-        p {
-            color: #ff0101;
-            margin-top: 1rem;
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-            margin-left: 25%;
-            margin-right: 25%;
+        @media (min-width: 768px) {
+            .hero {
+                padding: 2rem;
+            }
+            .quote {
+                width: 70%;
+            }
+        }
+        /* Desktop Styles */
+        
+        @media (min-width: 1024px) {
+            .quote {
+                width: 50%;
+            }
+            .tags-container {
+                gap: 1rem;
+            }
+        }
+        /* Large Desktop Styles */
+        
+        @media (min-width: 1440px) {
+            .quote {
+                width: 40%;
+            }
         }
     </style>
+
 </head>
 
 </html>
@@ -1034,6 +1019,8 @@
     <!--***************************************-->
     <!--***************************************-->
     <!--***************************************-->
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const quoteElement = document.querySelector('.quote');
@@ -1326,8 +1313,8 @@
                     if (link.style.animation) {
                         link.style.animation = "";
                     } else {
-                        link.style.animation = `navLinkFade 0.6s ease forwards ${
-                index / 7 + 0.3
+                        link.style.animation = `navLinkFade 0.1s ease forwards ${
+                index / 7 + 0.01
               }s`;
                     }
                 });
