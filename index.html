@@ -291,6 +291,27 @@
             line-height: 1.6;
             max-width: 30%;
         }
+
+        .p-magnolia {
+  animation: glow 1s infinite;
+}
+        @keyframes glow {
+  0% {
+    box-shadow: 0 0 20px #ff69b4;
+    color: #ff69b4;
+  }
+  50% {
+    box-shadow: 0 0 20px #9370db;
+    color: #9370db;
+  }
+  100% {
+    box-shadow: 0 0 20px #ff69b4;
+    color: #ff69b4;
+  }
+}
+
+
+            
         
         p {
             color: #ff0101;
@@ -576,7 +597,7 @@
             <div class="quote"></div>
             <br>
             <hr>
-            <p>
+            <p class="p-magnolia">
                 Magnolia
             </p>
             <p>
