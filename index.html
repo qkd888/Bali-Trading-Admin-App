@@ -64,7 +64,6 @@
             font-weight: bold;
             text-decoration: none;
             padding: 20px 40px;
-            background: var(--background);
             border: none;
             box-shadow: 10px 10px 30px var(--shadow-dark), -10px -10px 30px var(--shadow-dark);
             transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
@@ -1003,35 +1002,57 @@
 
             // Local array of quotes
             const quotes = [{
-                text: "Be yourself; everyone else is already taken.",
-                author: "Oscar Wilde"
+                text: "The best way to predict the future is to create it.",
+                author: "Peter Drucker"
             }, {
-                text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
-                author: "Albert Einstein"
+                text: "Believe you can and you're halfway there.",
+                author: "Theodore Roosevelt"
             }, {
-                text: "You only live once, but if you do it right, once is enough.",
-                author: "Mae West"
-            }, {
-                text: "In three words I can sum up everything I've learned about life: it goes on.",
-                author: "Robert Frost"
-            }, {
-                text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
-                author: "Winston Churchill"
+                text: "Your only limit is you.",
+                author: "Unknown"
             }, {
                 text: "The only way to do great work is to love what you do.",
                 author: "Steve Jobs"
             }, {
-                text: "Life is what happens when you're busy making other plans.",
-                author: "John Lennon"
+                text: "You are never too old to set another goal or to dream a new dream.",
+                author: "C.S. Lewis"
+            }, {
+                text: "Act as if what you do makes a difference. It does.",
+                author: "William James"
+            }, {
+                text: "Keep your face always toward the sunshine—and shadows will fall behind you.",
+                author: "Walt Whitman"
             }, {
                 text: "The future belongs to those who believe in the beauty of their dreams.",
                 author: "Eleanor Roosevelt"
+            }, {
+                text: "Success is not the key to happiness. Happiness is the key to success.",
+                author: "Albert Schweitzer"
+            }, {
+                text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+                author: "Ralph Waldo Emerson"
             }];
 
             function displayRandomQuote() {
-                const randomIndex = Math.floor(Math.random() * quotes.length);
-                const quote = quotes[randomIndex];
-                quoteElement.innerHTML = `"${quote.text}" - <em>${quote.author}</em>`;
+                // Check if the quote element exists
+                if (!quoteElement) {
+                    console.error('Quote element not found');
+                    return;
+                }
+
+                try {
+                    const randomIndex = Math.floor(Math.random() * quotes.length);
+                    const quote = quotes[randomIndex];
+
+                    // Sanitize the output to prevent XSS
+                    const sanitizedText = quote.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    const sanitizedAuthor = quote.author.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+                    quoteElement.innerHTML = `"${sanitizedText}" - <em>${sanitizedAuthor}</em>`;
+                } catch (error) {
+                    console.error('Error displaying quote:', error);
+                    quoteElement.innerHTML = 'An error occurred while displaying the quote.';
+                }
             }
 
             // Display initial quote
