@@ -221,6 +221,27 @@
             color: #63d3ff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
+        
+        .quote {
+            text-align: center;
+            max-width: 90%;
+            margin: auto;
+            font-size: 1em;
+            color: #63d3ff;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .quote {
+                font-size: 1.2em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quote {
+                font-size: 1em;
+            }
+        }
         /* Tags Container */
         
         .tags-container {
@@ -264,19 +285,7 @@
                 padding: 6px 12px;
             }
         }
-
-        
     </style>
-
-    <style>
-    .quote {
-        font-size: 1.25rem;
-        color: #63d3ff;
-        line-height: 1.6;
-    }
-</style>
-
-    
 </head>
 
 </html>
@@ -487,6 +496,14 @@
     }
 </style>
 
+<style>
+    .quote {
+        font-size: 1.25rem;
+        color: #63d3ff;
+        line-height: 1.6;
+    }
+</style>
+
 
 <!--*************************************************-->
 <!--*************************************************-->
@@ -544,10 +561,9 @@
                 <span class="tag">Dinnerware</span>
                 <span class="tag">Ceramics</span>
             </div>
+            <div class="quote"></div>
         </div>
-        
     </div>
-    <div class="quote"></div>
     <h2 class="h2-contact">Bali Trading Contact Numbers</h2>
     <table class="main-table">
         <thead>
@@ -981,8 +997,6 @@
     <!--***************************************-->
     <!--***************************************-->
     <!--***************************************-->
-
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const quoteElement = document.querySelector('.quote');
@@ -1027,6 +1041,9 @@
             setInterval(displayRandomQuote, 10000);
         });
     </script>
+    <!--***************************************-->
+    <!--***************************************-->
+    <!--***************************************-->
 
 
     <script>
