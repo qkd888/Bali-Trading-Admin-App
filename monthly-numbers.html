@@ -495,6 +495,14 @@
 
         <label for="year-input">Enter Year:</label>
         <input type="number" id="year-input" value="2025" onchange="generateTable()" min="1900" max="2100" />
+        <label for="monthly-target">Monthly Target (R):</label>
+        <input
+                    type="number"
+                    id="monthly-target"
+                    value="0"
+                    step="0.01"
+                    onchange="generateTable()"
+                />
         <div id="table-container"></div>
         <button onclick="saveTableData()">Save</button>
         <button onclick="convertToPDF()">Convert to PDF</button>
@@ -715,31 +723,32 @@
             const table = document.querySelector("table");
             const month = document.getElementById("month-select").selectedOptions[0].text;
             const year = document.getElementById("year-input").value;
+            const monthlyTarget = parseFloat(document.getElementById("monthly-target").value) || 0;
 
             if (!table) return;
 
-            const {
-                jsPDF
-            } = window.jspdf;
+            const { jsPDF } = window.jspdf;
             const pdf = new jsPDF("p", "pt", "a4");
 
             pdf.setFontSize(16);
             pdf.text(`Daily Takings Tracker - ${month} ${year}`, 40, 40);
+            pdf.setFontSize(12);
+            pdf.text(`Monthly Target: R${monthlyTarget.toFixed(2)}`, 40, 60);
 
             pdf.autoTable({
                 html: table,
-                startY: 60,
+                startY: 80,
                 headStyles: {
                     fillColor: [0, 0, 0],
-                    textColor: [255, 255, 255]
+                    textColor: [255, 255, 255],
                 },
                 footStyles: {
                     fillColor: [0, 0, 0],
-                    textColor: [255, 255, 255]
+                    textColor: [255, 255, 255],
                 },
             });
 
-            pdf.save("Daily_Takings.pdf");
+            pdf.save(`Daily_Takings_${month}_${year}.pdf`);
         }
 
         function formatCurrency(amount) {
