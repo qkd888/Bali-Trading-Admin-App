@@ -226,227 +226,208 @@
     <!--*************************************************-->
 
     <style>
+        :root {
+    --primary-color: #63d3ff;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --inner-shadow-color: rgba(255, 255, 255, 0.1);
+    --border-color: #444;
+    --expense-color: #ff0019;
+    --text-color: #ffffff;
+}
         /* Reset and Base Styles */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding: 1rem;
-            font-family: 'Poppins', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            width: 100%;
-            height: 100vh;
-        }
-        
-        section {
-            background: #16c0b218;
-            padding: 1rem;
-            box-shadow: 0px 5px 8px 0px rgba(249, 247, 247, 0.286);
-            justify-content: flex-end;
-            margin-top: 8rem;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-top: 30rem;
-            /* Reduced margin */
-            color: #63d3ff;
-            font-size: 2rem;
-            /* Slightly larger heading */
-        }
-        
-        @media (max-width: 380px) {
-            h1 {
-                margin-top: 8rem;
-            }
-        }
-        
-        #balance {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: #63ff6b;
-        }
-        
-        form,
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-            /* Increased margin */
-        }
-        
-        label {
-            /* Style labels */
-            color: #63d3ff;
-            margin-bottom: 5px;
-            /* Add some space below labels */
-        }
-        
-        input,
-        button,
-        select {
-            padding: 10px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            /* Slightly less rounded */
-            background-color: #333;
-            /* Darker input background */
-            color: #63d3ff;
-            box-shadow: inset 2px 2px 4px var(--shadow-color), inset -2px -2px 4px var(--inner-shadow-color);
-            transition: background-color 0.3s ease;
-            /* Add transition for hover effect */
-        }
-        
-        input:focus {
-            /* Add a subtle focus effect */
-            outline: none;
-            box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
-            background-color: #444;
-            /* Slightly lighter on focus */
-        }
-        
-        input[type="number"] {
-            width: 80px;
-        }
-        
-        button {
-            cursor: pointer;
-            background-color: #63d3ff;
-            color: var(--primary-color);
-            font-weight: bold;
-            box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--inner-shadow-color);
-            transition: all 0.3s ease;
-        }
-        
-        button:hover {
-            background-color: #000000;
-            color: white;
-            /* Lighter blue on hover */
-            box-shadow: 3px 3px 6px var(--shadow-color), -3px -3px 6px var(--inner-shadow-color);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1.5rem;
-            background-color: #63d3ff18;
-            /* Slightly darker table background */
-            box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
-            color: #63d3ff;
-            margin-top: 1rem;
-        }
-        
-        th {
-            background: #63d3ff;
-        }
-        
-        th,
-        td {
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            text-align: left;
-            background-color: #63d3ff1c;
-            color: rgb(255, 255, 255);
-            /* Darker cell background */
-        }
-        
-        th {
-            background-color: #63d3ff;
-            color: var(--primary-color);
-            font-weight: bold;
-            box-shadow: 1px 1px 2px var(--shadow-color), -1px -1px 2px var(--inner-shadow-color);
-        }
-        
-        .delete-btn {
-            background-color: var(--expense-color);
-            /* Red delete button */
-            color: var(--text-color);
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        
-        .delete-btn:hover {
-            background-color: #ff3204;
-            /* Darker red on hover */
-        }
-        
-        .income-row {
-            background-color: #02fd0a8a;
-            /* Light green */
-        }
-        
-        .expense-row {
-            background-color: #ff001942;
-            /* Light red */
-        }
-        /* Optional: Add hover effect */
-        
-        tr:hover {
-            background-color: #000000;
-            /* Light gray on hover */
-        }
-        
-        #alert {
-            display: none;
-            padding: 10px;
-            margin-bottom: 1rem;
-            border-radius: 5px;
-            text-align: center;
-        }
-        
-        .alert-success {
-            background-color: #4CAF50;
-            /* Green */
-            color: white;
-        }
-        
-        .alert-info {
-            background-color: #2196F3;
-            /* Blue */
-            color: white;
-        }
-        /* Responsive adjustments */
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-            #balance {
-                font-size: 1.2rem;
-            }
-            input,
-            button,
-            select {
-                font-size: 0.9rem;
-            }
-            table {
-                font-size: 0.8rem;
-            }
-            th,
-            td {
-                padding: 8px;
-            }
-        }
-        /**************************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 1rem;
+    font-family: 'Poppins', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+section {
+    background: #16c0b218;
+    padding: 1rem;
+    box-shadow: 0px 5px 8px 0px rgba(249, 247, 247, 0.286);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 2rem;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+@media (max-width: 380px) {
+    h1 {
+        margin-top: 1rem;
+    }
+}
+
+#balance {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #63ff6b;
+}
+
+form,
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+label {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+input,
+button,
+select {
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: var(--primary-color);
+    box-shadow: inset 2px 2px 4px var(--shadow-color), inset -2px -2px 4px var(--inner-shadow-color);
+    transition: background-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: inset 3px 3px 6px var(--shadow-color), inset -3px -3px 6px var(--inner-shadow-color);
+    background-color: #444;
+}
+
+input[type="number"] {
+    width: 80px;
+}
+
+button {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: #000000;
+    font-weight: bold;
+    box-shadow: 2px 2px 4px var(--shadow-color), -2px -2px 4px var(--inner-shadow-color);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #000000;
+    color: white;
+    box-shadow: 3px 3px 6px var(--shadow-color), -3px -3px 6px var(--inner-shadow-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    background-color: #63d3ff18;
+    box-shadow: 4px 4px 8px var(--shadow-color), -4px -4px 8px var(--inner-shadow-color);
+    color: var(--primary-color);
+    margin-top: 1rem;
+}
+
+th {
+    background: var(--primary-color);
+    color: #000000;
+    font-weight: bold;
+}
+
+th,
+td {
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    text-align: left;
+    background-color: #63d3ff1c;
+    color: var(--text-color);
+}
+
+.delete-btn {
+    background-color: var(--expense-color);
+    color: var(--text-color);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #ff3204;
+}
+
+.income-row {
+    background-color: #02fd0a8a;
+}
+
+.expense-row {
+    background-color: #ff001942;
+}
+
+tr:hover {
+    background-color: #222222;
+}
+
+#alert {
+    display: none;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.alert-info {
+    background-color: #2196F3;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    #balance {
+        font-size: 1.2rem;
+    }
+    input,
+    button,
+    select {
+        font-size: 0.9rem;
+    }
+    table {
+        font-size: 0.8rem;
+    }
+    th,
+    td {
+        padding: 8px;
+    }
+}
     </style>
 </head>
 
