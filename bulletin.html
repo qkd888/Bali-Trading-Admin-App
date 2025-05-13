@@ -473,73 +473,78 @@
     <!--*********************************************-->
     <!--*********************************************-->
     <!--*********************************************-->
+<script>
+    class BulletinBoard {
+        constructor() {
+            this.posts = JSON.parse(localStorage.getItem('posts')) || [];
+            this.postForm = document.getElementById('postForm');
+            this.postsContainer = document.getElementById('postsContainer');
 
-    <script>
-        class BulletinBoard {
-            constructor() {
-                this.posts = JSON.parse(localStorage.getItem('posts')) || [];
-                this.postForm = document.getElementById('postForm');
-                this.postsContainer = document.getElementById('postsContainer');
-
-                this.initializeEventListeners();
-                this.renderPosts();
-            }
-
-            initializeEventListeners() {
-                this.postForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.createPost();
-                });
-            }
-
-            createPost() {
-                const author = document.getElementById('authorInput').value;
-                const title = document.getElementById('titleInput').value;
-                const content = document.getElementById('contentInput').value;
-
-                const post = {
-                    id: Date.now(),
-                    author,
-                    title,
-                    content,
-                    date: new Date().toLocaleString()
-                };
-
-                this.posts.unshift(post);
-                this.savePosts();
-                this.renderPosts();
-                this.postForm.reset();
-            }
-
-            deletePost(postId) {
-                this.posts = this.posts.filter(post => post.id !== postId);
-                this.savePosts();
-                this.renderPosts();
-            }
-
-            savePosts() {
-                localStorage.setItem('posts', JSON.stringify(this.posts));
-            }
-
-            renderPosts() {
-                this.postsContainer.innerHTML = this.posts.map(post => `
-                    <article class="post glass-neo">
-                        <div class="post-header">
-                            <span class="post-author">${post.author}</span>
-                            <span class="post-date">${post.date}</span>
-                        </div>
-                        <h2>${post.title}</h2>
-                        <p class="post-content">${post.content}</p>
-                        <button onclick="board.deletePost(${post.id})" class="delete-btn">
-                            Delete Post
-                        </button>
-                    </article>
-                `).join('');
-            }
+            this.initializeEventListeners();
+            this.renderPosts();
         }
 
-        const board = new BulletinBoard();
-    </script>
+        initializeEventListeners() {
+            this.postForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.createPost();
+            });
+        }
+
+        sanitizeInput(input) {
+            return input.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+        }
+
+        createPost() {
+            const author = this.sanitizeInput(document.getElementById('authorInput').value);
+            const title = this.sanitizeInput(document.getElementById('titleInput').value);
+            const content = this.sanitizeInput(document.getElementById('contentInput').value);
+
+            const post = {
+                id: Date.now(),
+                author,
+                title,
+                content,
+                date: new Date().toLocaleString()
+            };
+
+            this.posts.unshift(post);
+            this.savePosts();
+            this.renderPosts();
+            this.postForm.reset();
+        }
+
+        deletePost(postId) {
+            this.posts = this.posts.filter(post => post.id !== postId);
+            this.savePosts();
+            this.renderPosts();
+        }
+
+        savePosts() {
+            localStorage.setItem('posts', JSON.stringify(this.posts));
+        }
+
+        renderPosts() {
+            this.postsContainer.innerHTML = this.posts.map(post => `
+                <article class="post glass-neo">
+                    <div class="post-header">
+                        <span class="post-author">${post.author}</span>
+                        <span class="post-date">${post.date}</span>
+                    </div>
+                    <h2>${post.title}</h2>
+                    <p class="post-content">${post.content}</p>
+                    <button onclick="board.deletePost(${post.id})" class="delete-btn">
+                        Delete Post
+                    </button>
+                </article>
+            `).join('');
+        }
+    }
+
+    const board = new BulletinBoard();
+</script>
+
+   
 </body>
 
 </html>
