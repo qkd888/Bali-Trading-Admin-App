@@ -731,7 +731,7 @@
             const pdf = new jsPDF("p", "pt", "a4");
 
             pdf.setFontSize(16);
-            pdf.text(`Daily Takings Tracker - ${month} ${year}`, 40, 40);
+            pdf.text(`York Daily Takings Tracker - ${month} ${year}`, 40, 40);
             pdf.setFontSize(12);
             pdf.text(`Monthly Target: R${monthlyTarget.toFixed(2)}`, 40, 60);
 
@@ -748,7 +748,7 @@
                 },
             });
 
-            pdf.save(`Daily_Takings_${month}_${year}.pdf`);
+            pdf.save(`York_Daily_Takings_${month}_${year}.pdf`);
         }
 
         function formatCurrency(amount) {
